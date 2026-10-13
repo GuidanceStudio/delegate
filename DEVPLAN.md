@@ -110,7 +110,7 @@ usage.
 
 **Deviations:** The hook line now carries the script's absolute path, so the reminder stays usable after compaction. Private names are not listed in the repo: the test reads them from a file named by `DELEGATE_HYGIENE_PATTERNS`, kept outside it.
 
-## M4: Install script
+## M4: Install script ✅
 
 **Why:** Three things land in three places — skill, opencode agent, hook — and
 a second run must not register the hook twice.
@@ -122,9 +122,9 @@ what is installed and stale) and `--force` (overwrite). `HOME` is honoured, so
 tests install into a temp home.
 
 **Tasks:**
-- [ ] `install.sh` with `--check` and `--force`
-- [ ] Test: unit — install into a temp `HOME`, run twice, `settings.json` byte-identical and existing hooks preserved
-- [ ] Commit & push
+- [x] `install.sh` with `--check` and `--force`
+- [x] Test: unit — install into a temp `HOME`, run twice, `settings.json` byte-identical and existing hooks preserved
+- [x] Commit & push
 
 **Done when:** the idempotency test is green.
 
