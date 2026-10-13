@@ -118,7 +118,7 @@ installs for the assistants present. SKILL.md is rewritten assistant-neutral.
 
 **Deviations:** Codex runs a new hook only after the user approves it once ("review required"); install says so. The project flag moved to `.delegate.on`. In Codex's default sandbox `delegate run` fails (no network, no writes outside the workspace), so SKILL.md tells the assistant to request escalation. With one assistant launched inside the other, the session id resolves to Claude's; `--project` covers that case.
 
-## M9: Document and publish
+## M9: Document and publish ✅
 
 **Why:** Models, effort and Codex support need to be in the README for anyone
 installing from `main`.
@@ -127,8 +127,8 @@ installing from `main`.
 for both assistants, push `main`.
 
 **Tasks:**
-- [ ] README
-- [ ] Reinstall for Claude and Codex, `--check` green for both
-- [ ] Commit & push
+- [x] README
+- [x] Reinstall for Claude and Codex, `--check` green for both
+- [x] Commit & push
 
 **Done when:** `install.sh --check` is green for both and `main` is pushed.
