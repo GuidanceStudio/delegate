@@ -1,0 +1,73 @@
+#!/usr/bin/env bash
+# delegate: switch delegate mode on or off, and hand code-writing steps to opencode.
+set -uo pipefail
+
+STATE_DIR="${DELEGATE_STATE_DIR:-$HOME/.claude/state/delegate}"
+PROJECT_FLAG=".claude/delegate.on"
+
+usage() {
+    cat >&2 <<'EOF'
+usage: delegate on [--project]   switch on for this session, or for every session on this repo
+       delegate off              switch off at both levels
+       delegate status           print on (session|project) or off
+       delegate hook             UserPromptSubmit hook: reads the hook JSON on stdin
+EOF
+    exit 2
+}
+
+project_root() { git -C "$1" rev-parse --show-toplevel 2>/dev/null || echo "$1"; }
+
+# Prints "session", "project", "session, project" or nothing.
+levels() {
+    local session="$1" dir="$2" out=""
+    [ -n "$session" ] && [ -f "$STATE_DIR/$session" ] && out="session"
+    [ -f "$(project_root "$dir")/$PROJECT_FLAG" ] && out="${out:+$out, }project"
+    echo "$out"
+}
+
+cmd_on() {
+    if [ "${1:-}" = "--project" ]; then
+        local root; root="$(project_root "$PWD")"
+        mkdir -p "$root/.claude" && touch "$root/$PROJECT_FLAG"
+        echo "delegate mode on for every session in $root"
+        return
+    fi
+    [ -n "${1:-}" ] && usage
+    if [ -z "${CLAUDE_CODE_SESSION_ID:-}" ]; then
+        echo "delegate: no session id in CLAUDE_CODE_SESSION_ID; use 'delegate on --project' instead" >&2
+        exit 1
+    fi
+    mkdir -p "$STATE_DIR" && touch "$STATE_DIR/$CLAUDE_CODE_SESSION_ID"
+    echo "delegate mode on for this session"
+}
+
+cmd_off() {
+    [ -n "${CLAUDE_CODE_SESSION_ID:-}" ] && rm -f "$STATE_DIR/$CLAUDE_CODE_SESSION_ID"
+    rm -f "$(project_root "$PWD")/$PROJECT_FLAG"
+    echo "delegate mode off"
+}
+
+cmd_status() {
+    local l; l="$(levels "${CLAUDE_CODE_SESSION_ID:-}" "$PWD")"
+    if [ -n "$l" ]; then echo "on ($l)"; else echo "off"; fi
+}
+
+# A hook must never block the prompt, so every failure path exits 0 silently.
+cmd_hook() {
+    local input session cwd l
+    input="$(cat)"
+    session="$(jq -r '.session_id // empty' <<<"$input" 2>/dev/null)" || exit 0
+    cwd="$(jq -r '.cwd // empty' <<<"$input" 2>/dev/null)" || exit 0
+    [ -n "$cwd" ] && [ -d "$cwd" ] || exit 0
+    l="$(levels "$session" "$cwd")"
+    [ -n "$l" ] || exit 0
+    echo "delegate mode is ON ($l): every step that writes code or tests goes through \`delegate run\`; follow the delegate skill."
+}
+
+case "${1:-}" in
+    on) shift; cmd_on "$@" ;;
+    off) cmd_off ;;
+    status) cmd_status ;;
+    hook) cmd_hook ;;
+    *) usage ;;
+esac
