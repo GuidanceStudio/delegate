@@ -6,6 +6,7 @@ DELEGATE="$ROOT/delegate/bin/delegate"
 setup() {
     TMP="$(mktemp -d)"
     export DELEGATE_STATE_DIR="$TMP/state"
+    export DELEGATE_CONFIG="$TMP/config"
     export CLAUDE_CODE_SESSION_ID="sess-1"
     mkdir -p "$TMP/repo" "$TMP/bin" && git -C "$TMP/repo" init -q
     # A trivial opencode so tests pass on machines where it is not installed;
@@ -14,6 +15,39 @@ setup() {
     chmod +x "$TMP/bin/opencode"
     export PATH="$TMP/bin:$PATH"
     cd "$TMP/repo"
+}
+
+# Replaces the stub opencode with one that answers `models --verbose` with two
+# blocks — one with variants (grok), one without (plain) — and appends one line
+# to $TMP/models_calls per invocation, so a test can prove it was not called.
+fake_models() {
+    mkdir -p "$TMP/bin"
+    cat > "$TMP/bin/opencode" <<'FAKE'
+#!/usr/bin/env bash
+printf '%s\n' "$*" >> "$FAKE_MODELS_CALLS"
+if [ "${1:-}" = "models" ] && [ "${2:-}" = "--verbose" ]; then
+    cat <<'OUT'
+openrouter/x-ai/grok-4.6
+{
+  "id": "x-ai/grok-4.6",
+  "providerID": "openrouter",
+  "variants": {
+    "low": { "reasoningEffort": "low" },
+    "high": { "reasoningEffort": "high" },
+    "xhigh": { "reasoningEffort": "xhigh" }
+  }
+}
+openrouter/acme/plain
+{
+  "id": "acme/plain",
+  "providerID": "openrouter"
+}
+OUT
+fi
+exit 0
+FAKE
+    chmod +x "$TMP/bin/opencode"
+    export PATH="$TMP/bin:$PATH" FAKE_MODELS_CALLS="$TMP/models_calls"
 }
 
 teardown() { cd /; rm -rf "$TMP"; }

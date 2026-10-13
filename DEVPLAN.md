@@ -60,30 +60,37 @@ installs anyway.
 
 **Done when:** the M6 tests are green.
 
-## M7: Configure model and effort
+## M7: Configure model and effort ✅
 
 **Why:** The executor model should be the user's choice (DeepSeek V4.1 Flash,
 GLM 5.3 Flash, Qwen 3.8 Flash or any model opencode reaches), and the effort
 must not depend on whatever `opencode.json` says on a given machine.
 
-**Approach:** `delegate model <provider/model> [effort]` writes
-`~/.config/delegate/config` (`DELEGATE_CONFIG` overrides the path); bare
-`delegate model` prints the current choice and `opencode models`. The model is
-validated against `opencode models`; the effort against the variants listed by
-`opencode models --verbose` for that model, when it lists any. Resolution
-order: `DELEGATE_MODEL`/`DELEGATE_VARIANT`, then the config file, then the
-default `openrouter/deepseek/deepseek-v4.1-flash` / `high`. `run` always passes
-`--model` and `--variant`; the agent file drops its `model:` line.
+**Approach:** Efforts differ per model, so the three suggested models ship with
+their levels built in (DeepSeek V4.1 Flash and GLM 5.3 Flash: low, medium,
+high, max; Qwen 3.8 Flash: high, max), and any other model's levels are read
+from `opencode models --verbose` before it is saved; a model opencode does not
+list is refused with a hint to add it to the opencode config.
+`delegate model <provider/model> [effort]` validates and writes
+`~/.config/delegate/config` (`DELEGATE_CONFIG` overrides the path); without an
+effort it picks xhigh when the model has it, else high, else none, and says
+which. Bare `delegate model` prints the current choice and the three presets
+with their levels. Resolution in `run`: `DELEGATE_MODEL`/`DELEGATE_VARIANT`,
+then the config, then the default DeepSeek V4.1 Flash at high. `run` always
+passes `--model`, and `--variant` when there is one; the agent file drops its
+`model:` line. SKILL.md gains a short section on choosing the model.
 
 **Tasks:**
-- [ ] `model` subcommand and config file
-- [ ] `run` resolves and passes model and variant
-- [ ] Remove `model:` from the agent file
-- [ ] Test: unit with a fake `opencode models` — set, show, unknown model refused, unknown effort refused, precedence env > config > default
-- [ ] Test: live — a real run with GLM 5.3 Flash completes
-- [ ] Commit & push
+- [x] `model` subcommand, presets and config file
+- [x] `run` resolves and passes model and variant
+- [x] Remove `model:` from the agent file; SKILL.md section
+- [x] Test: unit with a fake `opencode models --verbose` — presets, discovered levels, unknown model and unknown effort refused, xhigh-else-high default, precedence env > config > default
+- [x] Test: live — a real run with GLM 5.3 Flash completes
+- [x] Commit & push
 
 **Done when:** the M7 tests are green and the live run passes.
+
+**Deviations:** Bare `delegate model` printed an empty model when no config existed; it now prints the resolved default (test added).
 
 ## M8: Codex as orchestrator
 

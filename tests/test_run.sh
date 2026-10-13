@@ -51,12 +51,40 @@ test_resume_continues_the_given_session() {
     grep -A1 -x -- "--session" "$TMP/args" | grep -qx "ses_abc" || fail "session not resumed"
 }
 
-test_model_comes_from_the_agent_unless_overridden() {
+test_run_defaults_to_deepseek_high() {
     fake_opencode
     "$DELEGATE" run --check true "$TMP/brief.md" >/dev/null
-    ! grep -qx -- "--model" "$TMP/args" || fail "--model passed without an override" || return 1
-    DELEGATE_MODEL=prov/other "$DELEGATE" run --check true "$TMP/brief.md" >/dev/null
-    grep -A1 -x -- "--model" "$TMP/args" | grep -qx "prov/other" || fail "override not passed"
+    grep -A1 -x -- "--model" "$TMP/args" | grep -qx "openrouter/deepseek/deepseek-v4.1-flash" \
+        || fail "default model not passed" || return 1
+    grep -A1 -x -- "--variant" "$TMP/args" | grep -qx "high" || fail "default variant not passed"
+}
+
+test_run_config_overrides_default() {
+    fake_opencode
+    printf 'model=openrouter/z-ai/glm-5.3-flash\nvariant=max\n' > "$DELEGATE_CONFIG"
+    "$DELEGATE" run --check true "$TMP/brief.md" >/dev/null
+    grep -A1 -x -- "--model" "$TMP/args" | grep -qx "openrouter/z-ai/glm-5.3-flash" \
+        || fail "config model not used" || return 1
+    grep -A1 -x -- "--variant" "$TMP/args" | grep -qx "max" || fail "config variant not used"
+}
+
+test_run_env_overrides_config() {
+    fake_opencode
+    printf 'model=openrouter/z-ai/glm-5.3-flash\nvariant=max\n' > "$DELEGATE_CONFIG"
+    DELEGATE_MODEL="openrouter/x-ai/grok-4.6" DELEGATE_VARIANT="low" \
+        "$DELEGATE" run --check true "$TMP/brief.md" >/dev/null
+    grep -A1 -x -- "--model" "$TMP/args" | grep -qx "openrouter/x-ai/grok-4.6" \
+        || fail "env model not used" || return 1
+    grep -A1 -x -- "--variant" "$TMP/args" | grep -qx "low" || fail "env variant not used"
+}
+
+test_run_empty_variant_passes_no_variant_flag() {
+    fake_opencode
+    printf 'model=openrouter/deepseek/deepseek-v4.1-flash\nvariant=\n' > "$DELEGATE_CONFIG"
+    "$DELEGATE" run --check true "$TMP/brief.md" >/dev/null
+    grep -A1 -x -- "--model" "$TMP/args" | grep -qx "openrouter/deepseek/deepseek-v4.1-flash" \
+        || fail "model not passed" || return 1
+    ! grep -qx -- "--variant" "$TMP/args" || fail "--variant passed for an empty variant"
 }
 
 test_executor_runs_at_the_git_root() {

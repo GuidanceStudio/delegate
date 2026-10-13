@@ -4,6 +4,9 @@ set -uo pipefail
 
 STATE_DIR="${DELEGATE_STATE_DIR:-$HOME/.claude/state/delegate}"
 PROJECT_FLAG=".claude/delegate.on"
+CONFIG="${DELEGATE_CONFIG:-$HOME/.config/delegate/config}"
+DEFAULT_MODEL="openrouter/deepseek/deepseek-v4.1-flash"
+DEFAULT_VARIANT="high"
 
 usage() {
     cat >&2 <<'EOF'
@@ -11,6 +14,8 @@ usage: delegate on [--project]   switch on for this session, or for every sessio
        delegate off              switch off at both levels
        delegate status           print on (session|project) or off
        delegate hook             UserPromptSubmit hook: reads the hook JSON on stdin
+       delegate model [<provider/model> [effort]]
+                                 show or choose the executor model and its effort
        delegate run --check "<cmd>" [--resume <session>] <brief-file>
                                  run the executor on the brief, then the check, at the git root
 EOF
@@ -70,6 +75,107 @@ cmd_hook() {
     echo "delegate mode is ON ($l): every step that writes code or tests goes through \`$(cd "$(dirname "$0")" && pwd)/delegate run\`; follow the delegate skill."
 }
 
+# Prints the value of one `key=value` line from the config. The config is data,
+# so it is read line by line, never sourced.
+config_value() {
+    local key="$1" line
+    [ -f "$CONFIG" ] || return 0
+    while IFS= read -r line; do
+        case "$line" in
+            "$key="*) printf '%s\n' "${line#"$key="}" ;;
+        esac
+    done < "$CONFIG"
+}
+
+# The suggested models and their levels, identical to what opencode reports, so
+# choosing one of them never calls opencode.
+PRESET_IDS=(
+    openrouter/deepseek/deepseek-v4.1-flash
+    openrouter/z-ai/glm-5.3-flash
+    openrouter/qwen/qwen3.8-flash
+)
+
+preset_levels() {
+    case "$1" in
+        openrouter/deepseek/deepseek-v4.1-flash | openrouter/z-ai/glm-5.3-flash)
+            echo "low medium high max" ;;
+        openrouter/qwen/qwen3.8-flash)
+            echo "high max" ;;
+        *) return 1 ;;
+    esac
+}
+
+# Space-separated levels for a model id: presets first, else the variants
+# opencode lists. Prints NOT_LISTED when opencode does not know the model; for
+# a listed model with no variants it prints nothing.
+model_levels() {
+    local id="$1" levels
+    if levels="$(preset_levels "$id")"; then echo "$levels"; return; fi
+    opencode models --verbose 2>/dev/null \
+        | grep -E '^[{}[:space:]]' \
+        | jq -rs --arg id "$id" '
+            map(select(.providerID + "/" + .id == $id)) as $m
+            | if ($m | length) == 0 then "NOT_LISTED"
+              else ($m[0].variants // {} | keys_unsorted | join(" "))
+              end'
+}
+
+# xhigh when the model has it, else high, else nothing.
+preferred_effort() {
+    case " $1 " in
+        *" xhigh "*) echo xhigh ;;
+        *" high "*) echo high ;;
+    esac
+}
+
+cmd_model() {
+    local id="${1:-}" effort="${2:-}" p
+    if [ -z "$id" ]; then
+        resolve_executor
+        echo "model: $EXEC_MODEL"
+        echo "effort: ${EXEC_VARIANT:-none}"
+        echo "presets:"
+        for p in "${PRESET_IDS[@]}"; do
+            printf '  %s  %s\n' "$p" "$(preset_levels "$p")"
+        done
+        return
+    fi
+    local levels; levels="$(model_levels "$id")"
+    if [ "$levels" = NOT_LISTED ]; then
+        echo "delegate: $id is not listed by opencode; add it to your opencode config first" >&2
+        exit 1
+    fi
+    if [ -n "$effort" ]; then
+        case " $levels " in
+            *" $effort "*) ;;
+            *) echo "delegate: effort $effort not available for $id; choose one of: $levels" >&2; exit 1 ;;
+        esac
+    else
+        effort="$(preferred_effort "$levels")"
+    fi
+    mkdir -p "$(dirname "$CONFIG")"
+    printf 'model=%s\nvariant=%s\n' "$id" "$effort" > "$CONFIG"
+    echo "model: $id"
+    echo "effort: ${effort:-none}"
+    echo "levels: $levels"
+}
+
+# Sets EXEC_MODEL and EXEC_VARIANT: environment beats the config, which beats
+# the default. The config's variant counts only when it also names a model.
+resolve_executor() {
+    local cfg_model cfg_variant
+    cfg_model="$(config_value model)"
+    cfg_variant="$(config_value variant)"
+    EXEC_MODEL="${DELEGATE_MODEL:-${cfg_model:-$DEFAULT_MODEL}}"
+    if [ -n "${DELEGATE_VARIANT:-}" ]; then
+        EXEC_VARIANT="$DELEGATE_VARIANT"
+    elif [ -n "$cfg_model" ]; then
+        EXEC_VARIANT="$cfg_variant"
+    else
+        EXEC_VARIANT="$DEFAULT_VARIANT"
+    fi
+}
+
 # Prints only what the caller needs to decide: the executor's own report
 # (bounded), what changed, and a check the executor could not fake. The full
 # event log stays on disk for when the summary is not enough.
@@ -95,7 +201,9 @@ cmd_run() {
     log="$STATE_DIR/runs/$(date +%Y%m%d-%H%M%S)-$$.jsonl"
 
     local args=(run --agent delegate-executor --format json --dir "$root")
-    [ -n "${DELEGATE_MODEL:-}" ] && args+=(--model "$DELEGATE_MODEL")
+    resolve_executor
+    args+=(--model "$EXEC_MODEL")
+    [ -n "$EXEC_VARIANT" ] && args+=(--variant "$EXEC_VARIANT")
     [ -n "$resume" ] && args+=(--session "$resume")
     # opencode run appends piped stdin to the message and waits for EOF, so an
     # inherited stdin that stays open would hang the run.
@@ -136,6 +244,7 @@ cmd_run() {
 
 case "${1:-}" in
     on) shift; cmd_on "$@" ;;
+    model) shift; cmd_model "$@" ;;
     run) shift; cmd_run "$@" ;;
     off) cmd_off ;;
     status) cmd_status ;;

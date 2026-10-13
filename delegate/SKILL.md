@@ -25,6 +25,25 @@ The script is `bin/delegate` in this skill's directory. Below it is written `del
 While the mode is on, a hook adds one line to every prompt, so the mode survives context
 compaction. Report the state to the user in one line after switching.
 
+## Choosing the executor model
+
+| Request | Command |
+|---|---|
+| current model and effort, and the presets | `delegate model` |
+| choose a model, effort picked automatically | `delegate model <provider/model>` |
+| choose a model and an effort | `delegate model <provider/model> <effort>` |
+
+The choice is saved and applies to every later run until changed. The default is DeepSeek V4.1
+Flash at high. Without an explicit effort the script picks xhigh when the model offers it, else
+high.
+
+Three models are presets with known effort levels: `openrouter/deepseek/deepseek-v4.1-flash`
+and `openrouter/z-ai/glm-5.3-flash` (low, medium, high, max), `openrouter/qwen/qwen3.8-flash`
+(high, max). For any other model the script reads its levels from opencode before saving. When
+the user names a new model, run `delegate model <id>` without an effort and tell them the levels
+it reports and the one it chose. If opencode does not list the model, the user has to add it to
+their opencode config first.
+
 ## What changes while it is on
 
 Delegate mode changes who writes the code. It does not change what the workflow requires: if the
