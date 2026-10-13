@@ -87,7 +87,7 @@ Model from `DELEGATE_MODEL`. The agent file denies `git commit*` and
 
 **Done when:** `tests/run.sh` is green on the M1 and M2 tests.
 
-## M3: Write SKILL.md and README
+## M3: Write SKILL.md and README ✅
 
 **Why:** The rules on what to delegate decide whether the mode saves tokens or
 spends more of them.
@@ -101,12 +101,14 @@ most twice on a red check, then take the work back. README covers install and
 usage.
 
 **Tasks:**
-- [ ] `delegate/SKILL.md`
-- [ ] `README.md`
-- [ ] Test: grep over the repo finds no other skill's name, no machine path, no client name
-- [ ] Commit & push
+- [x] `delegate/SKILL.md`
+- [x] `README.md`
+- [x] Test: grep over the repo finds no other skill's name, no machine path, no client name
+- [x] Commit & push
 
 **Done when:** the grep check returns nothing.
+
+**Deviations:** The hook line now carries the script's absolute path, so the reminder stays usable after compaction. Private names are not listed in the repo: the test reads them from a file named by `DELEGATE_HYGIENE_PATTERNS`, kept outside it.
 
 ## M4: Install script
 

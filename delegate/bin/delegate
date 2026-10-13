@@ -63,7 +63,7 @@ cmd_hook() {
     [ -n "$cwd" ] && [ -d "$cwd" ] || exit 0
     l="$(levels "$session" "$cwd")"
     [ -n "$l" ] || exit 0
-    echo "delegate mode is ON ($l): every step that writes code or tests goes through \`delegate run\`; follow the delegate skill."
+    echo "delegate mode is ON ($l): every step that writes code or tests goes through \`$(cd "$(dirname "$0")" && pwd)/delegate run\`; follow the delegate skill."
 }
 
 # Prints only what the caller needs to decide: the executor's own report
