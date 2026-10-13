@@ -1,18 +1,3 @@
-install_home() {
-    export HOME="$TMP/home"
-    mkdir -p "$HOME/.claude"
-    cat > "$HOME/.claude/settings.json" <<'JSON'
-{
-  "model": "x",
-  "hooks": {
-    "UserPromptSubmit": [
-      { "hooks": [ { "type": "command", "command": "/opt/other-hook.sh" } ] }
-    ]
-  }
-}
-JSON
-}
-
 hook_commands() { jq -r '[.hooks.UserPromptSubmit[].hooks[].command] | join(",")' "$HOME/.claude/settings.json"; }
 
 test_install_places_skill_agent_and_hook() {
@@ -63,4 +48,34 @@ test_check_reports_state_without_writing() {
     out="$("$ROOT/install.sh" --check 2>&1)"; rc=$?
     assert_eq "$rc" "0" || return 1
     assert_contains "$out" "hook: installed"
+}
+
+test_all_target_installs_both_hosts_and_preserves_settings() {
+    install_home
+    "$ROOT/install.sh" --target all >/dev/null || return 1
+    [ -x "$HOME/.claude/skills/delegate/bin/delegate" ] || fail "Claude skill missing" || return 1
+    [ -x "$HOME/.codex/skills/delegate/bin/delegate" ] || fail "Codex skill missing" || return 1
+    assert_eq "$(jq -r .model "$HOME/.claude/settings.json")" x || return 1
+    "$ROOT/install.sh" --target all --check >/dev/null || return 1
+    cp "$HOME/.codex/hooks.json" "$TMP/codex-hooks.json"
+    cp "$HOME/.claude/settings.json" "$TMP/claude-hooks.json"
+    "$ROOT/install.sh" --target all >/dev/null || return 1
+    cmp -s "$TMP/codex-hooks.json" "$HOME/.codex/hooks.json" || return 1
+    cmp -s "$TMP/claude-hooks.json" "$HOME/.claude/settings.json"
+}
+
+test_target_codex_is_an_alias_for_codex_flag() {
+    install_home
+    "$ROOT/install.sh" --target codex >/dev/null || return 1
+    "$ROOT/install.sh" --codex --check >/dev/null || return 1
+    ! "$ROOT/install.sh" --codex --target all >/dev/null 2>&1 || fail "conflicting targets accepted"
+}
+
+test_all_target_validates_every_hook_before_installing_anything() {
+    install_home
+    mkdir -p "$HOME/.codex"
+    printf 'invalid json' > "$HOME/.codex/hooks.json"
+    ! "$ROOT/install.sh" --target all --force >/dev/null 2>&1 || fail "invalid Codex hooks accepted" || return 1
+    [ ! -e "$HOME/.claude/skills/delegate" ] || fail "Claude was partially installed" || return 1
+    [ ! -e "$HOME/.config/opencode/agents/delegate-executor.md" ] || fail "agent was partially installed"
 }

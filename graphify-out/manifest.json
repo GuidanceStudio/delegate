@@ -1,0 +1,97 @@
+{
+  "delegate/bin/delegate": {
+    "mtime": 1791900812.131614,
+    "ast_hash": "31046c6a75af3ac661d8d07e51cb9e9a",
+    "semantic_hash": ""
+  },
+  "install.sh": {
+    "mtime": 1791888080.631138,
+    "ast_hash": "ccc13c241ee3edf7d73b833288dce6f6",
+    "semantic_hash": ""
+  },
+  "tests/check_opencode_request.mjs": {
+    "mtime": 1791900980.5097818,
+    "ast_hash": "a7649e9acd779cfb144c12e4dcec3a77",
+    "semantic_hash": ""
+  },
+  "tests/lib.sh": {
+    "mtime": 1791888177.8734083,
+    "ast_hash": "12dee8da7ad14162ef62586b0638b8f3",
+    "semantic_hash": ""
+  },
+  "tests/run.sh": {
+    "mtime": 1791876534.3872986,
+    "ast_hash": "a5c63e6c30804166b7aa5dae842ddcc9",
+    "semantic_hash": ""
+  },
+  "tests/test_codex.sh": {
+    "mtime": 1791888244.0082722,
+    "ast_hash": "ced6e5c7f9a7da6d0818f11642c48300",
+    "semantic_hash": ""
+  },
+  "tests/test_hook.sh": {
+    "mtime": 1791876534.3872986,
+    "ast_hash": "4cabfa5b96693a1732135b2d4aab0387",
+    "semantic_hash": ""
+  },
+  "tests/test_hygiene.sh": {
+    "mtime": 1791876534.3872986,
+    "ast_hash": "3bf59c8de1bd93c31254830912df0dd3",
+    "semantic_hash": ""
+  },
+  "tests/test_install.sh": {
+    "mtime": 1791888244.0522728,
+    "ast_hash": "309c8c9de0c0e9fa573474294ac9c974",
+    "semantic_hash": ""
+  },
+  "tests/test_model.sh": {
+    "mtime": 1791888578.1166363,
+    "ast_hash": "4c6ae03bcd3fb8ed370a8b9677576a00",
+    "semantic_hash": ""
+  },
+  "tests/test_prereq.sh": {
+    "mtime": 1791888177.9724095,
+    "ast_hash": "20d04e52f811541e85518f0a2311a5eb",
+    "semantic_hash": ""
+  },
+  "tests/test_provider.sh": {
+    "mtime": 1791900893.1976578,
+    "ast_hash": "47652f97516d1b1f25ea8f24875a5a53",
+    "semantic_hash": ""
+  },
+  "tests/test_run.sh": {
+    "mtime": 1791900893.2376583,
+    "ast_hash": "6c5e328520f993cfc0cd9b264860f76f",
+    "semantic_hash": ""
+  },
+  "tests/test_toggle.sh": {
+    "mtime": 1791888469.2782147,
+    "ast_hash": "87d91428f0709b4b36f4e3d46cf003d4",
+    "semantic_hash": ""
+  },
+  "DEVPLAN-COMPLETED.md": {
+    "mtime": 1791888364.8998513,
+    "ast_hash": "73b0e0828017db75fcd1075087738a30",
+    "semantic_hash": ""
+  },
+  "DEVPLAN.md": {
+    "mtime": 1791901058.0427804,
+    "ast_hash": "b312fb7d447805ddde8aa43f80830c92",
+    "semantic_hash": ""
+  },
+  "README.md": {
+    "mtime": 1791900980.5507824,
+    "ast_hash": "b5708c3b0ef0f34dfead63461a4368dd",
+    "semantic_hash": ""
+  },
+  "delegate/SKILL.md": {
+    "mtime": 1791900980.5907829,
+    "ast_hash": "2b636e404f360efd81916c17b096e0e6",
+    "semantic_hash": ""
+  },
+  "delegate/opencode/delegate-executor.md": {
+    "mtime": 1791888017.8593183,
+    "ast_hash": "7d064b665dcab4b2def5297984e679ef",
+    "semantic_hash": ""
+  }
+}

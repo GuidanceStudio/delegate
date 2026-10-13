@@ -2,16 +2,23 @@
 name: delegate
 description: >-
   Delegate mode: you keep planning, reviewing, verifying and committing, and every step that
-  writes code or tests is executed by opencode on a cheaper model (default DeepSeek V4.1 Flash
-  via OpenRouter). `/delegate on` switches it on for this session, `/delegate on --project` for
-  every session on the repo, `/delegate off` switches it off, `/delegate status` reports it. Use
-  when the user asks to save tokens by delegating execution, to "delegate to opencode", or when a
-  hook line says delegate mode is ON.
+  writes code or tests is executed by opencode on a configurable model (default GLM 5.3 Flash
+  at max effort, through OpenRouter). Works with Claude Code and local Codex.
+  Switches on for a session or project, off, reports state, and selects the executor model and
+  effort and per-model OpenRouter endpoint. Use when the user asks to delegate execution to
+  opencode, save tokens that way, switch delegate mode, change its model or endpoint,
+  or when a hook line says delegate mode is ON.
 ---
 
 # Delegate mode
 
 The script is `bin/delegate` in this skill's directory. Below it is written `delegate`.
+Use the actual script path when running commands; it need not be on `PATH`.
+
+In Claude Code, invoke `/delegate on`. In Codex, invoke `$delegate on` (and similarly
+for `off`, `status`, or `on --project`). Codex installation is `./install.sh --codex`;
+the `UserPromptSubmit` hook must be trusted through `/hooks` before it runs.
+This integration requires local Codex execution with command hooks enabled.
 
 ## Switching
 
@@ -24,6 +31,52 @@ The script is `bin/delegate` in this skill's directory. Below it is written `del
 
 While the mode is on, a hook adds one line to every prompt, so the mode survives context
 compaction. Report the state to the user in one line after switching.
+Codex uses `CODEX_SESSION_ID` (or `CODEX_THREAD_ID` when absent), `.codex/delegate.on`, and
+`${CODEX_HOME:-$HOME/.codex}/state/delegate`; Claude uses `CLAUDE_CODE_SESSION_ID`,
+`.claude/delegate.on`, and `~/.claude/state/delegate`. Installed copies identify their
+host; `DELEGATE_HOST=codex` or `claude` selects it explicitly when running the source script.
+Activation requires OpenCode on `PATH`; otherwise report the missing prerequisite.
+
+## Choosing the executor model
+
+| Request | Command |
+|---|---|
+| current model, effort and presets | `delegate model` |
+| choose a model with its default effort | `delegate model <provider/model>` |
+| choose a model and effort | `delegate model <provider/model> <effort>` |
+
+The choice is stored in `${DELEGATE_CONFIG:-$HOME/.config/delegate/config}` and applies to
+later runs. The default is `openrouter/z-ai/glm-5.3-flash` at `max`.
+Endpoint routing follows the user's OpenCode/OpenRouter configuration unless explicitly selected.
+For other models, automatic effort selection prefers `xhigh`, then `high`, otherwise none.
+
+Presets are GLM 5.3 Flash, DeepSeek V4.1 Flash and Qwen 3.8 Flash through OpenRouter.
+For other models, available efforts are read from `opencode models --verbose`.
+Unknown models or unsupported explicit efforts are refused before saving the choice.
+`DELEGATE_MODEL` and `DELEGATE_VARIANT` override the saved settings for one run.
+
+## Choosing the OpenRouter endpoint
+
+The prefix in `provider/model` chooses the provider OpenCode calls. For models through
+OpenRouter, a separate endpoint preference chooses who serves the model inside OpenRouter.
+
+| Request | Command |
+|---|---|
+| current model and endpoint preference | `delegate provider` |
+| choose an endpoint for the current model | `delegate provider <endpoint>` |
+| inherit the user's OpenCode/OpenRouter routing | `delegate provider auto` |
+
+For example, `delegate provider coreweave/nvfp4` selects that endpoint exclusively, with
+fallback disabled and parameter support required. Use `/delegate provider` in Claude Code
+or `$delegate provider` in Codex, with the same arguments.
+
+Preferences are stored in the same config file under `provider.<provider/model>` keys.
+Each complete model identifier keeps its own preference across model changes. No preference
+means `auto`, including GLM and existing configurations. `auto` removes only the skill's
+preference; it preserves personal OpenCode routing. Explicit endpoints are only supported
+for OpenRouter models. Slug format is validated on save; endpoint availability is checked
+by the provider at execution time. `DELEGATE_MODEL` selects which model's preference is
+shown, saved or applied without changing the saved model.
 
 ## What changes while it is on
 
@@ -77,13 +130,18 @@ and git operations other than reading.
    delegate run --check "<command>" <brief-file>
    ```
 
+   The executor needs network access and writes state outside the repository. When the
+   assistant's sandbox blocks either, request permission to run this command outside it.
+   Switching session mode or saving a model or endpoint also needs access to the host's state/config files.
+
    The check should be the narrowest command that proves the step. When the workflow wants a test
    seen failing first, delegate the test as its own step with `--check "! <test command>"`, then
    the implementation as a second step with the plain test command.
 
 3. Read the output. It holds the executor's report, `git status`, the check's exit code and the
    last lines of its output, the session id, the cost, and the path of the full log. The exit
-   code of `delegate run` is the check's: the executor's report alone proves nothing.
+   code of `delegate run` is the check's when it fails. With a passing check, an executor
+   process failure or JSON error still returns nonzero. Success requires both to succeed.
 
 4. Review `git diff` of the files listed. Read the diff, not the whole files.
 
@@ -103,6 +161,9 @@ user's that was there before the run, then continue.
 If `delegate run` reports a non-zero executor exit and no changes, opencode itself is not working
 (not installed, no provider key, model unavailable). Tell the user and ask whether to switch the
 mode off.
+
+If the selected endpoint is unavailable, report the error; do not silently switch
+provider. JSON errors matter even if OpenCode itself reports exit code zero.
 
 ## Telling the user
 

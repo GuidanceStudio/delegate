@@ -42,3 +42,10 @@ test_unknown_command_prints_usage() {
     [ "$rc" -eq 2 ] || fail "exit $rc, expected 2" || return 1
     assert_contains "$out" "usage: delegate"
 }
+
+test_on_write_failure_does_not_report_success() {
+    printf 'not a directory' > "$TMP/blocked"
+    local rc
+    DELEGATE_STATE_DIR="$TMP/blocked/state" "$DELEGATE" on >/dev/null 2>&1; rc=$?
+    assert_eq "$rc" 1
+}

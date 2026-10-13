@@ -1,0 +1,4580 @@
+{
+  "directed": false,
+  "multigraph": false,
+  "graph": {},
+  "nodes": [
+    {
+      "label": "delegate",
+      "file_type": "code",
+      "source_file": "delegate/bin/delegate",
+      "source_location": "L1",
+      "metadata": {
+        "language": "bash",
+        "kind": "file"
+      },
+      "_origin": "ast",
+      "id": "delegate_bin_delegate",
+      "community": 1,
+      "norm_label": "delegate"
+    },
+    {
+      "label": "delegate script",
+      "file_type": "code",
+      "source_file": "delegate/bin/delegate",
+      "source_location": "L1",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_entrypoint"
+      },
+      "_origin": "ast",
+      "id": "delegate_bin_delegate__entry",
+      "community": 1,
+      "norm_label": "delegate script"
+    },
+    {
+      "label": "detect_host()",
+      "file_type": "code",
+      "source_file": "delegate/bin/delegate",
+      "source_location": "L6",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "_origin": "ast",
+      "id": "delegate_bin_delegate_detect_host",
+      "community": 1,
+      "norm_label": "detect_host()"
+    },
+    {
+      "label": "usage()",
+      "file_type": "code",
+      "source_file": "delegate/bin/delegate",
+      "source_location": "L34",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "_origin": "ast",
+      "id": "delegate_bin_delegate_usage",
+      "community": 1,
+      "norm_label": "usage()"
+    },
+    {
+      "label": "project_root()",
+      "file_type": "code",
+      "source_file": "delegate/bin/delegate",
+      "source_location": "L50",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "_origin": "ast",
+      "id": "delegate_bin_delegate_project_root",
+      "community": 1,
+      "norm_label": "project_root()"
+    },
+    {
+      "label": "levels()",
+      "file_type": "code",
+      "source_file": "delegate/bin/delegate",
+      "source_location": "L53",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "_origin": "ast",
+      "id": "delegate_bin_delegate_levels",
+      "community": 1,
+      "norm_label": "levels()"
+    },
+    {
+      "label": "cmd_on()",
+      "file_type": "code",
+      "source_file": "delegate/bin/delegate",
+      "source_location": "L60",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "_origin": "ast",
+      "id": "delegate_bin_delegate_cmd_on",
+      "community": 1,
+      "norm_label": "cmd_on()"
+    },
+    {
+      "label": "cmd_off()",
+      "file_type": "code",
+      "source_file": "delegate/bin/delegate",
+      "source_location": "L80",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "_origin": "ast",
+      "id": "delegate_bin_delegate_cmd_off",
+      "community": 1,
+      "norm_label": "cmd_off()"
+    },
+    {
+      "label": "cmd_status()",
+      "file_type": "code",
+      "source_file": "delegate/bin/delegate",
+      "source_location": "L86",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "_origin": "ast",
+      "id": "delegate_bin_delegate_cmd_status",
+      "community": 1,
+      "norm_label": "cmd_status()"
+    },
+    {
+      "label": "cmd_hook()",
+      "file_type": "code",
+      "source_file": "delegate/bin/delegate",
+      "source_location": "L92",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "_origin": "ast",
+      "id": "delegate_bin_delegate_cmd_hook",
+      "community": 1,
+      "norm_label": "cmd_hook()"
+    },
+    {
+      "label": "config_value()",
+      "file_type": "code",
+      "source_file": "delegate/bin/delegate",
+      "source_location": "L105",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "_origin": "ast",
+      "id": "delegate_bin_delegate_config_value",
+      "community": 1,
+      "norm_label": "config_value()"
+    },
+    {
+      "label": "config_update()",
+      "file_type": "code",
+      "source_file": "delegate/bin/delegate",
+      "source_location": "L117",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "_origin": "ast",
+      "id": "delegate_bin_delegate_config_update",
+      "community": 1,
+      "norm_label": "config_update()"
+    },
+    {
+      "label": "selected_model()",
+      "file_type": "code",
+      "source_file": "delegate/bin/delegate",
+      "source_location": "L152",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "_origin": "ast",
+      "id": "delegate_bin_delegate_selected_model",
+      "community": 1,
+      "norm_label": "selected_model()"
+    },
+    {
+      "label": "valid_endpoint()",
+      "file_type": "code",
+      "source_file": "delegate/bin/delegate",
+      "source_location": "L158",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "_origin": "ast",
+      "id": "delegate_bin_delegate_valid_endpoint",
+      "community": 1,
+      "norm_label": "valid_endpoint()"
+    },
+    {
+      "label": "resolve_provider()",
+      "file_type": "code",
+      "source_file": "delegate/bin/delegate",
+      "source_location": "L162",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "_origin": "ast",
+      "id": "delegate_bin_delegate_resolve_provider",
+      "community": 1,
+      "norm_label": "resolve_provider()"
+    },
+    {
+      "label": "cmd_provider()",
+      "file_type": "code",
+      "source_file": "delegate/bin/delegate",
+      "source_location": "L175",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "_origin": "ast",
+      "id": "delegate_bin_delegate_cmd_provider",
+      "community": 1,
+      "norm_label": "cmd_provider()"
+    },
+    {
+      "label": "preset_levels()",
+      "file_type": "code",
+      "source_file": "delegate/bin/delegate",
+      "source_location": "L207",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "_origin": "ast",
+      "id": "delegate_bin_delegate_preset_levels",
+      "community": 1,
+      "norm_label": "preset_levels()"
+    },
+    {
+      "label": "model_levels()",
+      "file_type": "code",
+      "source_file": "delegate/bin/delegate",
+      "source_location": "L220",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "_origin": "ast",
+      "id": "delegate_bin_delegate_model_levels",
+      "community": 1,
+      "norm_label": "model_levels()"
+    },
+    {
+      "label": "preferred_effort()",
+      "file_type": "code",
+      "source_file": "delegate/bin/delegate",
+      "source_location": "L233",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "_origin": "ast",
+      "id": "delegate_bin_delegate_preferred_effort",
+      "community": 1,
+      "norm_label": "preferred_effort()"
+    },
+    {
+      "label": "cmd_model()",
+      "file_type": "code",
+      "source_file": "delegate/bin/delegate",
+      "source_location": "L240",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "_origin": "ast",
+      "id": "delegate_bin_delegate_cmd_model",
+      "community": 1,
+      "norm_label": "cmd_model()"
+    },
+    {
+      "label": "resolve_executor()",
+      "file_type": "code",
+      "source_file": "delegate/bin/delegate",
+      "source_location": "L275",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "_origin": "ast",
+      "id": "delegate_bin_delegate_resolve_executor",
+      "community": 1,
+      "norm_label": "resolve_executor()"
+    },
+    {
+      "label": "executor_config()",
+      "file_type": "code",
+      "source_file": "delegate/bin/delegate",
+      "source_location": "L299",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "_origin": "ast",
+      "id": "delegate_bin_delegate_executor_config",
+      "community": 1,
+      "norm_label": "executor_config()"
+    },
+    {
+      "label": "cmd_run()",
+      "file_type": "code",
+      "source_file": "delegate/bin/delegate",
+      "source_location": "L320",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "_origin": "ast",
+      "id": "delegate_bin_delegate_cmd_run",
+      "community": 1,
+      "norm_label": "cmd_run()"
+    },
+    {
+      "label": "install.sh",
+      "file_type": "code",
+      "source_file": "install.sh",
+      "source_location": "L1",
+      "metadata": {
+        "language": "bash",
+        "kind": "file"
+      },
+      "_origin": "ast",
+      "id": "install",
+      "community": 12,
+      "norm_label": "install.sh"
+    },
+    {
+      "label": "install.sh script",
+      "file_type": "code",
+      "source_file": "install.sh",
+      "source_location": "L1",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_entrypoint"
+      },
+      "_origin": "ast",
+      "id": "install_sh__entry",
+      "community": 12,
+      "norm_label": "install.sh script"
+    },
+    {
+      "label": "choose_target()",
+      "file_type": "code",
+      "source_file": "install.sh",
+      "source_location": "L12",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "_origin": "ast",
+      "id": "install_choose_target",
+      "community": 12,
+      "norm_label": "choose_target()"
+    },
+    {
+      "label": "usage()",
+      "file_type": "code",
+      "source_file": "install.sh",
+      "source_location": "L18",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "_origin": "ast",
+      "id": "install_usage",
+      "community": 12,
+      "norm_label": "usage()"
+    },
+    {
+      "label": "select_target()",
+      "file_type": "code",
+      "source_file": "install.sh",
+      "source_location": "L34",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "_origin": "ast",
+      "id": "install_select_target",
+      "community": 12,
+      "norm_label": "select_target()"
+    },
+    {
+      "label": "state()",
+      "file_type": "code",
+      "source_file": "install.sh",
+      "source_location": "L48",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "_origin": "ast",
+      "id": "install_state",
+      "community": 12,
+      "norm_label": "state()"
+    },
+    {
+      "label": "hook_state()",
+      "file_type": "code",
+      "source_file": "install.sh",
+      "source_location": "L50",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "_origin": "ast",
+      "id": "install_hook_state",
+      "community": 12,
+      "norm_label": "hook_state()"
+    },
+    {
+      "label": "check_opencode_request.mjs",
+      "file_type": "code",
+      "source_file": "tests/check_opencode_request.mjs",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "tests_check_opencode_request",
+      "community": 13,
+      "norm_label": "check_opencode_request.mjs"
+    },
+    {
+      "label": "root",
+      "file_type": "code",
+      "source_file": "tests/check_opencode_request.mjs",
+      "source_location": "L11",
+      "_origin": "ast",
+      "id": "tests_check_opencode_request_root",
+      "community": 13,
+      "norm_label": "root"
+    },
+    {
+      "label": "requests",
+      "file_type": "code",
+      "source_file": "tests/check_opencode_request.mjs",
+      "source_location": "L13",
+      "_origin": "ast",
+      "id": "tests_check_opencode_request_requests",
+      "community": 13,
+      "norm_label": "requests"
+    },
+    {
+      "label": "server",
+      "file_type": "code",
+      "source_file": "tests/check_opencode_request.mjs",
+      "source_location": "L15",
+      "_origin": "ast",
+      "id": "tests_check_opencode_request_server",
+      "community": 13,
+      "norm_label": "server"
+    },
+    {
+      "label": "run()",
+      "file_type": "code",
+      "source_file": "tests/check_opencode_request.mjs",
+      "source_location": "L42",
+      "_origin": "ast",
+      "id": "tests_check_opencode_request_run",
+      "community": 13,
+      "norm_label": "run()"
+    },
+    {
+      "label": "executorRequest()",
+      "file_type": "code",
+      "source_file": "tests/check_opencode_request.mjs",
+      "source_location": "L112",
+      "_origin": "ast",
+      "id": "tests_check_opencode_request_executorrequest",
+      "community": 13,
+      "norm_label": "executorrequest()"
+    },
+    {
+      "label": "lib.sh",
+      "file_type": "code",
+      "source_file": "tests/lib.sh",
+      "source_location": "L1",
+      "metadata": {
+        "language": "bash",
+        "kind": "file"
+      },
+      "_origin": "ast",
+      "id": "tests_lib",
+      "community": 6,
+      "norm_label": "lib.sh"
+    },
+    {
+      "label": "lib.sh script",
+      "file_type": "code",
+      "source_file": "tests/lib.sh",
+      "source_location": "L1",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_entrypoint"
+      },
+      "_origin": "ast",
+      "id": "tests_lib_sh__entry",
+      "community": 6,
+      "norm_label": "lib.sh script"
+    },
+    {
+      "label": "setup()",
+      "file_type": "code",
+      "source_file": "tests/lib.sh",
+      "source_location": "L6",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "_origin": "ast",
+      "id": "tests_lib_setup",
+      "community": 6,
+      "norm_label": "setup()"
+    },
+    {
+      "label": "fake_models()",
+      "file_type": "code",
+      "source_file": "tests/lib.sh",
+      "source_location": "L23",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "_origin": "ast",
+      "id": "tests_lib_fake_models",
+      "community": 6,
+      "norm_label": "fake_models()"
+    },
+    {
+      "label": "path_without_opencode()",
+      "file_type": "code",
+      "source_file": "tests/lib.sh",
+      "source_location": "L54",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "_origin": "ast",
+      "id": "tests_lib_path_without_opencode",
+      "community": 6,
+      "norm_label": "path_without_opencode()"
+    },
+    {
+      "label": "teardown()",
+      "file_type": "code",
+      "source_file": "tests/lib.sh",
+      "source_location": "L64",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "_origin": "ast",
+      "id": "tests_lib_teardown",
+      "community": 6,
+      "norm_label": "teardown()"
+    },
+    {
+      "label": "fail()",
+      "file_type": "code",
+      "source_file": "tests/lib.sh",
+      "source_location": "L66",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "_origin": "ast",
+      "id": "tests_lib_fail",
+      "community": 6,
+      "norm_label": "fail()"
+    },
+    {
+      "label": "assert_eq()",
+      "file_type": "code",
+      "source_file": "tests/lib.sh",
+      "source_location": "L68",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "_origin": "ast",
+      "id": "tests_lib_assert_eq",
+      "community": 6,
+      "norm_label": "assert_eq()"
+    },
+    {
+      "label": "assert_contains()",
+      "file_type": "code",
+      "source_file": "tests/lib.sh",
+      "source_location": "L69",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "_origin": "ast",
+      "id": "tests_lib_assert_contains",
+      "community": 6,
+      "norm_label": "assert_contains()"
+    },
+    {
+      "label": "install_home()",
+      "file_type": "code",
+      "source_file": "tests/lib.sh",
+      "source_location": "L71",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "_origin": "ast",
+      "id": "tests_lib_install_home",
+      "community": 6,
+      "norm_label": "install_home()"
+    },
+    {
+      "label": "run.sh",
+      "file_type": "code",
+      "source_file": "tests/run.sh",
+      "source_location": "L1",
+      "metadata": {
+        "language": "bash",
+        "kind": "file"
+      },
+      "_origin": "ast",
+      "id": "tests_run",
+      "community": 17,
+      "norm_label": "run.sh"
+    },
+    {
+      "label": "run.sh script",
+      "file_type": "code",
+      "source_file": "tests/run.sh",
+      "source_location": "L1",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_entrypoint"
+      },
+      "_origin": "ast",
+      "id": "tests_run_sh__entry",
+      "community": 17,
+      "norm_label": "run.sh script"
+    },
+    {
+      "label": "test_codex.sh",
+      "file_type": "code",
+      "source_file": "tests/test_codex.sh",
+      "source_location": "L1",
+      "metadata": {
+        "language": "bash",
+        "kind": "file"
+      },
+      "_origin": "ast",
+      "id": "tests_test_codex",
+      "community": 2,
+      "norm_label": "test_codex.sh"
+    },
+    {
+      "label": "test_codex.sh script",
+      "file_type": "code",
+      "source_file": "tests/test_codex.sh",
+      "source_location": "L1",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_entrypoint"
+      },
+      "_origin": "ast",
+      "id": "tests_test_codex_sh__entry",
+      "community": 2,
+      "norm_label": "test_codex.sh script"
+    },
+    {
+      "label": "codex_install_home()",
+      "file_type": "code",
+      "source_file": "tests/test_codex.sh",
+      "source_location": "L1",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "_origin": "ast",
+      "id": "tests_test_codex_codex_install_home",
+      "community": 2,
+      "norm_label": "codex_install_home()"
+    },
+    {
+      "label": "codex_hook_commands()",
+      "file_type": "code",
+      "source_file": "tests/test_codex.sh",
+      "source_location": "L7",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "_origin": "ast",
+      "id": "tests_test_codex_codex_hook_commands",
+      "community": 2,
+      "norm_label": "codex_hook_commands()"
+    },
+    {
+      "label": "test_codex_installs_skill_agent_and_hook_without_changing_claude()",
+      "file_type": "code",
+      "source_file": "tests/test_codex.sh",
+      "source_location": "L11",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "_origin": "ast",
+      "id": "tests_test_codex_test_codex_installs_skill_agent_and_hook_without_changing_claude",
+      "community": 2,
+      "norm_label": "test_codex_installs_skill_agent_and_hook_without_changing_claude()"
+    },
+    {
+      "label": "test_codex_install_is_idempotent_and_options_work_in_either_order()",
+      "file_type": "code",
+      "source_file": "tests/test_codex.sh",
+      "source_location": "L25",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "_origin": "ast",
+      "id": "tests_test_codex_test_codex_install_is_idempotent_and_options_work_in_either_order",
+      "community": 2,
+      "norm_label": "test_codex_install_is_idempotent_and_options_work_in_either_order()"
+    },
+    {
+      "label": "test_codex_check_does_not_install()",
+      "file_type": "code",
+      "source_file": "tests/test_codex.sh",
+      "source_location": "L40",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "_origin": "ast",
+      "id": "tests_test_codex_test_codex_check_does_not_install",
+      "community": 2,
+      "norm_label": "test_codex_check_does_not_install()"
+    },
+    {
+      "label": "test_codex_custom_home_and_quoted_hook_work_without_session_environment()",
+      "file_type": "code",
+      "source_file": "tests/test_codex.sh",
+      "source_location": "L48",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "_origin": "ast",
+      "id": "tests_test_codex_test_codex_custom_home_and_quoted_hook_work_without_session_environment",
+      "community": 2,
+      "norm_label": "test_codex_custom_home_and_quoted_hook_work_without_session_environment()"
+    },
+    {
+      "label": "test_codex_sessions_projects_and_off_are_isolated_from_claude()",
+      "file_type": "code",
+      "source_file": "tests/test_codex.sh",
+      "source_location": "L62",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "_origin": "ast",
+      "id": "tests_test_codex_test_codex_sessions_projects_and_off_are_isolated_from_claude",
+      "community": 2,
+      "norm_label": "test_codex_sessions_projects_and_off_are_isolated_from_claude()"
+    },
+    {
+      "label": "test_codex_hook_uses_stdin_session_and_project_state()",
+      "file_type": "code",
+      "source_file": "tests/test_codex.sh",
+      "source_location": "L81",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "_origin": "ast",
+      "id": "tests_test_codex_test_codex_hook_uses_stdin_session_and_project_state",
+      "community": 2,
+      "norm_label": "test_codex_hook_uses_stdin_session_and_project_state()"
+    },
+    {
+      "label": "test_codex_without_session_id_requires_project_mode()",
+      "file_type": "code",
+      "source_file": "tests/test_codex.sh",
+      "source_location": "L93",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "_origin": "ast",
+      "id": "tests_test_codex_test_codex_without_session_id_requires_project_mode",
+      "community": 2,
+      "norm_label": "test_codex_without_session_id_requires_project_mode()"
+    },
+    {
+      "label": "test_codex_accepts_thread_id_when_session_id_is_absent()",
+      "file_type": "code",
+      "source_file": "tests/test_codex.sh",
+      "source_location": "L100",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "_origin": "ast",
+      "id": "tests_test_codex_test_codex_accepts_thread_id_when_session_id_is_absent",
+      "community": 2,
+      "norm_label": "test_codex_accepts_thread_id_when_session_id_is_absent()"
+    },
+    {
+      "label": "test_invalid_hook_configuration_leaves_installation_untouched()",
+      "file_type": "code",
+      "source_file": "tests/test_codex.sh",
+      "source_location": "L107",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "_origin": "ast",
+      "id": "tests_test_codex_test_invalid_hook_configuration_leaves_installation_untouched",
+      "community": 2,
+      "norm_label": "test_invalid_hook_configuration_leaves_installation_untouched()"
+    },
+    {
+      "label": "test_install_rejects_conflicting_modes_and_unknown_options()",
+      "file_type": "code",
+      "source_file": "tests/test_codex.sh",
+      "source_location": "L121",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "_origin": "ast",
+      "id": "tests_test_codex_test_install_rejects_conflicting_modes_and_unknown_options",
+      "community": 2,
+      "norm_label": "test_install_rejects_conflicting_modes_and_unknown_options()"
+    },
+    {
+      "label": "test_hook.sh",
+      "file_type": "code",
+      "source_file": "tests/test_hook.sh",
+      "source_location": "L1",
+      "metadata": {
+        "language": "bash",
+        "kind": "file"
+      },
+      "_origin": "ast",
+      "id": "tests_test_hook",
+      "community": 11,
+      "norm_label": "test_hook.sh"
+    },
+    {
+      "label": "test_hook.sh script",
+      "file_type": "code",
+      "source_file": "tests/test_hook.sh",
+      "source_location": "L1",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_entrypoint"
+      },
+      "_origin": "ast",
+      "id": "tests_test_hook_sh__entry",
+      "community": 11,
+      "norm_label": "test_hook.sh script"
+    },
+    {
+      "label": "hook_input()",
+      "file_type": "code",
+      "source_file": "tests/test_hook.sh",
+      "source_location": "L1",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "_origin": "ast",
+      "id": "tests_test_hook_hook_input",
+      "community": 11,
+      "norm_label": "hook_input()"
+    },
+    {
+      "label": "test_hook_silent_when_off()",
+      "file_type": "code",
+      "source_file": "tests/test_hook.sh",
+      "source_location": "L3",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "_origin": "ast",
+      "id": "tests_test_hook_test_hook_silent_when_off",
+      "community": 11,
+      "norm_label": "test_hook_silent_when_off()"
+    },
+    {
+      "label": "test_hook_reminds_when_session_on()",
+      "file_type": "code",
+      "source_file": "tests/test_hook.sh",
+      "source_location": "L9",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "_origin": "ast",
+      "id": "tests_test_hook_test_hook_reminds_when_session_on",
+      "community": 11,
+      "norm_label": "test_hook_reminds_when_session_on()"
+    },
+    {
+      "label": "test_hook_reads_the_session_from_stdin()",
+      "file_type": "code",
+      "source_file": "tests/test_hook.sh",
+      "source_location": "L17",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "_origin": "ast",
+      "id": "tests_test_hook_test_hook_reads_the_session_from_stdin",
+      "community": 11,
+      "norm_label": "test_hook_reads_the_session_from_stdin()"
+    },
+    {
+      "label": "test_hook_reminds_when_project_on()",
+      "file_type": "code",
+      "source_file": "tests/test_hook.sh",
+      "source_location": "L24",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "_origin": "ast",
+      "id": "tests_test_hook_test_hook_reminds_when_project_on",
+      "community": 11,
+      "norm_label": "test_hook_reminds_when_project_on()"
+    },
+    {
+      "label": "test_hook_survives_malformed_stdin()",
+      "file_type": "code",
+      "source_file": "tests/test_hook.sh",
+      "source_location": "L31",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "_origin": "ast",
+      "id": "tests_test_hook_test_hook_survives_malformed_stdin",
+      "community": 11,
+      "norm_label": "test_hook_survives_malformed_stdin()"
+    },
+    {
+      "label": "test_hygiene.sh",
+      "file_type": "code",
+      "source_file": "tests/test_hygiene.sh",
+      "source_location": "L1",
+      "metadata": {
+        "language": "bash",
+        "kind": "file"
+      },
+      "_origin": "ast",
+      "id": "tests_test_hygiene",
+      "community": 15,
+      "norm_label": "test_hygiene.sh"
+    },
+    {
+      "label": "test_hygiene.sh script",
+      "file_type": "code",
+      "source_file": "tests/test_hygiene.sh",
+      "source_location": "L1",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_entrypoint"
+      },
+      "_origin": "ast",
+      "id": "tests_test_hygiene_sh__entry",
+      "community": 15,
+      "norm_label": "test_hygiene.sh script"
+    },
+    {
+      "label": "test_no_machine_paths_or_private_names()",
+      "file_type": "code",
+      "source_file": "tests/test_hygiene.sh",
+      "source_location": "L4",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "_origin": "ast",
+      "id": "tests_test_hygiene_test_no_machine_paths_or_private_names",
+      "community": 15,
+      "norm_label": "test_no_machine_paths_or_private_names()"
+    },
+    {
+      "label": "test_hook_names_the_installed_script()",
+      "file_type": "code",
+      "source_file": "tests/test_hygiene.sh",
+      "source_location": "L14",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "_origin": "ast",
+      "id": "tests_test_hygiene_test_hook_names_the_installed_script",
+      "community": 15,
+      "norm_label": "test_hook_names_the_installed_script()"
+    },
+    {
+      "label": "test_skill_file_has_frontmatter()",
+      "file_type": "code",
+      "source_file": "tests/test_hygiene.sh",
+      "source_location": "L21",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "_origin": "ast",
+      "id": "tests_test_hygiene_test_skill_file_has_frontmatter",
+      "community": 15,
+      "norm_label": "test_skill_file_has_frontmatter()"
+    },
+    {
+      "label": "test_install.sh",
+      "file_type": "code",
+      "source_file": "tests/test_install.sh",
+      "source_location": "L1",
+      "metadata": {
+        "language": "bash",
+        "kind": "file"
+      },
+      "_origin": "ast",
+      "id": "tests_test_install",
+      "community": 5,
+      "norm_label": "test_install.sh"
+    },
+    {
+      "label": "test_install.sh script",
+      "file_type": "code",
+      "source_file": "tests/test_install.sh",
+      "source_location": "L1",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_entrypoint"
+      },
+      "_origin": "ast",
+      "id": "tests_test_install_sh__entry",
+      "community": 5,
+      "norm_label": "test_install.sh script"
+    },
+    {
+      "label": "hook_commands()",
+      "file_type": "code",
+      "source_file": "tests/test_install.sh",
+      "source_location": "L1",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "_origin": "ast",
+      "id": "tests_test_install_hook_commands",
+      "community": 5,
+      "norm_label": "hook_commands()"
+    },
+    {
+      "label": "test_install_places_skill_agent_and_hook()",
+      "file_type": "code",
+      "source_file": "tests/test_install.sh",
+      "source_location": "L3",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "_origin": "ast",
+      "id": "tests_test_install_test_install_places_skill_agent_and_hook",
+      "community": 5,
+      "norm_label": "test_install_places_skill_agent_and_hook()"
+    },
+    {
+      "label": "test_second_install_leaves_settings_identical()",
+      "file_type": "code",
+      "source_file": "tests/test_install.sh",
+      "source_location": "L13",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "_origin": "ast",
+      "id": "tests_test_install_test_second_install_leaves_settings_identical",
+      "community": 5,
+      "norm_label": "test_second_install_leaves_settings_identical()"
+    },
+    {
+      "label": "test_install_creates_missing_settings()",
+      "file_type": "code",
+      "source_file": "tests/test_install.sh",
+      "source_location": "L21",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "_origin": "ast",
+      "id": "tests_test_install_test_install_creates_missing_settings",
+      "community": 5,
+      "norm_label": "test_install_creates_missing_settings()"
+    },
+    {
+      "label": "test_locally_modified_copy_needs_force()",
+      "file_type": "code",
+      "source_file": "tests/test_install.sh",
+      "source_location": "L27",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "_origin": "ast",
+      "id": "tests_test_install_test_locally_modified_copy_needs_force",
+      "community": 5,
+      "norm_label": "test_locally_modified_copy_needs_force()"
+    },
+    {
+      "label": "test_check_reports_state_without_writing()",
+      "file_type": "code",
+      "source_file": "tests/test_install.sh",
+      "source_location": "L40",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "_origin": "ast",
+      "id": "tests_test_install_test_check_reports_state_without_writing",
+      "community": 5,
+      "norm_label": "test_check_reports_state_without_writing()"
+    },
+    {
+      "label": "test_all_target_installs_both_hosts_and_preserves_settings()",
+      "file_type": "code",
+      "source_file": "tests/test_install.sh",
+      "source_location": "L53",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "_origin": "ast",
+      "id": "tests_test_install_test_all_target_installs_both_hosts_and_preserves_settings",
+      "community": 5,
+      "norm_label": "test_all_target_installs_both_hosts_and_preserves_settings()"
+    },
+    {
+      "label": "test_target_codex_is_an_alias_for_codex_flag()",
+      "file_type": "code",
+      "source_file": "tests/test_install.sh",
+      "source_location": "L67",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "_origin": "ast",
+      "id": "tests_test_install_test_target_codex_is_an_alias_for_codex_flag",
+      "community": 5,
+      "norm_label": "test_target_codex_is_an_alias_for_codex_flag()"
+    },
+    {
+      "label": "test_all_target_validates_every_hook_before_installing_anything()",
+      "file_type": "code",
+      "source_file": "tests/test_install.sh",
+      "source_location": "L74",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "_origin": "ast",
+      "id": "tests_test_install_test_all_target_validates_every_hook_before_installing_anything",
+      "community": 5,
+      "norm_label": "test_all_target_validates_every_hook_before_installing_anything()"
+    },
+    {
+      "label": "test_model.sh",
+      "file_type": "code",
+      "source_file": "tests/test_model.sh",
+      "source_location": "L1",
+      "metadata": {
+        "language": "bash",
+        "kind": "file"
+      },
+      "_origin": "ast",
+      "id": "tests_test_model",
+      "community": 3,
+      "norm_label": "test_model.sh"
+    },
+    {
+      "label": "test_model.sh script",
+      "file_type": "code",
+      "source_file": "tests/test_model.sh",
+      "source_location": "L1",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_entrypoint"
+      },
+      "_origin": "ast",
+      "id": "tests_test_model_sh__entry",
+      "community": 3,
+      "norm_label": "test_model.sh script"
+    },
+    {
+      "label": "test_model_preset_with_explicit_effort()",
+      "file_type": "code",
+      "source_file": "tests/test_model.sh",
+      "source_location": "L4",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "_origin": "ast",
+      "id": "tests_test_model_test_model_preset_with_explicit_effort",
+      "community": 3,
+      "norm_label": "test_model_preset_with_explicit_effort()"
+    },
+    {
+      "label": "test_model_glm_default_effort_is_max()",
+      "file_type": "code",
+      "source_file": "tests/test_model.sh",
+      "source_location": "L17",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "_origin": "ast",
+      "id": "tests_test_model_test_model_glm_default_effort_is_max",
+      "community": 3,
+      "norm_label": "test_model_glm_default_effort_is_max()"
+    },
+    {
+      "label": "test_model_preset_does_not_call_opencode()",
+      "file_type": "code",
+      "source_file": "tests/test_model.sh",
+      "source_location": "L28",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "_origin": "ast",
+      "id": "tests_test_model_test_model_preset_does_not_call_opencode",
+      "community": 3,
+      "norm_label": "test_model_preset_does_not_call_opencode()"
+    },
+    {
+      "label": "test_model_discovered_default_is_xhigh()",
+      "file_type": "code",
+      "source_file": "tests/test_model.sh",
+      "source_location": "L36",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "_origin": "ast",
+      "id": "tests_test_model_test_model_discovered_default_is_xhigh",
+      "community": 3,
+      "norm_label": "test_model_discovered_default_is_xhigh()"
+    },
+    {
+      "label": "test_model_discovered_without_variants_is_none()",
+      "file_type": "code",
+      "source_file": "tests/test_model.sh",
+      "source_location": "L48",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "_origin": "ast",
+      "id": "tests_test_model_test_model_discovered_without_variants_is_none",
+      "community": 3,
+      "norm_label": "test_model_discovered_without_variants_is_none()"
+    },
+    {
+      "label": "test_model_unknown_model_is_refused()",
+      "file_type": "code",
+      "source_file": "tests/test_model.sh",
+      "source_location": "L59",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "_origin": "ast",
+      "id": "tests_test_model_test_model_unknown_model_is_refused",
+      "community": 3,
+      "norm_label": "test_model_unknown_model_is_refused()"
+    },
+    {
+      "label": "test_model_unknown_effort_is_refused()",
+      "file_type": "code",
+      "source_file": "tests/test_model.sh",
+      "source_location": "L69",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "_origin": "ast",
+      "id": "tests_test_model_test_model_unknown_effort_is_refused",
+      "community": 3,
+      "norm_label": "test_model_unknown_effort_is_refused()"
+    },
+    {
+      "label": "test_model_no_args_shows_current_and_presets()",
+      "file_type": "code",
+      "source_file": "tests/test_model.sh",
+      "source_location": "L78",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "_origin": "ast",
+      "id": "tests_test_model_test_model_no_args_shows_current_and_presets",
+      "community": 3,
+      "norm_label": "test_model_no_args_shows_current_and_presets()"
+    },
+    {
+      "label": "test_model_no_args_without_config_shows_the_default()",
+      "file_type": "code",
+      "source_file": "tests/test_model.sh",
+      "source_location": "L90",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "_origin": "ast",
+      "id": "tests_test_model_test_model_no_args_without_config_shows_the_default",
+      "community": 3,
+      "norm_label": "test_model_no_args_without_config_shows_the_default()"
+    },
+    {
+      "label": "test_model_discovery_failure_does_not_save_a_selection()",
+      "file_type": "code",
+      "source_file": "tests/test_model.sh",
+      "source_location": "L97",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "_origin": "ast",
+      "id": "tests_test_model_test_model_discovery_failure_does_not_save_a_selection",
+      "community": 3,
+      "norm_label": "test_model_discovery_failure_does_not_save_a_selection()"
+    },
+    {
+      "label": "test_model_write_failure_does_not_report_success()",
+      "file_type": "code",
+      "source_file": "tests/test_model.sh",
+      "source_location": "L105",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "_origin": "ast",
+      "id": "tests_test_model_test_model_write_failure_does_not_report_success",
+      "community": 3,
+      "norm_label": "test_model_write_failure_does_not_report_success()"
+    },
+    {
+      "label": "test_glm_medium_is_refused_without_overwriting_saved_choice()",
+      "file_type": "code",
+      "source_file": "tests/test_model.sh",
+      "source_location": "L112",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "_origin": "ast",
+      "id": "tests_test_model_test_glm_medium_is_refused_without_overwriting_saved_choice",
+      "community": 3,
+      "norm_label": "test_glm_medium_is_refused_without_overwriting_saved_choice()"
+    },
+    {
+      "label": "test_prereq.sh",
+      "file_type": "code",
+      "source_file": "tests/test_prereq.sh",
+      "source_location": "L1",
+      "metadata": {
+        "language": "bash",
+        "kind": "file"
+      },
+      "_origin": "ast",
+      "id": "tests_test_prereq",
+      "community": 14,
+      "norm_label": "test_prereq.sh"
+    },
+    {
+      "label": "test_prereq.sh script",
+      "file_type": "code",
+      "source_file": "tests/test_prereq.sh",
+      "source_location": "L1",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_entrypoint"
+      },
+      "_origin": "ast",
+      "id": "tests_test_prereq_sh__entry",
+      "community": 14,
+      "norm_label": "test_prereq.sh script"
+    },
+    {
+      "label": "test_on_refused_without_opencode()",
+      "file_type": "code",
+      "source_file": "tests/test_prereq.sh",
+      "source_location": "L3",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "_origin": "ast",
+      "id": "tests_test_prereq_test_on_refused_without_opencode",
+      "community": 14,
+      "norm_label": "test_on_refused_without_opencode()"
+    },
+    {
+      "label": "test_on_project_refused_without_opencode()",
+      "file_type": "code",
+      "source_file": "tests/test_prereq.sh",
+      "source_location": "L11",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "_origin": "ast",
+      "id": "tests_test_prereq_test_on_project_refused_without_opencode",
+      "community": 14,
+      "norm_label": "test_on_project_refused_without_opencode()"
+    },
+    {
+      "label": "test_install_warns_without_opencode()",
+      "file_type": "code",
+      "source_file": "tests/test_prereq.sh",
+      "source_location": "L19",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "_origin": "ast",
+      "id": "tests_test_prereq_test_install_warns_without_opencode",
+      "community": 14,
+      "norm_label": "test_install_warns_without_opencode()"
+    },
+    {
+      "label": "test_install_silent_about_opencode_when_present()",
+      "file_type": "code",
+      "source_file": "tests/test_prereq.sh",
+      "source_location": "L29",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "_origin": "ast",
+      "id": "tests_test_prereq_test_install_silent_about_opencode_when_present",
+      "community": 14,
+      "norm_label": "test_install_silent_about_opencode_when_present()"
+    },
+    {
+      "label": "test_provider.sh",
+      "file_type": "code",
+      "source_file": "tests/test_provider.sh",
+      "source_location": "L1",
+      "metadata": {
+        "language": "bash",
+        "kind": "file"
+      },
+      "_origin": "ast",
+      "id": "tests_test_provider",
+      "community": 7,
+      "norm_label": "test_provider.sh"
+    },
+    {
+      "label": "test_provider.sh script",
+      "file_type": "code",
+      "source_file": "tests/test_provider.sh",
+      "source_location": "L1",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_entrypoint"
+      },
+      "_origin": "ast",
+      "id": "tests_test_provider_sh__entry",
+      "community": 7,
+      "norm_label": "test_provider.sh script"
+    },
+    {
+      "label": "test_provider_default_is_auto_without_writing_or_discovering_models()",
+      "file_type": "code",
+      "source_file": "tests/test_provider.sh",
+      "source_location": "L3",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "_origin": "ast",
+      "id": "tests_test_provider_test_provider_default_is_auto_without_writing_or_discovering_models",
+      "community": 7,
+      "norm_label": "test_provider_default_is_auto_without_writing_or_discovering_models()"
+    },
+    {
+      "label": "test_provider_preserves_model_effort_and_unknown_keys()",
+      "file_type": "code",
+      "source_file": "tests/test_provider.sh",
+      "source_location": "L13",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "_origin": "ast",
+      "id": "tests_test_provider_test_provider_preserves_model_effort_and_unknown_keys",
+      "community": 7,
+      "norm_label": "test_provider_preserves_model_effort_and_unknown_keys()"
+    },
+    {
+      "label": "test_provider_choices_survive_model_switches_and_reset_independently()",
+      "file_type": "code",
+      "source_file": "tests/test_provider.sh",
+      "source_location": "L26",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "_origin": "ast",
+      "id": "tests_test_provider_test_provider_choices_survive_model_switches_and_reset_independently",
+      "community": 7,
+      "norm_label": "test_provider_choices_survive_model_switches_and_reset_independently()"
+    },
+    {
+      "label": "test_provider_model_override_does_not_change_saved_model()",
+      "file_type": "code",
+      "source_file": "tests/test_provider.sh",
+      "source_location": "L47",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "_origin": "ast",
+      "id": "tests_test_provider_test_provider_model_override_does_not_change_saved_model",
+      "community": 7,
+      "norm_label": "test_provider_model_override_does_not_change_saved_model()"
+    },
+    {
+      "label": "test_provider_invalid_arguments_leave_saved_choice_unchanged()",
+      "file_type": "code",
+      "source_file": "tests/test_provider.sh",
+      "source_location": "L60",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "_origin": "ast",
+      "id": "tests_test_provider_test_provider_invalid_arguments_leave_saved_choice_unchanged",
+      "community": 7,
+      "norm_label": "test_provider_invalid_arguments_leave_saved_choice_unchanged()"
+    },
+    {
+      "label": "test_provider_non_openrouter_model_rejects_endpoint_but_allows_auto()",
+      "file_type": "code",
+      "source_file": "tests/test_provider.sh",
+      "source_location": "L75",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "_origin": "ast",
+      "id": "tests_test_provider_test_provider_non_openrouter_model_rejects_endpoint_but_allows_auto",
+      "community": 7,
+      "norm_label": "test_provider_non_openrouter_model_rejects_endpoint_but_allows_auto()"
+    },
+    {
+      "label": "test_provider_atomic_rename_failure_preserves_config_and_cleans_temp()",
+      "file_type": "code",
+      "source_file": "tests/test_provider.sh",
+      "source_location": "L90",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "_origin": "ast",
+      "id": "tests_test_provider_test_provider_atomic_rename_failure_preserves_config_and_cleans_temp",
+      "community": 7,
+      "norm_label": "test_provider_atomic_rename_failure_preserves_config_and_cleans_temp()"
+    },
+    {
+      "label": "test_provider_directory_config_is_refused()",
+      "file_type": "code",
+      "source_file": "tests/test_provider.sh",
+      "source_location": "L104",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "_origin": "ast",
+      "id": "tests_test_provider_test_provider_directory_config_is_refused",
+      "community": 7,
+      "norm_label": "test_provider_directory_config_is_refused()"
+    },
+    {
+      "label": "test_run.sh",
+      "file_type": "code",
+      "source_file": "tests/test_run.sh",
+      "source_location": "L1",
+      "metadata": {
+        "language": "bash",
+        "kind": "file"
+      },
+      "_origin": "ast",
+      "id": "tests_test_run",
+      "community": 0,
+      "norm_label": "test_run.sh"
+    },
+    {
+      "label": "test_run.sh script",
+      "file_type": "code",
+      "source_file": "tests/test_run.sh",
+      "source_location": "L1",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_entrypoint"
+      },
+      "_origin": "ast",
+      "id": "tests_test_run_sh__entry",
+      "community": 0,
+      "norm_label": "test_run.sh script"
+    },
+    {
+      "label": "fake_opencode()",
+      "file_type": "code",
+      "source_file": "tests/test_run.sh",
+      "source_location": "L2",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "_origin": "ast",
+      "id": "tests_test_run_fake_opencode",
+      "community": 0,
+      "norm_label": "fake_opencode()"
+    },
+    {
+      "label": "test_run_returns_report_changes_and_check()",
+      "file_type": "code",
+      "source_file": "tests/test_run.sh",
+      "source_location": "L25",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "_origin": "ast",
+      "id": "tests_test_run_test_run_returns_report_changes_and_check",
+      "community": 0,
+      "norm_label": "test_run_returns_report_changes_and_check()"
+    },
+    {
+      "label": "test_failing_check_fails_even_when_executor_claims_success()",
+      "file_type": "code",
+      "source_file": "tests/test_run.sh",
+      "source_location": "L37",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "_origin": "ast",
+      "id": "tests_test_run_test_failing_check_fails_even_when_executor_claims_success",
+      "community": 0,
+      "norm_label": "test_failing_check_fails_even_when_executor_claims_success()"
+    },
+    {
+      "label": "test_brief_reaches_the_executor_with_its_agent()",
+      "file_type": "code",
+      "source_file": "tests/test_run.sh",
+      "source_location": "L46",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "_origin": "ast",
+      "id": "tests_test_run_test_brief_reaches_the_executor_with_its_agent",
+      "community": 0,
+      "norm_label": "test_brief_reaches_the_executor_with_its_agent()"
+    },
+    {
+      "label": "test_resume_continues_the_given_session()",
+      "file_type": "code",
+      "source_file": "tests/test_run.sh",
+      "source_location": "L53",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "_origin": "ast",
+      "id": "tests_test_run_test_resume_continues_the_given_session",
+      "community": 0,
+      "norm_label": "test_resume_continues_the_given_session()"
+    },
+    {
+      "label": "test_run_defaults_to_glm_max_and_model_override_gets_its_own_effort()",
+      "file_type": "code",
+      "source_file": "tests/test_run.sh",
+      "source_location": "L59",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "_origin": "ast",
+      "id": "tests_test_run_test_run_defaults_to_glm_max_and_model_override_gets_its_own_effort",
+      "community": 0,
+      "norm_label": "test_run_defaults_to_glm_max_and_model_override_gets_its_own_effort()"
+    },
+    {
+      "label": "test_executor_runs_at_the_git_root()",
+      "file_type": "code",
+      "source_file": "tests/test_run.sh",
+      "source_location": "L69",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "_origin": "ast",
+      "id": "tests_test_run_test_executor_runs_at_the_git_root",
+      "community": 0,
+      "norm_label": "test_executor_runs_at_the_git_root()"
+    },
+    {
+      "label": "test_report_is_truncated()",
+      "file_type": "code",
+      "source_file": "tests/test_run.sh",
+      "source_location": "L76",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "_origin": "ast",
+      "id": "tests_test_run_test_report_is_truncated",
+      "community": 0,
+      "norm_label": "test_report_is_truncated()"
+    },
+    {
+      "label": "test_full_log_is_kept()",
+      "file_type": "code",
+      "source_file": "tests/test_run.sh",
+      "source_location": "L85",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "_origin": "ast",
+      "id": "tests_test_run_test_full_log_is_kept",
+      "community": 0,
+      "norm_label": "test_full_log_is_kept()"
+    },
+    {
+      "label": "test_executor_failure_is_reported_and_check_still_runs()",
+      "file_type": "code",
+      "source_file": "tests/test_run.sh",
+      "source_location": "L94",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "_origin": "ast",
+      "id": "tests_test_run_test_executor_failure_is_reported_and_check_still_runs",
+      "community": 0,
+      "norm_label": "test_executor_failure_is_reported_and_check_still_runs()"
+    },
+    {
+      "label": "test_provider_rejection_is_reported_even_when_opencode_exits_zero()",
+      "file_type": "code",
+      "source_file": "tests/test_run.sh",
+      "source_location": "L103",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "_origin": "ast",
+      "id": "tests_test_run_test_provider_rejection_is_reported_even_when_opencode_exits_zero",
+      "community": 0,
+      "norm_label": "test_provider_rejection_is_reported_even_when_opencode_exits_zero()"
+    },
+    {
+      "label": "test_run_requires_check_and_brief()",
+      "file_type": "code",
+      "source_file": "tests/test_run.sh",
+      "source_location": "L112",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "_origin": "ast",
+      "id": "tests_test_run_test_run_requires_check_and_brief",
+      "community": 0,
+      "norm_label": "test_run_requires_check_and_brief()"
+    },
+    {
+      "label": "test_executor_does_not_wait_on_an_open_stdin()",
+      "file_type": "code",
+      "source_file": "tests/test_run.sh",
+      "source_location": "L123",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "_origin": "ast",
+      "id": "tests_test_run_test_executor_does_not_wait_on_an_open_stdin",
+      "community": 0,
+      "norm_label": "test_executor_does_not_wait_on_an_open_stdin()"
+    },
+    {
+      "label": "test_cost_is_rounded()",
+      "file_type": "code",
+      "source_file": "tests/test_run.sh",
+      "source_location": "L130",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "_origin": "ast",
+      "id": "tests_test_run_test_cost_is_rounded",
+      "community": 0,
+      "norm_label": "test_cost_is_rounded()"
+    },
+    {
+      "label": "test_saved_model_and_effort_are_used_by_later_runs()",
+      "file_type": "code",
+      "source_file": "tests/test_run.sh",
+      "source_location": "L137",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "_origin": "ast",
+      "id": "tests_test_run_test_saved_model_and_effort_are_used_by_later_runs",
+      "community": 0,
+      "norm_label": "test_saved_model_and_effort_are_used_by_later_runs()"
+    },
+    {
+      "label": "test_glm_routing_preserves_unrelated_inline_config_and_does_not_leak()",
+      "file_type": "code",
+      "source_file": "tests/test_run.sh",
+      "source_location": "L145",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "_origin": "ast",
+      "id": "tests_test_run_test_glm_routing_preserves_unrelated_inline_config_and_does_not_leak",
+      "community": 0,
+      "norm_label": "test_glm_routing_preserves_unrelated_inline_config_and_does_not_leak()"
+    },
+    {
+      "label": "test_auto_routing_preserves_personal_settings_even_for_glm()",
+      "file_type": "code",
+      "source_file": "tests/test_run.sh",
+      "source_location": "L157",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "_origin": "ast",
+      "id": "tests_test_run_test_auto_routing_preserves_personal_settings_even_for_glm",
+      "community": 0,
+      "norm_label": "test_auto_routing_preserves_personal_settings_even_for_glm()"
+    },
+    {
+      "label": "test_runs_use_the_effective_models_own_endpoint()",
+      "file_type": "code",
+      "source_file": "tests/test_run.sh",
+      "source_location": "L172",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "_origin": "ast",
+      "id": "tests_test_run_test_runs_use_the_effective_models_own_endpoint",
+      "community": 0,
+      "norm_label": "test_runs_use_the_effective_models_own_endpoint()"
+    },
+    {
+      "label": "test_glm_default_does_not_inject_coreweave()",
+      "file_type": "code",
+      "source_file": "tests/test_run.sh",
+      "source_location": "L188",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "_origin": "ast",
+      "id": "tests_test_run_test_glm_default_does_not_inject_coreweave",
+      "community": 0,
+      "norm_label": "test_glm_default_does_not_inject_coreweave()"
+    },
+    {
+      "label": "test_invalid_saved_endpoint_is_refused_before_execution()",
+      "file_type": "code",
+      "source_file": "tests/test_run.sh",
+      "source_location": "L194",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "_origin": "ast",
+      "id": "tests_test_run_test_invalid_saved_endpoint_is_refused_before_execution",
+      "community": 0,
+      "norm_label": "test_invalid_saved_endpoint_is_refused_before_execution()"
+    },
+    {
+      "label": "test_check_failure_keeps_its_code_even_when_executor_also_fails()",
+      "file_type": "code",
+      "source_file": "tests/test_run.sh",
+      "source_location": "L204",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "_origin": "ast",
+      "id": "tests_test_run_test_check_failure_keeps_its_code_even_when_executor_also_fails",
+      "community": 0,
+      "norm_label": "test_check_failure_keeps_its_code_even_when_executor_also_fails()"
+    },
+    {
+      "label": "test_invalid_inline_config_is_refused_before_execution()",
+      "file_type": "code",
+      "source_file": "tests/test_run.sh",
+      "source_location": "L211",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "_origin": "ast",
+      "id": "tests_test_run_test_invalid_inline_config_is_refused_before_execution",
+      "community": 0,
+      "norm_label": "test_invalid_inline_config_is_refused_before_execution()"
+    },
+    {
+      "label": "test_run_missing_option_value_fails_without_hanging()",
+      "file_type": "code",
+      "source_file": "tests/test_run.sh",
+      "source_location": "L219",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "_origin": "ast",
+      "id": "tests_test_run_test_run_missing_option_value_fails_without_hanging",
+      "community": 0,
+      "norm_label": "test_run_missing_option_value_fails_without_hanging()"
+    },
+    {
+      "label": "test_toggle.sh",
+      "file_type": "code",
+      "source_file": "tests/test_toggle.sh",
+      "source_location": "L1",
+      "metadata": {
+        "language": "bash",
+        "kind": "file"
+      },
+      "_origin": "ast",
+      "id": "tests_test_toggle",
+      "community": 8,
+      "norm_label": "test_toggle.sh"
+    },
+    {
+      "label": "test_toggle.sh script",
+      "file_type": "code",
+      "source_file": "tests/test_toggle.sh",
+      "source_location": "L1",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_entrypoint"
+      },
+      "_origin": "ast",
+      "id": "tests_test_toggle_sh__entry",
+      "community": 8,
+      "norm_label": "test_toggle.sh script"
+    },
+    {
+      "label": "test_status_off_by_default()",
+      "file_type": "code",
+      "source_file": "tests/test_toggle.sh",
+      "source_location": "L1",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "_origin": "ast",
+      "id": "tests_test_toggle_test_status_off_by_default",
+      "community": 8,
+      "norm_label": "test_status_off_by_default()"
+    },
+    {
+      "label": "test_on_binds_the_session_only()",
+      "file_type": "code",
+      "source_file": "tests/test_toggle.sh",
+      "source_location": "L5",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "_origin": "ast",
+      "id": "tests_test_toggle_test_on_binds_the_session_only",
+      "community": 8,
+      "norm_label": "test_on_binds_the_session_only()"
+    },
+    {
+      "label": "test_on_project_binds_every_session_in_the_repo()",
+      "file_type": "code",
+      "source_file": "tests/test_toggle.sh",
+      "source_location": "L11",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "_origin": "ast",
+      "id": "tests_test_toggle_test_on_project_binds_every_session_in_the_repo",
+      "community": 8,
+      "norm_label": "test_on_project_binds_every_session_in_the_repo()"
+    },
+    {
+      "label": "test_status_reports_both_levels()",
+      "file_type": "code",
+      "source_file": "tests/test_toggle.sh",
+      "source_location": "L18",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "_origin": "ast",
+      "id": "tests_test_toggle_test_status_reports_both_levels",
+      "community": 8,
+      "norm_label": "test_status_reports_both_levels()"
+    },
+    {
+      "label": "test_off_clears_both_levels()",
+      "file_type": "code",
+      "source_file": "tests/test_toggle.sh",
+      "source_location": "L24",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "_origin": "ast",
+      "id": "tests_test_toggle_test_off_clears_both_levels",
+      "community": 8,
+      "norm_label": "test_off_clears_both_levels()"
+    },
+    {
+      "label": "test_on_without_session_id_is_refused()",
+      "file_type": "code",
+      "source_file": "tests/test_toggle.sh",
+      "source_location": "L32",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "_origin": "ast",
+      "id": "tests_test_toggle_test_on_without_session_id_is_refused",
+      "community": 8,
+      "norm_label": "test_on_without_session_id_is_refused()"
+    },
+    {
+      "label": "test_unknown_command_prints_usage()",
+      "file_type": "code",
+      "source_file": "tests/test_toggle.sh",
+      "source_location": "L39",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "_origin": "ast",
+      "id": "tests_test_toggle_test_unknown_command_prints_usage",
+      "community": 8,
+      "norm_label": "test_unknown_command_prints_usage()"
+    },
+    {
+      "label": "test_on_write_failure_does_not_report_success()",
+      "file_type": "code",
+      "source_file": "tests/test_toggle.sh",
+      "source_location": "L46",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "_origin": "ast",
+      "id": "tests_test_toggle_test_on_write_failure_does_not_report_success",
+      "community": 8,
+      "norm_label": "test_on_write_failure_does_not_report_success()"
+    },
+    {
+      "label": "DEVPLAN-COMPLETED.md",
+      "file_type": "document",
+      "source_file": "DEVPLAN-COMPLETED.md",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "devplan_completed",
+      "community": 16,
+      "norm_label": "devplan-completed.md"
+    },
+    {
+      "label": "DEVPLAN \u2014 delegate, completed",
+      "file_type": "document",
+      "source_file": "DEVPLAN-COMPLETED.md",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "devplan_completed_devplan_delegate_completed",
+      "community": 16,
+      "norm_label": "devplan \u2014 delegate, completed"
+    },
+    {
+      "label": "DEVPLAN.md",
+      "file_type": "document",
+      "source_file": "DEVPLAN.md",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "devplan",
+      "community": 10,
+      "norm_label": "devplan.md"
+    },
+    {
+      "label": "DEVPLAN \u2014 delegate",
+      "file_type": "document",
+      "source_file": "DEVPLAN.md",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "devplan_devplan_delegate",
+      "community": 10,
+      "norm_label": "devplan \u2014 delegate"
+    },
+    {
+      "label": "Plan",
+      "file_type": "document",
+      "source_file": "DEVPLAN.md",
+      "source_location": "L3",
+      "_origin": "ast",
+      "id": "devplan_plan",
+      "community": 10,
+      "norm_label": "plan"
+    },
+    {
+      "label": "Objective",
+      "file_type": "document",
+      "source_file": "DEVPLAN.md",
+      "source_location": "L5",
+      "_origin": "ast",
+      "id": "devplan_objective",
+      "community": 10,
+      "norm_label": "objective"
+    },
+    {
+      "label": "Approach",
+      "file_type": "document",
+      "source_file": "DEVPLAN.md",
+      "source_location": "L16",
+      "_origin": "ast",
+      "id": "devplan_approach",
+      "community": 10,
+      "norm_label": "approach"
+    },
+    {
+      "label": "Layout",
+      "file_type": "document",
+      "source_file": "DEVPLAN.md",
+      "source_location": "L34",
+      "_origin": "ast",
+      "id": "devplan_layout",
+      "community": 10,
+      "norm_label": "layout"
+    },
+    {
+      "label": "Out of scope",
+      "file_type": "document",
+      "source_file": "DEVPLAN.md",
+      "source_location": "L46",
+      "_origin": "ast",
+      "id": "devplan_out_of_scope",
+      "community": 10,
+      "norm_label": "out of scope"
+    },
+    {
+      "label": "Endpoint selection milestones",
+      "file_type": "document",
+      "source_file": "DEVPLAN.md",
+      "source_location": "L52",
+      "_origin": "ast",
+      "id": "devplan_endpoint_selection_milestones",
+      "community": 10,
+      "norm_label": "endpoint selection milestones"
+    },
+    {
+      "label": "README.md",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "readme",
+      "community": 4,
+      "norm_label": "readme.md"
+    },
+    {
+      "label": "delegate",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "readme_delegate",
+      "community": 4,
+      "norm_label": "delegate"
+    },
+    {
+      "label": "Requirements",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": "L19",
+      "_origin": "ast",
+      "id": "readme_requirements",
+      "community": 4,
+      "norm_label": "requirements"
+    },
+    {
+      "label": "Install",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": "L25",
+      "_origin": "ast",
+      "id": "readme_install",
+      "community": 4,
+      "norm_label": "install"
+    },
+    {
+      "label": "Usage",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": "L59",
+      "_origin": "ast",
+      "id": "readme_usage",
+      "community": 4,
+      "norm_label": "usage"
+    },
+    {
+      "label": "Sandboxed assistants",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": "L111",
+      "_origin": "ast",
+      "id": "readme_sandboxed_assistants",
+      "community": 4,
+      "norm_label": "sandboxed assistants"
+    },
+    {
+      "label": "Model, effort and endpoint",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": "L117",
+      "_origin": "ast",
+      "id": "readme_model_effort_and_endpoint",
+      "community": 4,
+      "norm_label": "model, effort and endpoint"
+    },
+    {
+      "label": "What the executor may do",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": "L174",
+      "_origin": "ast",
+      "id": "readme_what_the_executor_may_do",
+      "community": 4,
+      "norm_label": "what the executor may do"
+    },
+    {
+      "label": "Configuration",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": "L180",
+      "_origin": "ast",
+      "id": "readme_configuration",
+      "community": 4,
+      "norm_label": "configuration"
+    },
+    {
+      "label": "Tests",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": "L201",
+      "_origin": "ast",
+      "id": "readme_tests",
+      "community": 4,
+      "norm_label": "tests"
+    },
+    {
+      "label": "License",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": "L219",
+      "_origin": "ast",
+      "id": "readme_license",
+      "community": 4,
+      "norm_label": "license"
+    },
+    {
+      "label": "SKILL.md",
+      "file_type": "document",
+      "source_file": "delegate/SKILL.md",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "delegate_skill",
+      "community": 9,
+      "norm_label": "skill.md"
+    },
+    {
+      "label": "Delegate mode",
+      "file_type": "document",
+      "source_file": "delegate/SKILL.md",
+      "source_location": "L13",
+      "_origin": "ast",
+      "id": "delegate_skill_delegate_mode",
+      "community": 9,
+      "norm_label": "delegate mode"
+    },
+    {
+      "label": "Switching",
+      "file_type": "document",
+      "source_file": "delegate/SKILL.md",
+      "source_location": "L23",
+      "_origin": "ast",
+      "id": "delegate_skill_switching",
+      "community": 9,
+      "norm_label": "switching"
+    },
+    {
+      "label": "Choosing the executor model",
+      "file_type": "document",
+      "source_file": "delegate/SKILL.md",
+      "source_location": "L40",
+      "_origin": "ast",
+      "id": "delegate_skill_choosing_the_executor_model",
+      "community": 9,
+      "norm_label": "choosing the executor model"
+    },
+    {
+      "label": "Choosing the OpenRouter endpoint",
+      "file_type": "document",
+      "source_file": "delegate/SKILL.md",
+      "source_location": "L58",
+      "_origin": "ast",
+      "id": "delegate_skill_choosing_the_openrouter_endpoint",
+      "community": 9,
+      "norm_label": "choosing the openrouter endpoint"
+    },
+    {
+      "label": "What changes while it is on",
+      "file_type": "document",
+      "source_file": "delegate/SKILL.md",
+      "source_location": "L81",
+      "_origin": "ast",
+      "id": "delegate_skill_what_changes_while_it_is_on",
+      "community": 9,
+      "norm_label": "what changes while it is on"
+    },
+    {
+      "label": "Running a step",
+      "file_type": "document",
+      "source_file": "delegate/SKILL.md",
+      "source_location": "L103",
+      "_origin": "ast",
+      "id": "delegate_skill_running_a_step",
+      "community": 9,
+      "norm_label": "running a step"
+    },
+    {
+      "label": "When the check is red or the diff is wrong",
+      "file_type": "document",
+      "source_file": "delegate/SKILL.md",
+      "source_location": "L148",
+      "_origin": "ast",
+      "id": "delegate_skill_when_the_check_is_red_or_the_diff_is_wrong",
+      "community": 9,
+      "norm_label": "when the check is red or the diff is wrong"
+    },
+    {
+      "label": "Telling the user",
+      "file_type": "document",
+      "source_file": "delegate/SKILL.md",
+      "source_location": "L168",
+      "_origin": "ast",
+      "id": "delegate_skill_telling_the_user",
+      "community": 9,
+      "norm_label": "telling the user"
+    },
+    {
+      "label": "delegate-executor.md",
+      "file_type": "document",
+      "source_file": "delegate/opencode/delegate-executor.md",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "delegate_opencode_delegate_executor",
+      "community": 18,
+      "norm_label": "delegate-executor.md"
+    }
+  ],
+  "links": [
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "delegate/bin/delegate",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "delegate_bin_delegate",
+      "target": "delegate_bin_delegate__entry",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "delegate/bin/delegate",
+      "source_location": "L92",
+      "weight": 1.0,
+      "source": "delegate_bin_delegate",
+      "target": "delegate_bin_delegate_cmd_hook",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "delegate/bin/delegate",
+      "source_location": "L240",
+      "weight": 1.0,
+      "source": "delegate_bin_delegate",
+      "target": "delegate_bin_delegate_cmd_model",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "delegate/bin/delegate",
+      "source_location": "L80",
+      "weight": 1.0,
+      "source": "delegate_bin_delegate",
+      "target": "delegate_bin_delegate_cmd_off",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "delegate/bin/delegate",
+      "source_location": "L60",
+      "weight": 1.0,
+      "source": "delegate_bin_delegate",
+      "target": "delegate_bin_delegate_cmd_on",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "delegate/bin/delegate",
+      "source_location": "L175",
+      "weight": 1.0,
+      "source": "delegate_bin_delegate",
+      "target": "delegate_bin_delegate_cmd_provider",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "delegate/bin/delegate",
+      "source_location": "L320",
+      "weight": 1.0,
+      "source": "delegate_bin_delegate",
+      "target": "delegate_bin_delegate_cmd_run",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "delegate/bin/delegate",
+      "source_location": "L86",
+      "weight": 1.0,
+      "source": "delegate_bin_delegate",
+      "target": "delegate_bin_delegate_cmd_status",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "delegate/bin/delegate",
+      "source_location": "L117",
+      "weight": 1.0,
+      "source": "delegate_bin_delegate",
+      "target": "delegate_bin_delegate_config_update",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "delegate/bin/delegate",
+      "source_location": "L105",
+      "weight": 1.0,
+      "source": "delegate_bin_delegate",
+      "target": "delegate_bin_delegate_config_value",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "delegate/bin/delegate",
+      "source_location": "L6",
+      "weight": 1.0,
+      "source": "delegate_bin_delegate",
+      "target": "delegate_bin_delegate_detect_host",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "delegate/bin/delegate",
+      "source_location": "L299",
+      "weight": 1.0,
+      "source": "delegate_bin_delegate",
+      "target": "delegate_bin_delegate_executor_config",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "delegate/bin/delegate",
+      "source_location": "L53",
+      "weight": 1.0,
+      "source": "delegate_bin_delegate",
+      "target": "delegate_bin_delegate_levels",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "delegate/bin/delegate",
+      "source_location": "L220",
+      "weight": 1.0,
+      "source": "delegate_bin_delegate",
+      "target": "delegate_bin_delegate_model_levels",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "delegate/bin/delegate",
+      "source_location": "L233",
+      "weight": 1.0,
+      "source": "delegate_bin_delegate",
+      "target": "delegate_bin_delegate_preferred_effort",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "delegate/bin/delegate",
+      "source_location": "L207",
+      "weight": 1.0,
+      "source": "delegate_bin_delegate",
+      "target": "delegate_bin_delegate_preset_levels",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "delegate/bin/delegate",
+      "source_location": "L50",
+      "weight": 1.0,
+      "source": "delegate_bin_delegate",
+      "target": "delegate_bin_delegate_project_root",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "delegate/bin/delegate",
+      "source_location": "L275",
+      "weight": 1.0,
+      "source": "delegate_bin_delegate",
+      "target": "delegate_bin_delegate_resolve_executor",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "delegate/bin/delegate",
+      "source_location": "L162",
+      "weight": 1.0,
+      "source": "delegate_bin_delegate",
+      "target": "delegate_bin_delegate_resolve_provider",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "delegate/bin/delegate",
+      "source_location": "L152",
+      "weight": 1.0,
+      "source": "delegate_bin_delegate",
+      "target": "delegate_bin_delegate_selected_model",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "delegate/bin/delegate",
+      "source_location": "L34",
+      "weight": 1.0,
+      "source": "delegate_bin_delegate",
+      "target": "delegate_bin_delegate_usage",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "delegate/bin/delegate",
+      "source_location": "L158",
+      "weight": 1.0,
+      "source": "delegate_bin_delegate",
+      "target": "delegate_bin_delegate_valid_endpoint",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "delegate/bin/delegate",
+      "source_location": "L401",
+      "weight": 1.0,
+      "context": "call",
+      "source": "delegate_bin_delegate__entry",
+      "target": "delegate_bin_delegate_cmd_hook",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "delegate/bin/delegate",
+      "source_location": "L396",
+      "weight": 1.0,
+      "context": "call",
+      "source": "delegate_bin_delegate__entry",
+      "target": "delegate_bin_delegate_cmd_model",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "delegate/bin/delegate",
+      "source_location": "L399",
+      "weight": 1.0,
+      "context": "call",
+      "source": "delegate_bin_delegate__entry",
+      "target": "delegate_bin_delegate_cmd_off",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "delegate/bin/delegate",
+      "source_location": "L395",
+      "weight": 1.0,
+      "context": "call",
+      "source": "delegate_bin_delegate__entry",
+      "target": "delegate_bin_delegate_cmd_on",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "delegate/bin/delegate",
+      "source_location": "L397",
+      "weight": 1.0,
+      "context": "call",
+      "source": "delegate_bin_delegate__entry",
+      "target": "delegate_bin_delegate_cmd_provider",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "delegate/bin/delegate",
+      "source_location": "L398",
+      "weight": 1.0,
+      "context": "call",
+      "source": "delegate_bin_delegate__entry",
+      "target": "delegate_bin_delegate_cmd_run",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "delegate/bin/delegate",
+      "source_location": "L400",
+      "weight": 1.0,
+      "context": "call",
+      "source": "delegate_bin_delegate__entry",
+      "target": "delegate_bin_delegate_cmd_status",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "delegate/bin/delegate",
+      "source_location": "L402",
+      "weight": 1.0,
+      "context": "call",
+      "source": "delegate_bin_delegate__entry",
+      "target": "delegate_bin_delegate_usage",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "delegate/bin/delegate",
+      "source_location": "L241",
+      "weight": 1.0,
+      "context": "call",
+      "source": "delegate_bin_delegate_cmd_model",
+      "target": "delegate_bin_delegate_usage",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "delegate/bin/delegate",
+      "source_location": "L71",
+      "weight": 1.0,
+      "context": "call",
+      "source": "delegate_bin_delegate_cmd_on",
+      "target": "delegate_bin_delegate_usage",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "delegate/bin/delegate",
+      "source_location": "L176",
+      "weight": 1.0,
+      "context": "call",
+      "source": "delegate_bin_delegate_cmd_provider",
+      "target": "delegate_bin_delegate_usage",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "delegate/bin/delegate",
+      "source_location": "L324",
+      "weight": 1.0,
+      "context": "call",
+      "source": "delegate_bin_delegate_cmd_run",
+      "target": "delegate_bin_delegate_usage",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "delegate/bin/delegate",
+      "source_location": "L267",
+      "weight": 1.0,
+      "context": "call",
+      "source": "delegate_bin_delegate_cmd_model",
+      "target": "delegate_bin_delegate_config_update",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "delegate/bin/delegate",
+      "source_location": "L185",
+      "weight": 1.0,
+      "context": "call",
+      "source": "delegate_bin_delegate_cmd_provider",
+      "target": "delegate_bin_delegate_config_update",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "delegate/bin/delegate",
+      "source_location": "L180",
+      "weight": 1.0,
+      "context": "call",
+      "source": "delegate_bin_delegate_cmd_provider",
+      "target": "delegate_bin_delegate_valid_endpoint",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "delegate/bin/delegate",
+      "source_location": "L168",
+      "weight": 1.0,
+      "context": "call",
+      "source": "delegate_bin_delegate_resolve_provider",
+      "target": "delegate_bin_delegate_valid_endpoint",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "delegate/bin/delegate",
+      "source_location": "L194",
+      "weight": 1.0,
+      "context": "call",
+      "source": "delegate_bin_delegate_cmd_provider",
+      "target": "delegate_bin_delegate_resolve_provider",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "delegate/bin/delegate",
+      "source_location": "L294",
+      "weight": 1.0,
+      "context": "call",
+      "source": "delegate_bin_delegate_resolve_executor",
+      "target": "delegate_bin_delegate_resolve_provider",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "delegate/bin/delegate",
+      "source_location": "L244",
+      "weight": 1.0,
+      "context": "call",
+      "source": "delegate_bin_delegate_cmd_model",
+      "target": "delegate_bin_delegate_resolve_executor",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "delegate/bin/delegate",
+      "source_location": "L336",
+      "weight": 1.0,
+      "context": "call",
+      "source": "delegate_bin_delegate_cmd_run",
+      "target": "delegate_bin_delegate_resolve_executor",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "install.sh",
+      "source_location": "L12",
+      "weight": 1.0,
+      "source": "install",
+      "target": "install_choose_target",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "install.sh",
+      "source_location": "L50",
+      "weight": 1.0,
+      "source": "install",
+      "target": "install_hook_state",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "install.sh",
+      "source_location": "L34",
+      "weight": 1.0,
+      "source": "install",
+      "target": "install_select_target",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "install.sh",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "install",
+      "target": "install_sh__entry",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "install.sh",
+      "source_location": "L48",
+      "weight": 1.0,
+      "source": "install",
+      "target": "install_state",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "install.sh",
+      "source_location": "L18",
+      "weight": 1.0,
+      "source": "install",
+      "target": "install_usage",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "install.sh",
+      "source_location": "L21",
+      "weight": 1.0,
+      "context": "call",
+      "source": "install_sh__entry",
+      "target": "install_choose_target",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "install.sh",
+      "source_location": "L60",
+      "weight": 1.0,
+      "context": "call",
+      "source": "install_sh__entry",
+      "target": "install_select_target",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "install.sh",
+      "source_location": "L22",
+      "weight": 1.0,
+      "context": "call",
+      "source": "install_sh__entry",
+      "target": "install_usage",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/check_opencode_request.mjs",
+      "source_location": "L112",
+      "weight": 1.0,
+      "source": "tests_check_opencode_request",
+      "target": "tests_check_opencode_request_executorrequest",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/check_opencode_request.mjs",
+      "source_location": "L13",
+      "weight": 1.0,
+      "source": "tests_check_opencode_request",
+      "target": "tests_check_opencode_request_requests",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/check_opencode_request.mjs",
+      "source_location": "L11",
+      "weight": 1.0,
+      "source": "tests_check_opencode_request",
+      "target": "tests_check_opencode_request_root",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/check_opencode_request.mjs",
+      "source_location": "L42",
+      "weight": 1.0,
+      "source": "tests_check_opencode_request",
+      "target": "tests_check_opencode_request_run",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/check_opencode_request.mjs",
+      "source_location": "L15",
+      "weight": 1.0,
+      "source": "tests_check_opencode_request",
+      "target": "tests_check_opencode_request_server",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/check_opencode_request.mjs",
+      "source_location": "L114",
+      "weight": 1.0,
+      "source": "tests_check_opencode_request_executorrequest",
+      "target": "tests_check_opencode_request_run",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/lib.sh",
+      "source_location": "L69",
+      "weight": 1.0,
+      "source": "tests_lib",
+      "target": "tests_lib_assert_contains",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/lib.sh",
+      "source_location": "L68",
+      "weight": 1.0,
+      "source": "tests_lib",
+      "target": "tests_lib_assert_eq",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/lib.sh",
+      "source_location": "L66",
+      "weight": 1.0,
+      "source": "tests_lib",
+      "target": "tests_lib_fail",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/lib.sh",
+      "source_location": "L23",
+      "weight": 1.0,
+      "source": "tests_lib",
+      "target": "tests_lib_fake_models",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/lib.sh",
+      "source_location": "L71",
+      "weight": 1.0,
+      "source": "tests_lib",
+      "target": "tests_lib_install_home",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/lib.sh",
+      "source_location": "L54",
+      "weight": 1.0,
+      "source": "tests_lib",
+      "target": "tests_lib_path_without_opencode",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/lib.sh",
+      "source_location": "L6",
+      "weight": 1.0,
+      "source": "tests_lib",
+      "target": "tests_lib_setup",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/lib.sh",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "tests_lib",
+      "target": "tests_lib_sh__entry",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/lib.sh",
+      "source_location": "L64",
+      "weight": 1.0,
+      "source": "tests_lib",
+      "target": "tests_lib_teardown",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/lib.sh",
+      "source_location": "L69",
+      "weight": 1.0,
+      "context": "call",
+      "source": "tests_lib_assert_contains",
+      "target": "tests_lib_fail",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/lib.sh",
+      "source_location": "L68",
+      "weight": 1.0,
+      "context": "call",
+      "source": "tests_lib_assert_eq",
+      "target": "tests_lib_fail",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/run.sh",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "tests_run",
+      "target": "tests_run_sh__entry",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_codex.sh",
+      "source_location": "L7",
+      "weight": 1.0,
+      "source": "tests_test_codex",
+      "target": "tests_test_codex_codex_hook_commands",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_codex.sh",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "tests_test_codex",
+      "target": "tests_test_codex_codex_install_home",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_codex.sh",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "tests_test_codex",
+      "target": "tests_test_codex_sh__entry",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_codex.sh",
+      "source_location": "L100",
+      "weight": 1.0,
+      "source": "tests_test_codex",
+      "target": "tests_test_codex_test_codex_accepts_thread_id_when_session_id_is_absent",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_codex.sh",
+      "source_location": "L40",
+      "weight": 1.0,
+      "source": "tests_test_codex",
+      "target": "tests_test_codex_test_codex_check_does_not_install",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_codex.sh",
+      "source_location": "L48",
+      "weight": 1.0,
+      "source": "tests_test_codex",
+      "target": "tests_test_codex_test_codex_custom_home_and_quoted_hook_work_without_session_environment",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_codex.sh",
+      "source_location": "L81",
+      "weight": 1.0,
+      "source": "tests_test_codex",
+      "target": "tests_test_codex_test_codex_hook_uses_stdin_session_and_project_state",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_codex.sh",
+      "source_location": "L25",
+      "weight": 1.0,
+      "source": "tests_test_codex",
+      "target": "tests_test_codex_test_codex_install_is_idempotent_and_options_work_in_either_order",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_codex.sh",
+      "source_location": "L11",
+      "weight": 1.0,
+      "source": "tests_test_codex",
+      "target": "tests_test_codex_test_codex_installs_skill_agent_and_hook_without_changing_claude",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_codex.sh",
+      "source_location": "L62",
+      "weight": 1.0,
+      "source": "tests_test_codex",
+      "target": "tests_test_codex_test_codex_sessions_projects_and_off_are_isolated_from_claude",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_codex.sh",
+      "source_location": "L93",
+      "weight": 1.0,
+      "source": "tests_test_codex",
+      "target": "tests_test_codex_test_codex_without_session_id_requires_project_mode",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_codex.sh",
+      "source_location": "L121",
+      "weight": 1.0,
+      "source": "tests_test_codex",
+      "target": "tests_test_codex_test_install_rejects_conflicting_modes_and_unknown_options",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_codex.sh",
+      "source_location": "L107",
+      "weight": 1.0,
+      "source": "tests_test_codex",
+      "target": "tests_test_codex_test_invalid_hook_configuration_leaves_installation_untouched",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_codex.sh",
+      "source_location": "L26",
+      "weight": 1.0,
+      "context": "call",
+      "source": "tests_test_codex_test_codex_install_is_idempotent_and_options_work_in_either_order",
+      "target": "tests_test_codex_codex_install_home",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_codex.sh",
+      "source_location": "L12",
+      "weight": 1.0,
+      "context": "call",
+      "source": "tests_test_codex_test_codex_installs_skill_agent_and_hook_without_changing_claude",
+      "target": "tests_test_codex_codex_install_home",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_hook.sh",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "tests_test_hook",
+      "target": "tests_test_hook_hook_input",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_hook.sh",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "tests_test_hook",
+      "target": "tests_test_hook_sh__entry",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_hook.sh",
+      "source_location": "L17",
+      "weight": 1.0,
+      "source": "tests_test_hook",
+      "target": "tests_test_hook_test_hook_reads_the_session_from_stdin",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_hook.sh",
+      "source_location": "L24",
+      "weight": 1.0,
+      "source": "tests_test_hook",
+      "target": "tests_test_hook_test_hook_reminds_when_project_on",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_hook.sh",
+      "source_location": "L9",
+      "weight": 1.0,
+      "source": "tests_test_hook",
+      "target": "tests_test_hook_test_hook_reminds_when_session_on",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_hook.sh",
+      "source_location": "L3",
+      "weight": 1.0,
+      "source": "tests_test_hook",
+      "target": "tests_test_hook_test_hook_silent_when_off",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_hook.sh",
+      "source_location": "L31",
+      "weight": 1.0,
+      "source": "tests_test_hook",
+      "target": "tests_test_hook_test_hook_survives_malformed_stdin",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_hygiene.sh",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "tests_test_hygiene",
+      "target": "tests_test_hygiene_sh__entry",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_hygiene.sh",
+      "source_location": "L14",
+      "weight": 1.0,
+      "source": "tests_test_hygiene",
+      "target": "tests_test_hygiene_test_hook_names_the_installed_script",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_hygiene.sh",
+      "source_location": "L4",
+      "weight": 1.0,
+      "source": "tests_test_hygiene",
+      "target": "tests_test_hygiene_test_no_machine_paths_or_private_names",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_hygiene.sh",
+      "source_location": "L21",
+      "weight": 1.0,
+      "source": "tests_test_hygiene",
+      "target": "tests_test_hygiene_test_skill_file_has_frontmatter",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_install.sh",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "tests_test_install",
+      "target": "tests_test_install_hook_commands",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_install.sh",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "tests_test_install",
+      "target": "tests_test_install_sh__entry",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_install.sh",
+      "source_location": "L53",
+      "weight": 1.0,
+      "source": "tests_test_install",
+      "target": "tests_test_install_test_all_target_installs_both_hosts_and_preserves_settings",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_install.sh",
+      "source_location": "L74",
+      "weight": 1.0,
+      "source": "tests_test_install",
+      "target": "tests_test_install_test_all_target_validates_every_hook_before_installing_anything",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_install.sh",
+      "source_location": "L40",
+      "weight": 1.0,
+      "source": "tests_test_install",
+      "target": "tests_test_install_test_check_reports_state_without_writing",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_install.sh",
+      "source_location": "L21",
+      "weight": 1.0,
+      "source": "tests_test_install",
+      "target": "tests_test_install_test_install_creates_missing_settings",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_install.sh",
+      "source_location": "L3",
+      "weight": 1.0,
+      "source": "tests_test_install",
+      "target": "tests_test_install_test_install_places_skill_agent_and_hook",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_install.sh",
+      "source_location": "L27",
+      "weight": 1.0,
+      "source": "tests_test_install",
+      "target": "tests_test_install_test_locally_modified_copy_needs_force",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_install.sh",
+      "source_location": "L13",
+      "weight": 1.0,
+      "source": "tests_test_install",
+      "target": "tests_test_install_test_second_install_leaves_settings_identical",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_install.sh",
+      "source_location": "L67",
+      "weight": 1.0,
+      "source": "tests_test_install",
+      "target": "tests_test_install_test_target_codex_is_an_alias_for_codex_flag",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_model.sh",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "tests_test_model",
+      "target": "tests_test_model_sh__entry",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_model.sh",
+      "source_location": "L112",
+      "weight": 1.0,
+      "source": "tests_test_model",
+      "target": "tests_test_model_test_glm_medium_is_refused_without_overwriting_saved_choice",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_model.sh",
+      "source_location": "L36",
+      "weight": 1.0,
+      "source": "tests_test_model",
+      "target": "tests_test_model_test_model_discovered_default_is_xhigh",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_model.sh",
+      "source_location": "L48",
+      "weight": 1.0,
+      "source": "tests_test_model",
+      "target": "tests_test_model_test_model_discovered_without_variants_is_none",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_model.sh",
+      "source_location": "L97",
+      "weight": 1.0,
+      "source": "tests_test_model",
+      "target": "tests_test_model_test_model_discovery_failure_does_not_save_a_selection",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_model.sh",
+      "source_location": "L17",
+      "weight": 1.0,
+      "source": "tests_test_model",
+      "target": "tests_test_model_test_model_glm_default_effort_is_max",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_model.sh",
+      "source_location": "L78",
+      "weight": 1.0,
+      "source": "tests_test_model",
+      "target": "tests_test_model_test_model_no_args_shows_current_and_presets",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_model.sh",
+      "source_location": "L90",
+      "weight": 1.0,
+      "source": "tests_test_model",
+      "target": "tests_test_model_test_model_no_args_without_config_shows_the_default",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_model.sh",
+      "source_location": "L28",
+      "weight": 1.0,
+      "source": "tests_test_model",
+      "target": "tests_test_model_test_model_preset_does_not_call_opencode",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_model.sh",
+      "source_location": "L4",
+      "weight": 1.0,
+      "source": "tests_test_model",
+      "target": "tests_test_model_test_model_preset_with_explicit_effort",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_model.sh",
+      "source_location": "L69",
+      "weight": 1.0,
+      "source": "tests_test_model",
+      "target": "tests_test_model_test_model_unknown_effort_is_refused",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_model.sh",
+      "source_location": "L59",
+      "weight": 1.0,
+      "source": "tests_test_model",
+      "target": "tests_test_model_test_model_unknown_model_is_refused",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_model.sh",
+      "source_location": "L105",
+      "weight": 1.0,
+      "source": "tests_test_model",
+      "target": "tests_test_model_test_model_write_failure_does_not_report_success",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_prereq.sh",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "tests_test_prereq",
+      "target": "tests_test_prereq_sh__entry",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_prereq.sh",
+      "source_location": "L29",
+      "weight": 1.0,
+      "source": "tests_test_prereq",
+      "target": "tests_test_prereq_test_install_silent_about_opencode_when_present",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_prereq.sh",
+      "source_location": "L19",
+      "weight": 1.0,
+      "source": "tests_test_prereq",
+      "target": "tests_test_prereq_test_install_warns_without_opencode",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_prereq.sh",
+      "source_location": "L11",
+      "weight": 1.0,
+      "source": "tests_test_prereq",
+      "target": "tests_test_prereq_test_on_project_refused_without_opencode",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_prereq.sh",
+      "source_location": "L3",
+      "weight": 1.0,
+      "source": "tests_test_prereq",
+      "target": "tests_test_prereq_test_on_refused_without_opencode",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_provider.sh",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "tests_test_provider",
+      "target": "tests_test_provider_sh__entry",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_provider.sh",
+      "source_location": "L90",
+      "weight": 1.0,
+      "source": "tests_test_provider",
+      "target": "tests_test_provider_test_provider_atomic_rename_failure_preserves_config_and_cleans_temp",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_provider.sh",
+      "source_location": "L26",
+      "weight": 1.0,
+      "source": "tests_test_provider",
+      "target": "tests_test_provider_test_provider_choices_survive_model_switches_and_reset_independently",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_provider.sh",
+      "source_location": "L3",
+      "weight": 1.0,
+      "source": "tests_test_provider",
+      "target": "tests_test_provider_test_provider_default_is_auto_without_writing_or_discovering_models",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_provider.sh",
+      "source_location": "L104",
+      "weight": 1.0,
+      "source": "tests_test_provider",
+      "target": "tests_test_provider_test_provider_directory_config_is_refused",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_provider.sh",
+      "source_location": "L60",
+      "weight": 1.0,
+      "source": "tests_test_provider",
+      "target": "tests_test_provider_test_provider_invalid_arguments_leave_saved_choice_unchanged",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_provider.sh",
+      "source_location": "L47",
+      "weight": 1.0,
+      "source": "tests_test_provider",
+      "target": "tests_test_provider_test_provider_model_override_does_not_change_saved_model",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_provider.sh",
+      "source_location": "L75",
+      "weight": 1.0,
+      "source": "tests_test_provider",
+      "target": "tests_test_provider_test_provider_non_openrouter_model_rejects_endpoint_but_allows_auto",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_provider.sh",
+      "source_location": "L13",
+      "weight": 1.0,
+      "source": "tests_test_provider",
+      "target": "tests_test_provider_test_provider_preserves_model_effort_and_unknown_keys",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_run.sh",
+      "source_location": "L2",
+      "weight": 1.0,
+      "source": "tests_test_run",
+      "target": "tests_test_run_fake_opencode",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_run.sh",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "tests_test_run",
+      "target": "tests_test_run_sh__entry",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_run.sh",
+      "source_location": "L157",
+      "weight": 1.0,
+      "source": "tests_test_run",
+      "target": "tests_test_run_test_auto_routing_preserves_personal_settings_even_for_glm",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_run.sh",
+      "source_location": "L46",
+      "weight": 1.0,
+      "source": "tests_test_run",
+      "target": "tests_test_run_test_brief_reaches_the_executor_with_its_agent",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_run.sh",
+      "source_location": "L204",
+      "weight": 1.0,
+      "source": "tests_test_run",
+      "target": "tests_test_run_test_check_failure_keeps_its_code_even_when_executor_also_fails",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_run.sh",
+      "source_location": "L130",
+      "weight": 1.0,
+      "source": "tests_test_run",
+      "target": "tests_test_run_test_cost_is_rounded",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_run.sh",
+      "source_location": "L123",
+      "weight": 1.0,
+      "source": "tests_test_run",
+      "target": "tests_test_run_test_executor_does_not_wait_on_an_open_stdin",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_run.sh",
+      "source_location": "L94",
+      "weight": 1.0,
+      "source": "tests_test_run",
+      "target": "tests_test_run_test_executor_failure_is_reported_and_check_still_runs",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_run.sh",
+      "source_location": "L69",
+      "weight": 1.0,
+      "source": "tests_test_run",
+      "target": "tests_test_run_test_executor_runs_at_the_git_root",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_run.sh",
+      "source_location": "L37",
+      "weight": 1.0,
+      "source": "tests_test_run",
+      "target": "tests_test_run_test_failing_check_fails_even_when_executor_claims_success",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_run.sh",
+      "source_location": "L85",
+      "weight": 1.0,
+      "source": "tests_test_run",
+      "target": "tests_test_run_test_full_log_is_kept",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_run.sh",
+      "source_location": "L188",
+      "weight": 1.0,
+      "source": "tests_test_run",
+      "target": "tests_test_run_test_glm_default_does_not_inject_coreweave",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_run.sh",
+      "source_location": "L145",
+      "weight": 1.0,
+      "source": "tests_test_run",
+      "target": "tests_test_run_test_glm_routing_preserves_unrelated_inline_config_and_does_not_leak",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_run.sh",
+      "source_location": "L211",
+      "weight": 1.0,
+      "source": "tests_test_run",
+      "target": "tests_test_run_test_invalid_inline_config_is_refused_before_execution",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_run.sh",
+      "source_location": "L194",
+      "weight": 1.0,
+      "source": "tests_test_run",
+      "target": "tests_test_run_test_invalid_saved_endpoint_is_refused_before_execution",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_run.sh",
+      "source_location": "L103",
+      "weight": 1.0,
+      "source": "tests_test_run",
+      "target": "tests_test_run_test_provider_rejection_is_reported_even_when_opencode_exits_zero",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_run.sh",
+      "source_location": "L76",
+      "weight": 1.0,
+      "source": "tests_test_run",
+      "target": "tests_test_run_test_report_is_truncated",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_run.sh",
+      "source_location": "L53",
+      "weight": 1.0,
+      "source": "tests_test_run",
+      "target": "tests_test_run_test_resume_continues_the_given_session",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_run.sh",
+      "source_location": "L59",
+      "weight": 1.0,
+      "source": "tests_test_run",
+      "target": "tests_test_run_test_run_defaults_to_glm_max_and_model_override_gets_its_own_effort",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_run.sh",
+      "source_location": "L219",
+      "weight": 1.0,
+      "source": "tests_test_run",
+      "target": "tests_test_run_test_run_missing_option_value_fails_without_hanging",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_run.sh",
+      "source_location": "L112",
+      "weight": 1.0,
+      "source": "tests_test_run",
+      "target": "tests_test_run_test_run_requires_check_and_brief",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_run.sh",
+      "source_location": "L25",
+      "weight": 1.0,
+      "source": "tests_test_run",
+      "target": "tests_test_run_test_run_returns_report_changes_and_check",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_run.sh",
+      "source_location": "L172",
+      "weight": 1.0,
+      "source": "tests_test_run",
+      "target": "tests_test_run_test_runs_use_the_effective_models_own_endpoint",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_run.sh",
+      "source_location": "L137",
+      "weight": 1.0,
+      "source": "tests_test_run",
+      "target": "tests_test_run_test_saved_model_and_effort_are_used_by_later_runs",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_run.sh",
+      "source_location": "L158",
+      "weight": 1.0,
+      "context": "call",
+      "source": "tests_test_run_test_auto_routing_preserves_personal_settings_even_for_glm",
+      "target": "tests_test_run_fake_opencode",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_run.sh",
+      "source_location": "L47",
+      "weight": 1.0,
+      "context": "call",
+      "source": "tests_test_run_test_brief_reaches_the_executor_with_its_agent",
+      "target": "tests_test_run_fake_opencode",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_run.sh",
+      "source_location": "L205",
+      "weight": 1.0,
+      "context": "call",
+      "source": "tests_test_run_test_check_failure_keeps_its_code_even_when_executor_also_fails",
+      "target": "tests_test_run_fake_opencode",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_run.sh",
+      "source_location": "L131",
+      "weight": 1.0,
+      "context": "call",
+      "source": "tests_test_run_test_cost_is_rounded",
+      "target": "tests_test_run_fake_opencode",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_run.sh",
+      "source_location": "L124",
+      "weight": 1.0,
+      "context": "call",
+      "source": "tests_test_run_test_executor_does_not_wait_on_an_open_stdin",
+      "target": "tests_test_run_fake_opencode",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_run.sh",
+      "source_location": "L95",
+      "weight": 1.0,
+      "context": "call",
+      "source": "tests_test_run_test_executor_failure_is_reported_and_check_still_runs",
+      "target": "tests_test_run_fake_opencode",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_run.sh",
+      "source_location": "L70",
+      "weight": 1.0,
+      "context": "call",
+      "source": "tests_test_run_test_executor_runs_at_the_git_root",
+      "target": "tests_test_run_fake_opencode",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_run.sh",
+      "source_location": "L38",
+      "weight": 1.0,
+      "context": "call",
+      "source": "tests_test_run_test_failing_check_fails_even_when_executor_claims_success",
+      "target": "tests_test_run_fake_opencode",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_run.sh",
+      "source_location": "L86",
+      "weight": 1.0,
+      "context": "call",
+      "source": "tests_test_run_test_full_log_is_kept",
+      "target": "tests_test_run_fake_opencode",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_run.sh",
+      "source_location": "L189",
+      "weight": 1.0,
+      "context": "call",
+      "source": "tests_test_run_test_glm_default_does_not_inject_coreweave",
+      "target": "tests_test_run_fake_opencode",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_run.sh",
+      "source_location": "L146",
+      "weight": 1.0,
+      "context": "call",
+      "source": "tests_test_run_test_glm_routing_preserves_unrelated_inline_config_and_does_not_leak",
+      "target": "tests_test_run_fake_opencode",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_run.sh",
+      "source_location": "L212",
+      "weight": 1.0,
+      "context": "call",
+      "source": "tests_test_run_test_invalid_inline_config_is_refused_before_execution",
+      "target": "tests_test_run_fake_opencode",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_run.sh",
+      "source_location": "L195",
+      "weight": 1.0,
+      "context": "call",
+      "source": "tests_test_run_test_invalid_saved_endpoint_is_refused_before_execution",
+      "target": "tests_test_run_fake_opencode",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_run.sh",
+      "source_location": "L104",
+      "weight": 1.0,
+      "context": "call",
+      "source": "tests_test_run_test_provider_rejection_is_reported_even_when_opencode_exits_zero",
+      "target": "tests_test_run_fake_opencode",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_run.sh",
+      "source_location": "L77",
+      "weight": 1.0,
+      "context": "call",
+      "source": "tests_test_run_test_report_is_truncated",
+      "target": "tests_test_run_fake_opencode",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_run.sh",
+      "source_location": "L54",
+      "weight": 1.0,
+      "context": "call",
+      "source": "tests_test_run_test_resume_continues_the_given_session",
+      "target": "tests_test_run_fake_opencode",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_run.sh",
+      "source_location": "L60",
+      "weight": 1.0,
+      "context": "call",
+      "source": "tests_test_run_test_run_defaults_to_glm_max_and_model_override_gets_its_own_effort",
+      "target": "tests_test_run_fake_opencode",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_run.sh",
+      "source_location": "L113",
+      "weight": 1.0,
+      "context": "call",
+      "source": "tests_test_run_test_run_requires_check_and_brief",
+      "target": "tests_test_run_fake_opencode",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_run.sh",
+      "source_location": "L26",
+      "weight": 1.0,
+      "context": "call",
+      "source": "tests_test_run_test_run_returns_report_changes_and_check",
+      "target": "tests_test_run_fake_opencode",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_run.sh",
+      "source_location": "L173",
+      "weight": 1.0,
+      "context": "call",
+      "source": "tests_test_run_test_runs_use_the_effective_models_own_endpoint",
+      "target": "tests_test_run_fake_opencode",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_run.sh",
+      "source_location": "L138",
+      "weight": 1.0,
+      "context": "call",
+      "source": "tests_test_run_test_saved_model_and_effort_are_used_by_later_runs",
+      "target": "tests_test_run_fake_opencode",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_toggle.sh",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "tests_test_toggle",
+      "target": "tests_test_toggle_sh__entry",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_toggle.sh",
+      "source_location": "L24",
+      "weight": 1.0,
+      "source": "tests_test_toggle",
+      "target": "tests_test_toggle_test_off_clears_both_levels",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_toggle.sh",
+      "source_location": "L5",
+      "weight": 1.0,
+      "source": "tests_test_toggle",
+      "target": "tests_test_toggle_test_on_binds_the_session_only",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_toggle.sh",
+      "source_location": "L11",
+      "weight": 1.0,
+      "source": "tests_test_toggle",
+      "target": "tests_test_toggle_test_on_project_binds_every_session_in_the_repo",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_toggle.sh",
+      "source_location": "L32",
+      "weight": 1.0,
+      "source": "tests_test_toggle",
+      "target": "tests_test_toggle_test_on_without_session_id_is_refused",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_toggle.sh",
+      "source_location": "L46",
+      "weight": 1.0,
+      "source": "tests_test_toggle",
+      "target": "tests_test_toggle_test_on_write_failure_does_not_report_success",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_toggle.sh",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "tests_test_toggle",
+      "target": "tests_test_toggle_test_status_off_by_default",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_toggle.sh",
+      "source_location": "L18",
+      "weight": 1.0,
+      "source": "tests_test_toggle",
+      "target": "tests_test_toggle_test_status_reports_both_levels",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_toggle.sh",
+      "source_location": "L39",
+      "weight": 1.0,
+      "source": "tests_test_toggle",
+      "target": "tests_test_toggle_test_unknown_command_prints_usage",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "DEVPLAN-COMPLETED.md",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "devplan_completed",
+      "target": "devplan_completed_devplan_delegate_completed",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "DEVPLAN.md",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "devplan",
+      "target": "devplan_devplan_delegate",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "DEVPLAN.md",
+      "source_location": "L3",
+      "weight": 1.0,
+      "source": "devplan_devplan_delegate",
+      "target": "devplan_plan",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "DEVPLAN.md",
+      "source_location": "L16",
+      "weight": 1.0,
+      "source": "devplan_plan",
+      "target": "devplan_approach",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "DEVPLAN.md",
+      "source_location": "L52",
+      "weight": 1.0,
+      "source": "devplan_plan",
+      "target": "devplan_endpoint_selection_milestones",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "DEVPLAN.md",
+      "source_location": "L34",
+      "weight": 1.0,
+      "source": "devplan_plan",
+      "target": "devplan_layout",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "DEVPLAN.md",
+      "source_location": "L5",
+      "weight": 1.0,
+      "source": "devplan_plan",
+      "target": "devplan_objective",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "DEVPLAN.md",
+      "source_location": "L46",
+      "weight": 1.0,
+      "source": "devplan_plan",
+      "target": "devplan_out_of_scope",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "README.md",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "readme",
+      "target": "readme_delegate",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "README.md",
+      "source_location": "L180",
+      "weight": 1.0,
+      "source": "readme_delegate",
+      "target": "readme_configuration",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "README.md",
+      "source_location": "L25",
+      "weight": 1.0,
+      "source": "readme_delegate",
+      "target": "readme_install",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "README.md",
+      "source_location": "L219",
+      "weight": 1.0,
+      "source": "readme_delegate",
+      "target": "readme_license",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "README.md",
+      "source_location": "L117",
+      "weight": 1.0,
+      "source": "readme_delegate",
+      "target": "readme_model_effort_and_endpoint",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "README.md",
+      "source_location": "L19",
+      "weight": 1.0,
+      "source": "readme_delegate",
+      "target": "readme_requirements",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "README.md",
+      "source_location": "L201",
+      "weight": 1.0,
+      "source": "readme_delegate",
+      "target": "readme_tests",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "README.md",
+      "source_location": "L59",
+      "weight": 1.0,
+      "source": "readme_delegate",
+      "target": "readme_usage",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "README.md",
+      "source_location": "L174",
+      "weight": 1.0,
+      "source": "readme_delegate",
+      "target": "readme_what_the_executor_may_do",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "README.md",
+      "source_location": "L111",
+      "weight": 1.0,
+      "source": "readme_usage",
+      "target": "readme_sandboxed_assistants",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "delegate/SKILL.md",
+      "source_location": "L13",
+      "weight": 1.0,
+      "source": "delegate_skill",
+      "target": "delegate_skill_delegate_mode",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "delegate/SKILL.md",
+      "source_location": "L40",
+      "weight": 1.0,
+      "source": "delegate_skill_delegate_mode",
+      "target": "delegate_skill_choosing_the_executor_model",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "delegate/SKILL.md",
+      "source_location": "L58",
+      "weight": 1.0,
+      "source": "delegate_skill_delegate_mode",
+      "target": "delegate_skill_choosing_the_openrouter_endpoint",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "delegate/SKILL.md",
+      "source_location": "L103",
+      "weight": 1.0,
+      "source": "delegate_skill_delegate_mode",
+      "target": "delegate_skill_running_a_step",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "delegate/SKILL.md",
+      "source_location": "L23",
+      "weight": 1.0,
+      "source": "delegate_skill_delegate_mode",
+      "target": "delegate_skill_switching",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "delegate/SKILL.md",
+      "source_location": "L168",
+      "weight": 1.0,
+      "source": "delegate_skill_delegate_mode",
+      "target": "delegate_skill_telling_the_user",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "delegate/SKILL.md",
+      "source_location": "L81",
+      "weight": 1.0,
+      "source": "delegate_skill_delegate_mode",
+      "target": "delegate_skill_what_changes_while_it_is_on",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "delegate/SKILL.md",
+      "source_location": "L148",
+      "weight": 1.0,
+      "source": "delegate_skill_delegate_mode",
+      "target": "delegate_skill_when_the_check_is_red_or_the_diff_is_wrong",
+      "confidence_score": 1.0
+    }
+  ],
+  "hyperedges": [],
+  "built_at_commit": "8fedaf502d63338ceae5440d3ffd60c802825788"
+}

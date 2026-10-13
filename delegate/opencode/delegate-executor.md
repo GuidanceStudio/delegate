@@ -1,7 +1,6 @@
 ---
 description: Executes one coding brief handed over by a planning agent, then reports what it did. Never commits.
 mode: primary
-model: openrouter/deepseek/deepseek-v4.1-flash
 permission:
   "*": deny
   read: allow

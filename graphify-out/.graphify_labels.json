@@ -1,0 +1,21 @@
+{
+  "0": "test_run.sh",
+  "1": "delegate",
+  "2": "test_codex.sh",
+  "3": "test_model.sh",
+  "4": "delegate",
+  "5": "test_install.sh",
+  "6": "lib.sh",
+  "7": "test_provider.sh",
+  "8": "test_toggle.sh",
+  "9": "Delegate mode",
+  "10": "Plan",
+  "11": "test_hook.sh",
+  "12": "install.sh",
+  "13": "check_opencode_request.mjs",
+  "14": "test_prereq.sh",
+  "15": "test_hygiene.sh",
+  "16": "DEVPLAN-COMPLETED.md",
+  "17": "run.sh",
+  "18": "delegate-executor.md"
+}
