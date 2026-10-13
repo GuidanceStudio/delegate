@@ -4,11 +4,12 @@ fake_opencode() {
     cat > "$TMP/bin/opencode" <<'FAKE'
 #!/usr/bin/env bash
 printf '%s\n' "$@" > "$FAKE_ARGS"
+[ -t 0 ] || cat > /dev/null
 echo "made by the executor" > hello.txt
 text="${FAKE_TEXT:-done}"
 printf '{"type":"step_start","sessionID":"ses_fake1","part":{}}\n'
 jq -cn --arg t "$text" '{type:"text",sessionID:"ses_fake1",part:{type:"text",text:$t}}'
-printf '{"type":"step_finish","sessionID":"ses_fake1","part":{"cost":0.0125,"tokens":{"input":1000,"output":200}}}\n'
+printf '{"type":"step_finish","sessionID":"ses_fake1","part":{"cost":%s,"tokens":{"input":1000,"output":200}}}\n' "${FAKE_COST:-0.0125}"
 exit "${FAKE_EXIT:-0}"
 FAKE
     chmod +x "$TMP/bin/opencode"
@@ -100,4 +101,18 @@ test_run_requires_check_and_brief() {
     out="$("$DELEGATE" run --check true "$TMP/missing.md" 2>&1)"; rc=$?
     assert_eq "$rc" "2" || return 1
     assert_contains "$out" "missing.md"
+}
+
+test_executor_does_not_wait_on_an_open_stdin() {
+    fake_opencode
+    local rc
+    timeout 3 "$DELEGATE" run --check true "$TMP/brief.md" < <(sleep 3) >/dev/null; rc=$?
+    assert_eq "$rc" "0"
+}
+
+test_cost_is_rounded() {
+    fake_opencode
+    local out
+    out="$(FAKE_COST=0.0033137279999999997 "$DELEGATE" run --check true "$TMP/brief.md")"
+    assert_contains "$out" "cost: \$0.0033  "
 }
