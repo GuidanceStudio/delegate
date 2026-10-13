@@ -22,3 +22,8 @@ test_skill_file_has_frontmatter() {
     head -1 "$ROOT/delegate/SKILL.md" | grep -qx -- "---" || fail "no frontmatter" || return 1
     grep -qx "name: delegate" "$ROOT/delegate/SKILL.md" || fail "name is not delegate"
 }
+
+test_agent_file_has_no_model_line() {
+    ! grep -q '^model:' "$ROOT/delegate/opencode/delegate-executor.md" \
+        || fail "the executor agent still pins a model"
+}
