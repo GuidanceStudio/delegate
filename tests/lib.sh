@@ -8,6 +8,7 @@ setup() {
     export DELEGATE_STATE_DIR="$TMP/state"
     export DELEGATE_CONFIG="$TMP/config"
     export CLAUDE_CODE_SESSION_ID="sess-1"
+    unset CODEX_THREAD_ID
     mkdir -p "$TMP/repo" "$TMP/bin" && git -C "$TMP/repo" init -q
     # A trivial opencode so tests pass on machines where it is not installed;
     # test_run.sh's fake_opencode overwrites this same file.

@@ -1,12 +1,13 @@
 ---
 name: delegate
 description: >-
-  Delegate mode: you keep planning, reviewing, verifying and committing, and every step that
-  writes code or tests is executed by opencode on a cheaper model (default DeepSeek V4.1 Flash
-  via OpenRouter). `/delegate on` switches it on for this session, `/delegate on --project` for
-  every session on the repo, `/delegate off` switches it off, `/delegate status` reports it. Use
-  when the user asks to save tokens by delegating execution, to "delegate to opencode", or when a
-  hook line says delegate mode is ON.
+  Delegate mode for Claude Code and Codex: you keep planning, reviewing, verifying and
+  committing, and every step that writes code or tests is executed by opencode on a cheaper model
+  (default DeepSeek V4.1 Flash at high effort, configurable). Switches on for this session or for
+  every session on the repo, off, reports its state, and sets the executor model and effort. Use
+  when the user asks to delegate execution to opencode or to save tokens that way, to switch
+  delegate mode on or off, to change the delegate model, or when a hook line says delegate mode
+  is ON.
 ---
 
 # Delegate mode
@@ -18,7 +19,7 @@ The script is `bin/delegate` in this skill's directory. Below it is written `del
 | Request | Command |
 |---|---|
 | on for this session | `delegate on` |
-| on for every session on this repo | `delegate on --project` |
+| on for every session on this repo | `delegate on --project` (writes `.delegate.on` at the repo root) |
 | off (both levels) | `delegate off` |
 | current state | `delegate status` |
 
@@ -95,6 +96,10 @@ and git operations other than reading.
    ```bash
    delegate run --check "<command>" <brief-file>
    ```
+
+   The executor needs the network and writes its own state outside the repository. In an
+   assistant that runs commands in a sandbox, request the permission for this command to run
+   outside it (network access and writes outside the workspace) rather than letting it fail.
 
    The check should be the narrowest command that proves the step. When the workflow wants a test
    seen failing first, delegate the test as its own step with `--check "! <test command>"`, then
