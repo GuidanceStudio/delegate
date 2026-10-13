@@ -43,7 +43,7 @@ Closed milestones: `DEVPLAN-COMPLETED.md`.
 
 ---
 
-## M6: Refuse to switch on without opencode
+## M6: Refuse to switch on without opencode ✅
 
 **Why:** Without opencode the mode fails only at the first `delegate run`, after
 work has started.
@@ -53,10 +53,10 @@ work has started.
 installs anyway.
 
 **Tasks:**
-- [ ] `on` checks `command -v opencode`
-- [ ] `install.sh` warning
-- [ ] Test: unit — `on` and `on --project` refused with PATH lacking opencode, no flag written; install warns and succeeds
-- [ ] Commit & push
+- [x] `on` checks `command -v opencode`
+- [x] `install.sh` warning
+- [x] Test: unit — `on` and `on --project` refused with PATH lacking opencode, no flag written; install warns and succeeds
+- [x] Commit & push
 
 **Done when:** the M6 tests are green.
 

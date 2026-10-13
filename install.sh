@@ -56,3 +56,5 @@ if [ "$(hook_state)" = missing ]; then
 fi
 
 echo "delegate installed: skill in $SKILL_DEST, agent in $AGENT_DEST, hook in $SETTINGS"
+command -v opencode >/dev/null 2>&1 || \
+    echo "warning: opencode is not on PATH; delegate mode cannot be switched on until it is installed (https://opencode.ai)" >&2
