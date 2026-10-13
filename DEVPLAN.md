@@ -40,3 +40,86 @@ README.md
 - Editing the user's other skills.
 
 Closed milestones: `DEVPLAN-COMPLETED.md`.
+
+---
+
+## M6: Refuse to switch on without opencode
+
+**Why:** Without opencode the mode fails only at the first `delegate run`, after
+work has started.
+
+**Approach:** `delegate on` (both levels) exits 1 with an install hint when
+`opencode` is not on PATH. `install.sh` warns when opencode is missing but
+installs anyway.
+
+**Tasks:**
+- [ ] `on` checks `command -v opencode`
+- [ ] `install.sh` warning
+- [ ] Test: unit — `on` and `on --project` refused with PATH lacking opencode, no flag written; install warns and succeeds
+- [ ] Commit & push
+
+**Done when:** the M6 tests are green.
+
+## M7: Configure model and effort
+
+**Why:** The executor model should be the user's choice (DeepSeek V4.1 Flash,
+GLM 5.3 Flash, Qwen 3.8 Flash or any model opencode reaches), and the effort
+must not depend on whatever `opencode.json` says on a given machine.
+
+**Approach:** `delegate model <provider/model> [effort]` writes
+`~/.config/delegate/config` (`DELEGATE_CONFIG` overrides the path); bare
+`delegate model` prints the current choice and `opencode models`. The model is
+validated against `opencode models`; the effort against the variants listed by
+`opencode models --verbose` for that model, when it lists any. Resolution
+order: `DELEGATE_MODEL`/`DELEGATE_VARIANT`, then the config file, then the
+default `openrouter/deepseek/deepseek-v4.1-flash` / `high`. `run` always passes
+`--model` and `--variant`; the agent file drops its `model:` line.
+
+**Tasks:**
+- [ ] `model` subcommand and config file
+- [ ] `run` resolves and passes model and variant
+- [ ] Remove `model:` from the agent file
+- [ ] Test: unit with a fake `opencode models` — set, show, unknown model refused, unknown effort refused, precedence env > config > default
+- [ ] Test: live — a real run with GLM 5.3 Flash completes
+- [ ] Commit & push
+
+**Done when:** the M7 tests are green and the live run passes.
+
+## M8: Codex as orchestrator
+
+**Why:** The user plans with Codex as well as Claude Code, and wants the same
+mode there.
+
+**Approach:** First verify on a real Codex session how a `UserPromptSubmit`
+hook's stdout reaches the model and whether `CODEX_THREAD_ID` is visible to
+shell commands. Session id resolves from `CLAUDE_CODE_SESSION_ID`, then
+`CODEX_THREAD_ID`. State moves to `${XDG_STATE_HOME:-~/.local/state}/delegate`.
+`install.sh --target claude|codex|all` installs skill and hook into `~/.claude`
+and/or `~/.codex` (`skills/delegate`, `hooks.json`); without `--target` it
+installs for the assistants present. SKILL.md is rewritten assistant-neutral.
+
+**Tasks:**
+- [ ] Verify hook output and session id on real Codex
+- [ ] Session id from either assistant; neutral state dir
+- [ ] `install.sh --target`, Codex skill and hooks.json
+- [ ] SKILL.md assistant-neutral
+- [ ] Test: unit — install per target into a temp HOME, idempotent, `--check` per target
+- [ ] Test: live — in a Codex session, `delegate on` makes the hook line appear next turn and a `delegate run` completes
+- [ ] Commit & push
+
+**Done when:** unit tests green and the live Codex check passes.
+
+## M9: Document and publish
+
+**Why:** Models, effort and Codex support need to be in the README for anyone
+installing from `main`.
+
+**Approach:** README sections for model and effort, and for Codex. Reinstall
+for both assistants, push `main`.
+
+**Tasks:**
+- [ ] README
+- [ ] Reinstall for Claude and Codex, `--check` green for both
+- [ ] Commit & push
+
+**Done when:** `install.sh --check` is green for both and `main` is pushed.
