@@ -64,7 +64,7 @@ tests.
 
 **Deviations:** No remote exists until M5, so M1–M4 commit locally and push with M5.
 
-## M2: Run the executor and return a bounded summary
+## M2: Run the executor and return a bounded summary ✅
 
 **Why:** The token saving only exists if the assistant receives a summary it
 can act on and a check result it does not have to take on the executor's word.
@@ -79,11 +79,11 @@ Model from `DELEGATE_MODEL`. The agent file denies `git commit*` and
 `git push*` and tells the executor to touch only the files the brief names.
 
 **Tasks:**
-- [ ] `run` subcommand in `bin/delegate`
-- [ ] `opencode/delegate-executor.md` agent definition
-- [ ] Test: unit with a fake `opencode` on PATH — output contract, `--resume` passes the session id, model override
-- [ ] Test: unit — failing check reports failure and non-zero exit even when the executor claims success
-- [ ] Commit & push
+- [x] `run` subcommand in `bin/delegate`
+- [x] `opencode/delegate-executor.md` agent definition
+- [x] Test: unit with a fake `opencode` on PATH — output contract, `--resume` passes the session id, model override
+- [x] Test: unit — failing check reports failure and non-zero exit even when the executor claims success
+- [x] Commit & push
 
 **Done when:** `tests/run.sh` is green on the M1 and M2 tests.
 
