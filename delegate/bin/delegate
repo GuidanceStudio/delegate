@@ -93,14 +93,16 @@ cmd_run() {
     local args=(run --agent delegate-executor --format json --dir "$root")
     [ -n "${DELEGATE_MODEL:-}" ] && args+=(--model "$DELEGATE_MODEL")
     [ -n "$resume" ] && args+=(--session "$resume")
-    (cd "$root" && opencode "${args[@]}" "$(cat "$brief")") > "$log" 2>"$log.stderr"
+    # opencode run appends piped stdin to the message and waits for EOF, so an
+    # inherited stdin that stays open would hang the run.
+    (cd "$root" && opencode "${args[@]}" "$(cat "$brief")") < /dev/null > "$log" 2>"$log.stderr"
     local exec_rc=$?
 
     local summary report
     summary="$(jq -rs '
         (map(.sessionID // empty) | first // "none") as $s
         | (map(select(.type == "step_finish") | .part) ) as $f
-        | "session: \($s)\ncost: $\($f | map(.cost // 0) | add // 0)  tokens in/out: \($f | map(.tokens.input // 0) | add // 0)/\($f | map(.tokens.output // 0) | add // 0)"
+        | "session: \($s)\ncost: $\($f | map(.cost // 0) | add // 0 | . * 10000 | round / 10000)  tokens in/out: \($f | map(.tokens.input // 0) | add // 0)/\($f | map(.tokens.output // 0) | add // 0)"
     ' "$log" 2>/dev/null)"
     report="$(jq -rs 'map(select(.type == "text") | .part.text) | last // ""' "$log" 2>/dev/null)"
     if [ "${#report}" -gt "$max" ]; then

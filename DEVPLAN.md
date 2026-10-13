@@ -128,7 +128,7 @@ tests install into a temp home.
 
 **Done when:** the idempotency test is green.
 
-## M5: Smoke test against the real executor and publish
+## M5: Smoke test against the real executor and publish ✅
 
 **Why:** The fake executor proves the contract, not that the real model
 follows the brief and the agent's permissions hold.
@@ -139,7 +139,9 @@ made, and the summary is the only thing returned. Then create the public
 `GuidanceStudio/delegate` repo and push `main`.
 
 **Tasks:**
-- [ ] Smoke run in a throwaway repo
-- [ ] Create public GitHub repo, push `main`
+- [x] Smoke run in a throwaway repo
+- [x] Create public GitHub repo, push `main`
 
 **Done when:** the smoke run passes and `main` is on the remote.
+
+**Deviations:** The first smoke run hung: `opencode run` reads an inherited open stdin until EOF, so `run` now redirects it from /dev/null (test added). Cost is rounded to 4 decimals. The permission block was probed directly with a no-instructions agent, since the executor refused the git commands before reaching it.
