@@ -2,8 +2,8 @@
 # delegate: switch delegate mode on or off, and hand code-writing steps to opencode.
 set -uo pipefail
 
-STATE_DIR="${DELEGATE_STATE_DIR:-$HOME/.claude/state/delegate}"
-PROJECT_FLAG=".claude/delegate.on"
+STATE_DIR="${DELEGATE_STATE_DIR:-${XDG_STATE_HOME:-$HOME/.local/state}/delegate}"
+PROJECT_FLAG=".delegate.on"
 CONFIG="${DELEGATE_CONFIG:-$HOME/.config/delegate/config}"
 DEFAULT_MODEL="openrouter/deepseek/deepseek-v4.1-flash"
 DEFAULT_VARIANT="high"
@@ -24,6 +24,9 @@ EOF
 
 project_root() { git -C "$1" rev-parse --show-toplevel 2>/dev/null || echo "$1"; }
 
+# The session id comes from Claude Code or, failing that, Codex.
+session_id() { echo "${CLAUDE_CODE_SESSION_ID:-${CODEX_THREAD_ID:-}}"; }
+
 # Prints "session", "project", "session, project" or nothing.
 levels() {
     local session="$1" dir="$2" out=""
@@ -39,27 +42,29 @@ cmd_on() {
     fi
     if [ "${1:-}" = "--project" ]; then
         local root; root="$(project_root "$PWD")"
-        mkdir -p "$root/.claude" && touch "$root/$PROJECT_FLAG"
+        touch "$root/$PROJECT_FLAG"
         echo "delegate mode on for every session in $root"
         return
     fi
     [ -n "${1:-}" ] && usage
-    if [ -z "${CLAUDE_CODE_SESSION_ID:-}" ]; then
-        echo "delegate: no session id in CLAUDE_CODE_SESSION_ID; use 'delegate on --project' instead" >&2
+    local sid; sid="$(session_id)"
+    if [ -z "$sid" ]; then
+        echo "delegate: no session id in CLAUDE_CODE_SESSION_ID or CODEX_THREAD_ID; use 'delegate on --project' instead" >&2
         exit 1
     fi
-    mkdir -p "$STATE_DIR" && touch "$STATE_DIR/$CLAUDE_CODE_SESSION_ID"
+    mkdir -p "$STATE_DIR" && touch "$STATE_DIR/$sid"
     echo "delegate mode on for this session"
 }
 
 cmd_off() {
-    [ -n "${CLAUDE_CODE_SESSION_ID:-}" ] && rm -f "$STATE_DIR/$CLAUDE_CODE_SESSION_ID"
+    local sid; sid="$(session_id)"
+    [ -n "$sid" ] && rm -f "$STATE_DIR/$sid"
     rm -f "$(project_root "$PWD")/$PROJECT_FLAG"
     echo "delegate mode off"
 }
 
 cmd_status() {
-    local l; l="$(levels "${CLAUDE_CODE_SESSION_ID:-}" "$PWD")"
+    local l; l="$(levels "$(session_id)" "$PWD")"
     if [ -n "$l" ]; then echo "on ($l)"; else echo "off"; fi
 }
 

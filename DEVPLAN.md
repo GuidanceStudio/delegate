@@ -92,7 +92,7 @@ passes `--model`, and `--variant` when there is one; the agent file drops its
 
 **Deviations:** Bare `delegate model` printed an empty model when no config existed; it now prints the resolved default (test added).
 
-## M8: Codex as orchestrator
+## M8: Codex as orchestrator ✅
 
 **Why:** The user plans with Codex as well as Claude Code, and wants the same
 mode there.
@@ -106,15 +106,17 @@ and/or `~/.codex` (`skills/delegate`, `hooks.json`); without `--target` it
 installs for the assistants present. SKILL.md is rewritten assistant-neutral.
 
 **Tasks:**
-- [ ] Verify hook output and session id on real Codex
-- [ ] Session id from either assistant; neutral state dir
-- [ ] `install.sh --target`, Codex skill and hooks.json
-- [ ] SKILL.md assistant-neutral
-- [ ] Test: unit — install per target into a temp HOME, idempotent, `--check` per target
-- [ ] Test: live — in a Codex session, `delegate on` makes the hook line appear next turn and a `delegate run` completes
-- [ ] Commit & push
+- [x] Verify hook output and session id on real Codex
+- [x] Session id from either assistant; neutral state dir
+- [x] `install.sh --target`, Codex skill and hooks.json
+- [x] SKILL.md assistant-neutral
+- [x] Test: unit — install per target into a temp HOME, idempotent, `--check` per target
+- [x] Test: live — in a Codex session, `delegate on` makes the hook line appear next turn and a `delegate run` completes
+- [x] Commit & push
 
 **Done when:** unit tests green and the live Codex check passes.
+
+**Deviations:** Codex runs a new hook only after the user approves it once ("review required"); install says so. The project flag moved to `.delegate.on`. In Codex's default sandbox `delegate run` fails (no network, no writes outside the workspace), so SKILL.md tells the assistant to request escalation. With one assistant launched inside the other, the session id resolves to Claude's; `--project` covers that case.
 
 ## M9: Document and publish
 
