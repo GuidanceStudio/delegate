@@ -11,6 +11,8 @@ usage: delegate on [--project]   switch on for this session, or for every sessio
        delegate off              switch off at both levels
        delegate status           print on (session|project) or off
        delegate hook             UserPromptSubmit hook: reads the hook JSON on stdin
+       delegate run --check "<cmd>" [--resume <session>] <brief-file>
+                                 run the executor on the brief, then the check, at the git root
 EOF
     exit 2
 }
@@ -64,8 +66,71 @@ cmd_hook() {
     echo "delegate mode is ON ($l): every step that writes code or tests goes through \`delegate run\`; follow the delegate skill."
 }
 
+# Prints only what the caller needs to decide: the executor's own report
+# (bounded), what changed, and a check the executor could not fake. The full
+# event log stays on disk for when the summary is not enough.
+cmd_run() {
+    local check="" resume="" brief=""
+    while [ $# -gt 0 ]; do
+        case "$1" in
+            --check) check="${2:-}"; shift 2 ;;
+            --resume) resume="${2:-}"; shift 2 ;;
+            -*) usage ;;
+            *) brief="$1"; shift ;;
+        esac
+    done
+    if [ -z "$check" ] || [ -z "$brief" ]; then
+        echo "delegate run: --check \"<cmd>\" and a brief file are both required" >&2
+        exit 2
+    fi
+    [ -f "$brief" ] || { echo "delegate run: brief file not found: $brief" >&2; exit 2; }
+
+    local root log max="${DELEGATE_MAX_CHARS:-2000}"
+    root="$(project_root "$PWD")"
+    mkdir -p "$STATE_DIR/runs"
+    log="$STATE_DIR/runs/$(date +%Y%m%d-%H%M%S)-$$.jsonl"
+
+    local args=(run --agent delegate-executor --format json --dir "$root")
+    [ -n "${DELEGATE_MODEL:-}" ] && args+=(--model "$DELEGATE_MODEL")
+    [ -n "$resume" ] && args+=(--session "$resume")
+    (cd "$root" && opencode "${args[@]}" "$(cat "$brief")") > "$log" 2>"$log.stderr"
+    local exec_rc=$?
+
+    local summary report
+    summary="$(jq -rs '
+        (map(.sessionID // empty) | first // "none") as $s
+        | (map(select(.type == "step_finish") | .part) ) as $f
+        | "session: \($s)\ncost: $\($f | map(.cost // 0) | add // 0)  tokens in/out: \($f | map(.tokens.input // 0) | add // 0)/\($f | map(.tokens.output // 0) | add // 0)"
+    ' "$log" 2>/dev/null)"
+    report="$(jq -rs 'map(select(.type == "text") | .part.text) | last // ""' "$log" 2>/dev/null)"
+    if [ "${#report}" -gt "$max" ]; then
+        report="${report:0:$max}
+[truncated, ${#report} chars; full log below]"
+    fi
+
+    local check_out check_rc
+    check_out="$(cd "$root" && bash -c "$check" 2>&1)"
+    check_rc=$?
+
+    echo "== executor =="
+    echo "${summary:-session: none}"
+    echo "executor exit: $exec_rc"
+    [ "$exec_rc" -ne 0 ] && tail -n 5 "$log.stderr"
+    echo "== executor report =="
+    echo "$report"
+    echo "== changes =="
+    git -C "$root" status --short
+    git -C "$root" diff --stat | tail -n 1
+    echo "== check: $check =="
+    echo "check exit: $check_rc"
+    tail -n 40 <<<"$check_out"
+    echo "log: $log"
+    return "$check_rc"
+}
+
 case "${1:-}" in
     on) shift; cmd_on "$@" ;;
+    run) shift; cmd_run "$@" ;;
     off) cmd_off ;;
     status) cmd_status ;;
     hook) cmd_hook ;;
