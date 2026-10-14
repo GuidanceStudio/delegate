@@ -68,7 +68,7 @@ test_codex_sessions_projects_and_off_are_isolated_from_claude() {
     assert_eq "$(env CODEX_HOME="$codex_home" CODEX_SESSION_ID=sess-1 "$DELEGATE" status)" off || return 1
     env CODEX_HOME="$codex_home" CODEX_SESSION_ID=sess-1 "$DELEGATE" on >/dev/null || return 1
     assert_eq "$(env CODEX_HOME="$codex_home" CODEX_SESSION_ID=sess-2 "$DELEGATE" status)" off || return 1
-    mkdir sub && cd sub
+    mkdir sub && touch sub/keep && git add sub/keep && cd sub
     env CODEX_HOME="$codex_home" CODEX_SESSION_ID=sess-1 "$DELEGATE" on --project >/dev/null || return 1
     [ -f ../.codex/delegate.on ] || fail "Codex project flag not at root" || return 1
     assert_eq "$(env CODEX_HOME="$codex_home" CODEX_SESSION_ID=sess-1 "$DELEGATE" status)" 'on (session, project)' || return 1

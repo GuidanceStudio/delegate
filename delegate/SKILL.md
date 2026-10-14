@@ -137,6 +137,12 @@ and git operations other than reading.
    assistant's sandbox blocks either, request permission to run this command outside it.
    Switching session mode or saving a model or endpoint also needs access to the host's state/config files.
 
+   `run` and `on --project` work only inside a git repository: at its root, or in a
+   subdirectory that holds at least one tracked file. Elsewhere (no repository, or a folder
+   the enclosing repository leaves untracked or ignored) they refuse and name the directory
+   and the enclosing root; tell the user to `git init` the project or run from a directory
+   the repository tracks. Do not work around it by running from the enclosing root.
+
    The check should be the narrowest command that proves the step. When the workflow wants a test
    seen failing first, delegate the test as its own step with `--check "! <test command>"`, then
    the implementation as a second step with the plain test command.

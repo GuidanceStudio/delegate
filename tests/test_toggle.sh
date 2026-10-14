@@ -9,7 +9,7 @@ test_on_binds_the_session_only() {
 }
 
 test_on_project_binds_every_session_in_the_repo() {
-    mkdir sub && cd sub
+    mkdir sub && touch sub/keep && git add sub/keep && cd sub
     "$DELEGATE" on --project >/dev/null
     [ -f ../.claude/delegate.on ] || fail "flag not at the git root" || return 1
     assert_eq "$(CLAUDE_CODE_SESSION_ID=sess-2 "$DELEGATE" status)" "on (project)"
