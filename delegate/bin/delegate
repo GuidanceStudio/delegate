@@ -49,6 +49,22 @@ EOF
 
 project_root() { git -C "$1" rev-parse --show-toplevel 2>/dev/null || echo "$1"; }
 
+# Refuses when the executor's changes under dir could not be reviewed: dir must
+# be inside a git repository, and a subdirectory of one must hold a tracked
+# file. The repository root itself is always reviewable, tracked or not.
+require_reviewable() {
+    local dir="$1" root prefix
+    if ! root="$(git -C "$dir" rev-parse --show-toplevel 2>/dev/null)"; then
+        echo "delegate: $dir is not in a git repository; git init the project first" >&2
+        return 1
+    fi
+    prefix="$(git -C "$dir" rev-parse --show-prefix)"
+    if [ -n "$prefix" ] && [ -z "$(git -C "$dir" ls-files)" ]; then
+        echo "delegate: $dir is not tracked by the repository at $root; git init the project, or run from a directory the repository tracks" >&2
+        return 1
+    fi
+}
+
 # Prints "session", "project", "session, project" or nothing.
 levels() {
     local session="$1" dir="$2" out=""
@@ -63,6 +79,7 @@ cmd_on() {
         exit 1
     fi
     if [ "${1:-}" = "--project" ]; then
+        require_reviewable "$PWD" || exit 1
         local root; root="$(project_root "$PWD")"
         mkdir -p "$(dirname "$root/$PROJECT_FLAG")" && touch "$root/$PROJECT_FLAG" || return 1
         echo "delegate mode on for every session in $root"
@@ -333,6 +350,7 @@ cmd_run() {
     fi
     [ -f "$brief" ] || { echo "delegate run: brief file not found: $brief" >&2; exit 2; }
 
+    require_reviewable "$PWD" || exit 1
     resolve_executor || return 1
     local run_config
     run_config="$(executor_config)" || return 2

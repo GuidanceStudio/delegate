@@ -68,7 +68,7 @@ test_run_defaults_to_deepseek_high_and_model_override_gets_its_own_effort() {
 
 test_executor_runs_at_the_git_root() {
     fake_opencode
-    mkdir sub && cd sub
+    mkdir sub && touch sub/keep && git add sub/keep && cd sub
     "$DELEGATE" run --check "test -f hello.txt" "$TMP/brief.md" >/dev/null || fail "check did not run at the root" || return 1
     grep -A1 -x -- "--dir" "$TMP/args" | grep -qx "$TMP/repo" || fail "--dir is not the git root"
 }

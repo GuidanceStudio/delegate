@@ -97,6 +97,13 @@ The installed location identifies the assistant even when both environments are 
 Outside an assistant session,
 use `on --project` instead.
 
+`run` and `on --project` work only inside a git repository, at its root or in a
+subdirectory holding at least one tracked file. From a folder outside any repository, or one
+that an enclosing repository leaves untracked or ignored, they refuse and name the enclosing
+root: the executor would otherwise work on the whole enclosing repository, and its edits to
+untracked files would not show in `git diff`. Run `git init` in the project, or run from a
+directory the repository tracks.
+
 While the mode is on, the hook adds one line to each prompt saying so, which keeps the mode active
 after context compaction.
 
