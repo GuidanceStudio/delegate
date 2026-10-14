@@ -40,3 +40,16 @@ README.md
 - Editing the user's other skills.
 
 Closed milestones: `DEVPLAN-COMPLETED.md`.
+
+---
+
+## M11: Explain the Codex hook and sandbox prompts in the README ✅
+
+**Why:** The README tells Codex users to trust the hook in `/hooks` but not what
+the hook does, what happens without trusting it, or which commands ask to leave
+the sandbox.
+
+**Tasks:**
+- [x] README: what the hook does, the effect of not trusting it, and which commands need sandbox approval in Codex
+
+**Done when:** the README covers the three points and `tests/run.sh` is green.

@@ -51,9 +51,15 @@ With `--target all`, both hook files are validated before either installation is
 If OpenCode is missing, installation completes with a warning and activation refuses to proceed.
 
 For Codex, `CODEX_HOME`, when set, replaces `~/.codex`. After installation, open `/hooks`
-in Codex to review and trust the delegate hook. Reload skills or start a new session if
-the skill is not yet listed. This supports local execution; local command hooks do not
-run with cloud orchestration.
+in Codex to review and trust the delegate hook; Codex does not run a new hook until you do,
+because it runs a command on your machine at every prompt. Reload skills or start a new
+session if the skill is not yet listed. This supports local execution; local command hooks
+do not run with cloud orchestration.
+
+The hook runs `delegate hook` before each prompt. While the mode is on, it adds one line to
+the assistant's context saying so; while it is off, it prints nothing. Without the hook,
+`$delegate on` still works, but in a long session Codex may lose track of the mode once its
+context is compacted and go back to writing code itself.
 
 ## Usage
 
@@ -109,9 +115,16 @@ the executor's nonzero code is returned; an OpenCode JSON error with process exi
 
 ### Sandboxed assistants
 
-The executor calls the model over the network and writes state outside the repository.
-In Codex's default sandbox those operations may require approval to run outside it.
-Session toggles and model/endpoint selection also write to host state/config directories.
+Codex's default sandbox (`workspace-write`, no network) blocks writes outside the
+repository and network access, so Codex asks for approval to run these commands outside it:
+
+| Command | Why |
+|---|---|
+| `delegate run` | the executor calls the model over the network and writes run logs to `~/.codex/state/delegate` |
+| `$delegate on` (session) | writes the session flag to `~/.codex/state/delegate` |
+| `$delegate model`, `$delegate provider` with arguments | write `~/.config/delegate/config` |
+
+Approve them. If `delegate run` is denied, the step fails and Codex has to do it itself.
 
 ## Model, effort and endpoint
 
