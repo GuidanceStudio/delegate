@@ -11,4 +11,7 @@ M7 | Configure model and effort | 2026-10-13 | b75d98e
 M8 | Codex as orchestrator | 2026-10-13 | 53eb89d
 M9 | Document and publish | 2026-10-13 | 4c6c965
 M10 | Integrate the merged-specs branch | 2026-10-14 | 65650bf
+M11 | Explain the Codex hook and sandbox prompts in the README | 2026-10-14 | 8ed20fe
+M12 | Refuse to run where the executor's changes cannot be reviewed | 2026-10-14 | ddeb28b
+M13 | Give the hook a name | 2026-10-14 | 6c4c0f4
 ```
