@@ -90,3 +90,22 @@ own root. `on` (session), `off`, `status` and the hook are unchanged.
 **Done when:** `tests/run.sh` is green, and from a folder left untracked by an
 enclosing repository the installed `delegate run` and `delegate on --project`
 refuse and name that repository's root.
+
+---
+
+## M13: Give the hook a name ✅
+
+**Why:** Codex lists a hook by its `statusMessage` and shows "Unnamed hook" when it
+has none, which is what users see when asked to trust the delegate hook.
+
+**Approach:** `install.sh` writes `"statusMessage": "delegate: mode reminder"` on the
+delegate hook in both hosts. An existing installation whose delegate hook has no
+`statusMessage` gets it on the next install, without a duplicate entry; a second
+install leaves the file byte-identical.
+
+**Tasks:**
+- [x] T1 — tests: a fresh install names the hook; an existing unnamed delegate hook gets the name without duplication; other hooks are untouched; a second install changes nothing; `--check` reports an unnamed hook as differing
+- [x] T2 — `install.sh`
+- [x] Commit & push; `./install.sh --force`
+
+**Done when:** `tests/run.sh` is green and `~/.codex/hooks.json` and `~/.claude/settings.json` carry the name.
