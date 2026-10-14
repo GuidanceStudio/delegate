@@ -1,112 +1,115 @@
 #!/usr/bin/env bash
 # Installs the delegate skill, its opencode agent, and its UserPromptSubmit hook.
-#   ./install.sh [--target claude|codex|all] [--force] [--check]
-#   --target claude   install into ~/.claude (skill and hooks in settings.json)
-#   --target codex    install into ~/.codex (skill and hooks in hooks.json)
-#   --target all      both targets
-#   --force           install, overwriting a copy that differs
-#   --check           report what is installed; exit 1 if anything is missing or differs
-# Without --target, each of claude/codex whose home directory already exists is
-# installed; if neither exists, --target is required.
+#   ./install.sh [--codex|--target claude|codex|all] [--force|--check]
+# Default: install for every assistant home that exists (~/.claude and/or
+# ${CODEX_HOME:-~/.codex}), and fail if neither exists. --codex: Codex only.
 set -euo pipefail
 
 SRC="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-AGENT_SRC="$SRC/delegate/opencode/delegate-executor.md"
 AGENT_DEST="$HOME/.config/opencode/agents/delegate-executor.md"
-
-usage() {
-    echo "usage: ./install.sh [--target claude|codex|all] [--force|--check]" >&2
-    exit 2
-}
 
 MODE=install
 TARGET=""
+choose_target() {
+    if [ -n "$TARGET" ] && [ "$TARGET" != "$1" ]; then
+        echo "delegate: conflicting install targets" >&2; exit 2
+    fi
+    TARGET="$1"
+}
+usage() { echo "usage: ./install.sh [--codex|--target claude|codex|all] [--force|--check]" >&2; exit 2; }
 while [ $# -gt 0 ]; do
     case "$1" in
-        --force) MODE=force; shift ;;
-        --check) MODE=check; shift ;;
-        --target) [ $# -ge 2 ] || usage; TARGET="$2"; shift 2 ;;
+        --codex) choose_target codex; shift ;;
+        --target) [ $# -ge 2 ] || usage; choose_target "$2"; shift 2 ;;
+        --force) [ "$MODE" != check ] || { echo "--force and --check cannot be combined" >&2; exit 2; }; MODE=force; shift ;;
+        --check) [ "$MODE" != force ] || { echo "--force and --check cannot be combined" >&2; exit 2; }; MODE=check; shift ;;
         *) usage ;;
     esac
 done
-
-case "$TARGET" in
-    "" | claude | codex | all) ;;
-    *) usage ;;
-esac
-
-if [ "$TARGET" = all ]; then
-    targets=(claude codex)
-elif [ -n "$TARGET" ]; then
-    targets=("$TARGET")
+if [ -n "$TARGET" ]; then
+    case "$TARGET" in
+        claude|codex) targets=("$TARGET") ;;
+        all) targets=(claude codex) ;;
+        *) usage ;;
+    esac
 else
     targets=()
-    [ -d "$HOME/.claude" ] && targets+=(claude)
-    [ -d "$HOME/.codex" ] && targets+=(codex)
-    if [ ${#targets[@]} -eq 0 ]; then
+    if [ -d "$HOME/.claude" ]; then targets+=(claude); fi
+    if [ -d "${CODEX_HOME:-$HOME/.codex}" ]; then targets+=(codex); fi
+    if [ "${#targets[@]}" -eq 0 ]; then
         echo "install: no ~/.claude or ~/.codex found; re-run with --target claude|codex|all" >&2
         exit 2
     fi
 fi
 
-skill_dir() { echo "$HOME/.$1/skills/delegate"; }
-hooks_file() { case "$1" in claude) echo "$HOME/.claude/settings.json" ;; codex) echo "$HOME/.codex/hooks.json" ;; esac; }
-hook_cmd() { echo "$(skill_dir "$1")/bin/delegate hook"; }
+select_target() {
+    HOST="$1"
+    if [ "$HOST" = codex ]; then
+        HOST_ROOT="${CODEX_HOME:-$HOME/.codex}"
+        SETTINGS="$HOST_ROOT/hooks.json"
+    else
+        HOST_ROOT="$HOME/.claude"
+        SETTINGS="$HOST_ROOT/settings.json"
+    fi
+    SKILL_DEST="$HOST_ROOT/skills/delegate"
+    printf -v HOOK_CMD '%q hook' "$SKILL_DEST/bin/delegate"
+}
 
 # Prints missing, installed or differs.
 state() { [ -e "$2" ] || { echo missing; return; }; diff -rq "$1" "$2" >/dev/null && echo installed || echo differs; }
 
-# Both hooks files share one schema: a UserPromptSubmit array of {hooks: [...]}.
 hook_state() {
-    [ -f "$1" ] && jq -e --arg c "$2" \
-        '[.hooks.UserPromptSubmit[]?.hooks[]?.command] | index($c)' "$1" >/dev/null 2>&1 \
+    [ -f "$SETTINGS" ] && jq -e --arg c "$HOOK_CMD" \
+        '[.hooks.UserPromptSubmit[]?.hooks[]?.command] | index($c)' "$SETTINGS" >/dev/null 2>&1 \
         && echo installed || echo missing
 }
 
-# Appends the hook only when absent, so a second run leaves the file byte-identical.
-install_hook() {
-    [ "$(hook_state "$1" "$2")" = missing ] || return 0
-    [ -f "$1" ] || echo '{}' > "$1"
-    local tmp; tmp="$(mktemp "$1.XXXXXX")"
-    jq --arg c "$2" \
-        '.hooks.UserPromptSubmit = ((.hooks.UserPromptSubmit // []) + [{hooks: [{type: "command", command: $c}]}])' \
-        "$1" > "$tmp" && mv "$tmp" "$1"
-}
-
-agent_state="$(state "$AGENT_SRC" "$AGENT_DEST")"
-
+agent_state="$(state "$SRC/delegate/opencode/delegate-executor.md" "$AGENT_DEST")"
+# Validate every selected target before writing any installation files.
+rc=0
+for t in "${targets[@]}"; do
+    select_target "$t"
+    if [ -e "$SETTINGS" ] && ! jq -se '
+        length == 1 and (.[0] | type == "object"
+        and (.hooks == null or (.hooks | type == "object"))
+        and (.hooks.UserPromptSubmit == null or (.hooks.UserPromptSubmit | type == "array")))
+    ' "$SETTINGS" >/dev/null 2>&1; then
+        echo "delegate: invalid hook configuration: $SETTINGS" >&2; exit 1
+    fi
+    skill_state="$(state "$SRC/delegate" "$SKILL_DEST")"
+    if [ "$MODE" = check ]; then
+        echo "$t skill: $skill_state"; echo "$t hook: $(hook_state)"
+        [ "$skill_state $(hook_state)" = "installed installed" ] || rc=1
+    elif [ "$MODE" = install ] && { [ "$skill_state" = differs ] || [ "$agent_state" = differs ]; }; then
+        echo "$t skill: $skill_state, agent: $agent_state. An installed copy differs from this one; re-run with --force to overwrite it." >&2
+        exit 1
+    fi
+    if [ "$MODE" != check ] && [ -d "$SKILL_DEST" ] && [ "$(cd "$SKILL_DEST" && pwd -P)" = "$(cd "$SRC/delegate" && pwd -P)" ]; then
+        echo "delegate: cannot install over the source directory" >&2; exit 1
+    fi
+done
 if [ "$MODE" = check ]; then
-    rc=0
-    for t in "${targets[@]}"; do
-        s="$(state "$SRC/delegate" "$(skill_dir "$t")")"
-        h="$(hook_state "$(hooks_file "$t")" "$(hook_cmd "$t")")"
-        echo "$t skill: $s"; echo "$t hook: $h"
-        [ "$s" = installed ] && [ "$h" = installed ] || rc=1
-    done
     echo "agent: $agent_state"
     [ "$agent_state" = installed ] || rc=1
     exit "$rc"
 fi
 
-if [ "$MODE" = install ]; then
-    for t in "${targets[@]}"; do
-        if [ "$agent_state" = differs ] || [ "$(state "$SRC/delegate" "$(skill_dir "$t")")" = differs ]; then
-            echo "$t: an installed copy differs from this one; re-run with --force to overwrite it." >&2
-            exit 1
-        fi
-    done
-fi
-
-# The opencode agent is shared by every target, so it is installed once.
-mkdir -p "$(dirname "$AGENT_DEST")" && cp "$AGENT_SRC" "$AGENT_DEST"
-
+mkdir -p "$(dirname "$AGENT_DEST")" && cp "$SRC/delegate/opencode/delegate-executor.md" "$AGENT_DEST"
 for t in "${targets[@]}"; do
-    rm -rf "$(skill_dir "$t")" && mkdir -p "$(dirname "$(skill_dir "$t")")" && cp -R "$SRC/delegate" "$(skill_dir "$t")"
-    install_hook "$(hooks_file "$t")" "$(hook_cmd "$t")"
+    select_target "$t"
+    rm -rf "$SKILL_DEST" && mkdir -p "$(dirname "$SKILL_DEST")" && cp -R "$SRC/delegate" "$SKILL_DEST"
+    if [ "$(hook_state)" = missing ]; then
+        [ -f "$SETTINGS" ] || echo '{}' > "$SETTINGS"
+        tmp="$(mktemp "$SETTINGS.XXXXXX")"
+        jq --arg c "$HOOK_CMD" \
+            '.hooks.UserPromptSubmit = ((.hooks.UserPromptSubmit // []) + [{hooks: [{type: "command", command: $c}]}])' \
+            "$SETTINGS" > "$tmp" && mv "$tmp" "$SETTINGS"
+    fi
 done
-
 echo "delegate installed: agent in $AGENT_DEST, skill and hook for ${targets[*]}"
-[[ " ${targets[*]} " == *" codex "* ]] && \
-    echo 'codex: approve the delegate hook once in Codex (it is marked "review required" until you do)'
-command -v opencode >/dev/null 2>&1 || \
+if [[ " ${targets[*]} " == *" codex "* ]]; then
+    echo "Codex: open /hooks to review and trust the delegate hook. Reload skills or start a new session if needed."
+fi
+if ! command -v opencode >/dev/null 2>&1; then
     echo "warning: opencode is not on PATH; delegate mode cannot be switched on until it is installed (https://opencode.ai)" >&2
+fi

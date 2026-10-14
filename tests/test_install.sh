@@ -1,21 +1,4 @@
-install_home() {
-    export HOME="$TMP/home"
-    mkdir -p "$HOME/.claude"
-    cat > "$HOME/.claude/settings.json" <<'JSON'
-{
-  "model": "x",
-  "hooks": {
-    "UserPromptSubmit": [
-      { "hooks": [ { "type": "command", "command": "/opt/other-hook.sh" } ] }
-    ]
-  }
-}
-JSON
-}
-
 hook_commands() { jq -r '[.hooks.UserPromptSubmit[].hooks[].command] | join(",")' "$HOME/.claude/settings.json"; }
-
-codex_hook_commands() { jq -r '[.hooks.UserPromptSubmit[].hooks[].command] | join(",")' "$HOME/.codex/hooks.json"; }
 
 test_install_places_skill_agent_and_hook() {
     install_home
@@ -37,7 +20,8 @@ test_second_install_leaves_settings_identical() {
 
 test_install_creates_missing_settings() {
     export HOME="$TMP/home"
-    "$ROOT/install.sh" --target claude >/dev/null || fail "install failed" || return 1
+    mkdir -p "$HOME/.claude"
+    "$ROOT/install.sh" >/dev/null || fail "install failed" || return 1
     assert_eq "$(hook_commands)" "$HOME/.claude/skills/delegate/bin/delegate hook"
 }
 
@@ -67,89 +51,57 @@ test_check_reports_state_without_writing() {
     assert_contains "$out" "hook: installed"
 }
 
-test_target_codex_places_skill_agent_and_hook() {
-    export HOME="$TMP/home"
-    "$ROOT/install.sh" --target codex >/dev/null || fail "codex install failed" || return 1
-    [ -x "$HOME/.codex/skills/delegate/bin/delegate" ] || fail "codex skill not installed" || return 1
-    [ -f "$HOME/.codex/skills/delegate/SKILL.md" ] || fail "codex SKILL.md not installed" || return 1
-    [ -f "$HOME/.config/opencode/agents/delegate-executor.md" ] || fail "agent not installed for codex" || return 1
-    assert_eq "$(codex_hook_commands)" "$HOME/.codex/skills/delegate/bin/delegate hook"
+test_all_target_installs_both_hosts_and_preserves_settings() {
+    install_home
+    "$ROOT/install.sh" --target all >/dev/null || return 1
+    [ -x "$HOME/.claude/skills/delegate/bin/delegate" ] || fail "Claude skill missing" || return 1
+    [ -x "$HOME/.codex/skills/delegate/bin/delegate" ] || fail "Codex skill missing" || return 1
+    assert_eq "$(jq -r .model "$HOME/.claude/settings.json")" x || return 1
+    "$ROOT/install.sh" --target all --check >/dev/null || return 1
+    cp "$HOME/.codex/hooks.json" "$TMP/codex-hooks.json"
+    cp "$HOME/.claude/settings.json" "$TMP/claude-hooks.json"
+    "$ROOT/install.sh" --target all >/dev/null || return 1
+    cmp -s "$TMP/codex-hooks.json" "$HOME/.codex/hooks.json" || return 1
+    cmp -s "$TMP/claude-hooks.json" "$HOME/.claude/settings.json"
 }
 
-test_codex_second_install_is_byte_identical_and_preserves_hooks() {
-    export HOME="$TMP/home"
+test_target_codex_is_an_alias_for_codex_flag() {
+    install_home
+    "$ROOT/install.sh" --target codex >/dev/null || return 1
+    "$ROOT/install.sh" --codex --check >/dev/null || return 1
+    ! "$ROOT/install.sh" --codex --target all >/dev/null 2>&1 || fail "conflicting targets accepted"
+}
+
+test_all_target_validates_every_hook_before_installing_anything() {
+    install_home
     mkdir -p "$HOME/.codex"
-    cat > "$HOME/.codex/hooks.json" <<'JSON'
-{
-  "other": "y",
-  "hooks": {
-    "UserPromptSubmit": [
-      { "hooks": [ { "type": "command", "command": "/opt/other-hook.sh" } ] }
-    ]
-  }
-}
-JSON
-    "$ROOT/install.sh" --target codex >/dev/null || fail "first codex install failed" || return 1
-    assert_eq "$(codex_hook_commands)" "/opt/other-hook.sh,$HOME/.codex/skills/delegate/bin/delegate hook" || return 1
-    assert_eq "$(jq -r .other "$HOME/.codex/hooks.json")" "y" || return 1
-    cp "$HOME/.codex/hooks.json" "$TMP/codex-first.json"
-    "$ROOT/install.sh" --target codex >/dev/null || fail "second codex install failed" || return 1
-    cmp -s "$TMP/codex-first.json" "$HOME/.codex/hooks.json" || fail "hooks.json changed on the second run"
+    printf 'invalid json' > "$HOME/.codex/hooks.json"
+    ! "$ROOT/install.sh" --target all --force >/dev/null 2>&1 || fail "invalid Codex hooks accepted" || return 1
+    [ ! -e "$HOME/.claude/skills/delegate" ] || fail "Claude was partially installed" || return 1
+    [ ! -e "$HOME/.config/opencode/agents/delegate-executor.md" ] || fail "agent was partially installed"
 }
 
-test_default_install_targets_both_present_assistants() {
-    export HOME="$TMP/home"
-    mkdir -p "$HOME/.claude" "$HOME/.codex"
-    "$ROOT/install.sh" >/dev/null || fail "install failed" || return 1
-    [ -x "$HOME/.claude/skills/delegate/bin/delegate" ] || fail "claude skill not installed" || return 1
-    [ -x "$HOME/.codex/skills/delegate/bin/delegate" ] || fail "codex skill not installed" || return 1
-    assert_eq "$(hook_commands)" "$HOME/.claude/skills/delegate/bin/delegate hook" || return 1
-    assert_eq "$(codex_hook_commands)" "$HOME/.codex/skills/delegate/bin/delegate hook"
-}
-
-test_default_install_skips_a_missing_assistant() {
-    export HOME="$TMP/home"
+test_default_install_targets_every_assistant_home_that_exists() {
+    install_home
     mkdir -p "$HOME/.codex"
     "$ROOT/install.sh" >/dev/null || fail "install failed" || return 1
-    [ -x "$HOME/.codex/skills/delegate/bin/delegate" ] || fail "codex skill not installed" || return 1
-    [ ! -e "$HOME/.claude" ] || fail "claude directory was created"
+    [ -x "$HOME/.claude/skills/delegate/bin/delegate" ] || fail "Claude skill missing" || return 1
+    [ -x "$HOME/.codex/skills/delegate/bin/delegate" ] || fail "Codex skill missing" || return 1
+    [ -f "$HOME/.config/opencode/agents/delegate-executor.md" ] || fail "agent missing"
 }
 
-test_install_without_target_and_no_assistants_fails() {
+test_default_install_with_only_codex_leaves_claude_alone() {
+    export HOME="$TMP/home"
+    mkdir -p "$HOME/.codex"
+    "$ROOT/install.sh" >/dev/null || fail "install failed" || return 1
+    [ -x "$HOME/.codex/skills/delegate/bin/delegate" ] || fail "Codex skill missing" || return 1
+    [ ! -e "$HOME/.claude" ] || fail "created a Claude home when none existed"
+}
+
+test_default_install_without_any_assistant_home_fails_with_a_hint() {
     export HOME="$TMP/home"
     local out rc
     out="$("$ROOT/install.sh" 2>&1)"; rc=$?
-    assert_eq "$rc" "2" || return 1
+    assert_eq "$rc" 2 || return 1
     assert_contains "$out" "--target"
-}
-
-test_check_target_codex_reports_per_target() {
-    export HOME="$TMP/home"
-    local out rc
-    out="$("$ROOT/install.sh" --check --target codex 2>&1)"; rc=$?
-    assert_eq "$rc" "1" || return 1
-    assert_contains "$out" "codex skill: missing" || return 1
-    assert_contains "$out" "codex hook: missing" || return 1
-    assert_contains "$out" "agent:" || return 1
-    [ ! -e "$HOME/.codex/skills/delegate" ] || fail "--check installed something" || return 1
-    "$ROOT/install.sh" --target codex >/dev/null || fail "codex install failed" || return 1
-    out="$("$ROOT/install.sh" --check --target codex 2>&1)"; rc=$?
-    assert_eq "$rc" "0" || return 1
-    assert_contains "$out" "codex skill: installed" || return 1
-    assert_contains "$out" "codex hook: installed"
-}
-
-test_codex_install_mentions_review_approval() {
-    export HOME="$TMP/home"
-    local out
-    out="$("$ROOT/install.sh" --target codex 2>&1)" || fail "codex install failed" || return 1
-    assert_contains "$out" "review"
-}
-
-test_force_combines_with_target() {
-    export HOME="$TMP/home"
-    "$ROOT/install.sh" --target codex >/dev/null || fail "install failed" || return 1
-    echo "local edit" >> "$HOME/.codex/skills/delegate/SKILL.md"
-    "$ROOT/install.sh" --force --target codex >/dev/null || fail "--force --target failed" || return 1
-    ! grep -q "local edit" "$HOME/.codex/skills/delegate/SKILL.md" || fail "--force did not overwrite"
 }

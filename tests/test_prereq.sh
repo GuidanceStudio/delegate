@@ -13,7 +13,7 @@ test_on_project_refused_without_opencode() {
     out="$(PATH="$(path_without_opencode)" "$DELEGATE" on --project 2>&1)"; rc=$?
     [ "$rc" -eq 1 ] || fail "exit $rc, expected 1" || return 1
     assert_contains "$out" "opencode" || return 1
-    [ ! -e .delegate.on ] || fail "project flag was created"
+    [ ! -e .claude/delegate.on ] || fail "project flag was created"
 }
 
 test_install_warns_without_opencode() {
