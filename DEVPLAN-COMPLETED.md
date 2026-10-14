@@ -10,4 +10,5 @@ M6 | Refuse to switch on without opencode | 2026-10-13 | ec472cd
 M7 | Configure model and effort | 2026-10-13 | b75d98e
 M8 | Codex as orchestrator | 2026-10-13 | 53eb89d
 M9 | Document and publish | 2026-10-13 | 4c6c965
+M10 | Integrate the merged-specs branch | 2026-10-14 | 65650bf
 ```
