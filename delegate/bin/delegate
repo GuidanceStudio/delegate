@@ -2,8 +2,31 @@
 # delegate: switch delegate mode on or off, and hand code-writing steps to opencode.
 set -uo pipefail
 
-STATE_DIR="${DELEGATE_STATE_DIR:-${XDG_STATE_HOME:-$HOME/.local/state}/delegate}"
-PROJECT_FLAG=".delegate.on"
+# Installed copies identify their host even when a hook has no session env var.
+detect_host() {
+    local bin codex_bin
+    bin="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+    codex_bin="$(cd "${CODEX_HOME:-$HOME/.codex}/skills/delegate/bin" 2>/dev/null && pwd)"
+    if [ -n "${DELEGATE_HOST:-}" ]; then
+        echo "$DELEGATE_HOST"
+    elif [ "$bin" = "$codex_bin" ]; then
+        echo codex
+    elif [ "$bin" = "$HOME/.claude/skills/delegate/bin" ]; then
+        echo claude
+    elif [ -n "${CODEX_SESSION_ID:-${CODEX_THREAD_ID:-}}" ]; then
+        echo codex
+    else
+        echo claude
+    fi
+}
+
+HOST="$(detect_host)"
+case "$HOST" in
+    codex) HOST_ROOT="${CODEX_HOME:-$HOME/.codex}"; PROJECT_FLAG=".codex/delegate.on"; SESSION_ID="${CODEX_SESSION_ID:-${CODEX_THREAD_ID:-}}" ;;
+    claude) HOST_ROOT="$HOME/.claude"; PROJECT_FLAG=".claude/delegate.on"; SESSION_ID="${CLAUDE_CODE_SESSION_ID:-}" ;;
+    *) echo "delegate: DELEGATE_HOST must be codex or claude" >&2; exit 2 ;;
+esac
+STATE_DIR="${DELEGATE_STATE_DIR:-$HOST_ROOT/state/delegate}"
 CONFIG="${DELEGATE_CONFIG:-$HOME/.config/delegate/config}"
 DEFAULT_MODEL="openrouter/deepseek/deepseek-v4.1-flash"
 DEFAULT_VARIANT="high"
@@ -16,6 +39,8 @@ usage: delegate on [--project]   switch on for this session, or for every sessio
        delegate hook             UserPromptSubmit hook: reads the hook JSON on stdin
        delegate model [<provider/model> [effort]]
                                  show or choose the executor model and its effort
+       delegate provider [<endpoint>|auto]
+                                 show or choose the OpenRouter endpoint for the current model
        delegate run --check "<cmd>" [--resume <session>] <brief-file>
                                  run the executor on the brief, then the check, at the git root
 EOF
@@ -23,9 +48,6 @@ EOF
 }
 
 project_root() { git -C "$1" rev-parse --show-toplevel 2>/dev/null || echo "$1"; }
-
-# The session id comes from Claude Code or, failing that, Codex.
-session_id() { echo "${CLAUDE_CODE_SESSION_ID:-${CODEX_THREAD_ID:-}}"; }
 
 # Prints "session", "project", "session, project" or nothing.
 levels() {
@@ -42,29 +64,27 @@ cmd_on() {
     fi
     if [ "${1:-}" = "--project" ]; then
         local root; root="$(project_root "$PWD")"
-        touch "$root/$PROJECT_FLAG"
+        mkdir -p "$(dirname "$root/$PROJECT_FLAG")" && touch "$root/$PROJECT_FLAG" || return 1
         echo "delegate mode on for every session in $root"
         return
     fi
     [ -n "${1:-}" ] && usage
-    local sid; sid="$(session_id)"
-    if [ -z "$sid" ]; then
-        echo "delegate: no session id in CLAUDE_CODE_SESSION_ID or CODEX_THREAD_ID; use 'delegate on --project' instead" >&2
+    if [ -z "$SESSION_ID" ]; then
+        echo "delegate: no $HOST session id; use 'delegate on --project' instead" >&2
         exit 1
     fi
-    mkdir -p "$STATE_DIR" && touch "$STATE_DIR/$sid"
+    mkdir -p "$STATE_DIR" && touch "$STATE_DIR/$SESSION_ID" || return 1
     echo "delegate mode on for this session"
 }
 
 cmd_off() {
-    local sid; sid="$(session_id)"
-    [ -n "$sid" ] && rm -f "$STATE_DIR/$sid"
-    rm -f "$(project_root "$PWD")/$PROJECT_FLAG"
+    if [ -n "$SESSION_ID" ]; then rm -f "$STATE_DIR/$SESSION_ID" || return 1; fi
+    rm -f "$(project_root "$PWD")/$PROJECT_FLAG" || return 1
     echo "delegate mode off"
 }
 
 cmd_status() {
-    local l; l="$(levels "$(session_id)" "$PWD")"
+    local l; l="$(levels "$SESSION_ID" "$PWD")"
     if [ -n "$l" ]; then echo "on ($l)"; else echo "off"; fi
 }
 
@@ -85,11 +105,95 @@ cmd_hook() {
 config_value() {
     local key="$1" line
     [ -f "$CONFIG" ] || return 0
-    while IFS= read -r line; do
+    while IFS= read -r line || [ -n "$line" ]; do
         case "$line" in
             "$key="*) printf '%s\n' "${line#"$key="}" ;;
         esac
     done < "$CONFIG"
+}
+
+# Replace selected keys atomically, preserving all other config lines. An update
+# without '=' removes its key. Never source this file or evaluate its contents.
+config_update() {
+    local update line key skip temp
+    for update in "$@"; do
+        case "$update" in
+            *$'\n'*|*$'\r'*) echo "delegate: config values must be single-line" >&2; return 1 ;;
+        esac
+    done
+    [ ! -d "$CONFIG" ] || { echo "delegate: config path is a directory" >&2; return 1; }
+    mkdir -p "$(dirname "$CONFIG")" || return 1
+    temp="$(mktemp "$CONFIG.tmp.XXXXXX")" || return 1
+    if ! (
+        if [ -e "$CONFIG" ]; then
+            while IFS= read -r line || [ -n "$line" ]; do
+                skip=false
+                for update in "$@"; do
+                    key="${update%%=*}"
+                    case "$line" in "$key="*) skip=true; break ;; esac
+                done
+                $skip || printf '%s\n' "$line" || exit 1
+            done < "$CONFIG" || exit 1
+        fi
+        for update in "$@"; do
+            case "$update" in *=*) printf '%s\n' "$update" || exit 1 ;; esac
+        done
+        exit 0
+    ) > "$temp"; then
+        rm -f "$temp"
+        return 1
+    fi
+    if ! mv -f "$temp" "$CONFIG"; then
+        rm -f "$temp"
+        return 1
+    fi
+}
+
+selected_model() {
+    local saved
+    saved="$(config_value model)" || return 1
+    printf '%s\n' "${DELEGATE_MODEL:-${saved:-$DEFAULT_MODEL}}"
+}
+
+valid_endpoint() {
+    [[ "$1" =~ ^[a-z0-9][a-z0-9._-]*(/[a-z0-9][a-z0-9._-]*)*$ ]]
+}
+
+resolve_provider() {
+    EXEC_PROVIDER=auto
+    case "$EXEC_MODEL" in
+        openrouter/*)
+            EXEC_PROVIDER="$(config_value "provider.$EXEC_MODEL")" || return 1
+            EXEC_PROVIDER="${EXEC_PROVIDER:-auto}"
+            if [ "$EXEC_PROVIDER" != auto ] && ! valid_endpoint "$EXEC_PROVIDER"; then
+                echo "delegate: invalid saved OpenRouter endpoint: $EXEC_PROVIDER" >&2
+                return 1
+            fi ;;
+    esac
+}
+
+cmd_provider() {
+    [ $# -le 1 ] || usage
+    EXEC_MODEL="$(selected_model)" || return 1
+    if [ $# -gt 0 ]; then
+        local endpoint="$1"
+        if ! valid_endpoint "$endpoint"; then
+            echo "delegate: invalid endpoint; use a provider slug such as coreweave/nvfp4, or auto" >&2
+            return 1
+        fi
+        if [ "$endpoint" = auto ]; then
+            config_update "provider.$EXEC_MODEL" || return 1
+        else
+            case "$EXEC_MODEL" in
+                openrouter/?*) ;;
+                *) echo "delegate: endpoint selection is only available for OpenRouter models" >&2; return 1 ;;
+            esac
+            config_update "provider.$EXEC_MODEL=$endpoint" || return 1
+        fi
+    fi
+    resolve_provider || return 1
+    echo "model: $EXEC_MODEL"
+    echo "provider: $EXEC_PROVIDER"
 }
 
 # The suggested models and their levels, identical to what opencode reports, so
@@ -134,9 +238,10 @@ preferred_effort() {
 }
 
 cmd_model() {
+    [ $# -le 2 ] || usage
     local id="${1:-}" effort="${2:-}" p
     if [ -z "$id" ]; then
-        resolve_executor
+        resolve_executor || return 1
         echo "model: $EXEC_MODEL"
         echo "effort: ${EXEC_VARIANT:-none}"
         echo "presets:"
@@ -145,7 +250,8 @@ cmd_model() {
         done
         return
     fi
-    local levels; levels="$(model_levels "$id")"
+    local levels
+    levels="$(model_levels "$id")" || { echo "delegate: unable to read models from opencode" >&2; return 1; }
     if [ "$levels" = NOT_LISTED ]; then
         echo "delegate: $id is not listed by opencode; add it to your opencode config first" >&2
         exit 1
@@ -158,8 +264,7 @@ cmd_model() {
     else
         effort="$(preferred_effort "$levels")"
     fi
-    mkdir -p "$(dirname "$CONFIG")"
-    printf 'model=%s\nvariant=%s\n' "$id" "$effort" > "$CONFIG"
+    config_update "model=$id" "variant=$effort" || return 1
     echo "model: $id"
     echo "effort: ${effort:-none}"
     echo "levels: $levels"
@@ -168,16 +273,44 @@ cmd_model() {
 # Sets EXEC_MODEL and EXEC_VARIANT: environment beats the config, which beats
 # the default. The config's variant counts only when it also names a model.
 resolve_executor() {
-    local cfg_model cfg_variant
-    cfg_model="$(config_value model)"
-    cfg_variant="$(config_value variant)"
+    local cfg_model cfg_variant levels
+    cfg_model="$(config_value model)" || return 1
+    cfg_variant="$(config_value variant)" || return 1
     EXEC_MODEL="${DELEGATE_MODEL:-${cfg_model:-$DEFAULT_MODEL}}"
     if [ -n "${DELEGATE_VARIANT:-}" ]; then
         EXEC_VARIANT="$DELEGATE_VARIANT"
+    elif [ -n "${DELEGATE_MODEL:-}" ] && [ "$DELEGATE_MODEL" != "${cfg_model:-$DEFAULT_MODEL}" ]; then
+        levels="$(model_levels "$EXEC_MODEL")" || return 1
+        if [ "$levels" = NOT_LISTED ]; then
+            echo "delegate: $EXEC_MODEL is not listed by opencode; add it to your opencode config first" >&2
+            return 1
+        fi
+        EXEC_VARIANT="$(preferred_effort "$levels")"
     elif [ -n "$cfg_model" ]; then
         EXEC_VARIANT="$cfg_variant"
     else
         EXEC_VARIANT="$DEFAULT_VARIANT"
+    fi
+    resolve_provider
+}
+
+# Apply only the current model's explicit endpoint. Auto preserves OpenCode's
+# routing, including personal settings. Preserve unrelated inline options.
+executor_config() {
+    local base="${OPENCODE_CONFIG_CONTENT:-}"
+    [ -n "$base" ] || base='{}'
+    if ! printf '%s' "$base" | jq -se 'length == 1 and (.[0] | type == "object")' >/dev/null 2>&1; then
+        echo "delegate: OPENCODE_CONFIG_CONTENT must be a JSON object" >&2
+        return 1
+    fi
+    if [ "$EXEC_PROVIDER" != auto ]; then
+        printf '%s' "$base" | jq -c --arg endpoint "$EXEC_PROVIDER" '.agent["delegate-executor"].provider =
+            ((.agent["delegate-executor"].provider // {}) + {
+                order: [$endpoint], only: [$endpoint],
+                allow_fallbacks: false, require_parameters: true
+            })'
+    else
+        printf '%s' "$base"
     fi
 }
 
@@ -188,8 +321,8 @@ cmd_run() {
     local check="" resume="" brief=""
     while [ $# -gt 0 ]; do
         case "$1" in
-            --check) check="${2:-}"; shift 2 ;;
-            --resume) resume="${2:-}"; shift 2 ;;
+            --check) [ $# -ge 2 ] || usage; check="$2"; shift 2 ;;
+            --resume) [ $# -ge 2 ] || usage; resume="$2"; shift 2 ;;
             -*) usage ;;
             *) brief="$1"; shift ;;
         esac
@@ -200,28 +333,33 @@ cmd_run() {
     fi
     [ -f "$brief" ] || { echo "delegate run: brief file not found: $brief" >&2; exit 2; }
 
+    resolve_executor || return 1
+    local run_config
+    run_config="$(executor_config)" || return 2
     local root log max="${DELEGATE_MAX_CHARS:-2000}"
     root="$(project_root "$PWD")"
     mkdir -p "$STATE_DIR/runs"
     log="$STATE_DIR/runs/$(date +%Y%m%d-%H%M%S)-$$.jsonl"
 
     local args=(run --agent delegate-executor --format json --dir "$root")
-    resolve_executor
     args+=(--model "$EXEC_MODEL")
     [ -n "$EXEC_VARIANT" ] && args+=(--variant "$EXEC_VARIANT")
     [ -n "$resume" ] && args+=(--session "$resume")
     # opencode run appends piped stdin to the message and waits for EOF, so an
     # inherited stdin that stays open would hang the run.
-    (cd "$root" && opencode "${args[@]}" "$(cat "$brief")") < /dev/null > "$log" 2>"$log.stderr"
+    (cd "$root" && OPENCODE_CONFIG_CONTENT="$run_config" opencode "${args[@]}" "$(cat "$brief")") < /dev/null > "$log" 2>"$log.stderr"
     local exec_rc=$?
 
-    local summary report
+    local summary report errors
     summary="$(jq -rs '
         (map(.sessionID // empty) | first // "none") as $s
         | (map(select(.type == "step_finish") | .part) ) as $f
         | "session: \($s)\ncost: $\($f | map(.cost // 0) | add // 0 | . * 10000 | round / 10000)  tokens in/out: \($f | map(.tokens.input // 0) | add // 0)/\($f | map(.tokens.output // 0) | add // 0)"
     ' "$log" 2>/dev/null)"
     report="$(jq -rs 'map(select(.type == "text") | .part.text) | last // ""' "$log" 2>/dev/null)"
+    errors="$(jq -rs 'map(select(.type == "error") | (.error // .part // .)
+        | if type == "string" then . else (.data.message // .message // tojson) end)
+        | join("\n")' "$log" 2>/dev/null)"
     if [ "${#report}" -gt "$max" ]; then
         report="${report:0:$max}
 [truncated, ${#report} chars; full log below]"
@@ -234,6 +372,9 @@ cmd_run() {
     echo "== executor =="
     echo "${summary:-session: none}"
     echo "executor exit: $exec_rc"
+    echo "model: $EXEC_MODEL  effort: ${EXEC_VARIANT:-none}"
+    echo "provider: $EXEC_PROVIDER"
+    [ -n "$errors" ] && printf 'executor error: %s\n' "${errors:0:$max}"
     [ "$exec_rc" -ne 0 ] && tail -n 5 "$log.stderr"
     echo "== executor report =="
     echo "$report"
@@ -244,12 +385,16 @@ cmd_run() {
     echo "check exit: $check_rc"
     tail -n 40 <<<"$check_out"
     echo "log: $log"
-    return "$check_rc"
+    [ "$check_rc" -ne 0 ] && return "$check_rc"
+    [ "$exec_rc" -ne 0 ] && return "$exec_rc"
+    [ -n "$errors" ] && return 1
+    return 0
 }
 
 case "${1:-}" in
     on) shift; cmd_on "$@" ;;
     model) shift; cmd_model "$@" ;;
+    provider) shift; cmd_provider "$@" ;;
     run) shift; cmd_run "$@" ;;
     off) cmd_off ;;
     status) cmd_status ;;

@@ -5,13 +5,12 @@ DELEGATE="$ROOT/delegate/bin/delegate"
 
 setup() {
     TMP="$(mktemp -d)"
+    unset CODEX_SESSION_ID CODEX_THREAD_ID CODEX_HOME DELEGATE_HOST
+    unset DELEGATE_MODEL DELEGATE_VARIANT OPENCODE_CONFIG_CONTENT
     export DELEGATE_STATE_DIR="$TMP/state"
     export DELEGATE_CONFIG="$TMP/config"
     export CLAUDE_CODE_SESSION_ID="sess-1"
-    unset CODEX_THREAD_ID
     mkdir -p "$TMP/repo" "$TMP/bin" && git -C "$TMP/repo" init -q
-    # A trivial opencode so tests pass on machines where it is not installed;
-    # test_run.sh's fake_opencode overwrites this same file.
     printf '#!/usr/bin/env bash\nexit 0\n' > "$TMP/bin/opencode"
     chmod +x "$TMP/bin/opencode"
     export PATH="$TMP/bin:$PATH"
@@ -51,8 +50,6 @@ FAKE
     export PATH="$TMP/bin:$PATH" FAKE_MODELS_CALLS="$TMP/models_calls"
 }
 
-teardown() { cd /; rm -rf "$TMP"; }
-
 # Prints PATH with every directory that holds an executable `opencode` removed.
 path_without_opencode() {
     local dirs dir out=""
@@ -64,7 +61,15 @@ path_without_opencode() {
     printf '%s' "$out"
 }
 
+teardown() { cd /; rm -rf "$TMP"; }
+
 fail() { echo "  FAIL: $*"; return 1; }
 
 assert_eq() { [ "$1" = "$2" ] || fail "expected [$2], got [$1]"; }
 assert_contains() { case "$1" in *"$2"*) ;; *) fail "[$1] does not contain [$2]";; esac; }
+
+install_home() {
+    export HOME="$TMP/home"
+    mkdir -p "$HOME/.claude"
+    printf '%s\n' '{"model":"x","hooks":{"UserPromptSubmit":[{"hooks":[{"type":"command","command":"/opt/other-hook.sh"}]}]}}' > "$HOME/.claude/settings.json"
+}
