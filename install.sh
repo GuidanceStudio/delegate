@@ -7,6 +7,7 @@ set -euo pipefail
 
 SRC="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 AGENT_DEST="$HOME/.config/opencode/agents/delegate-executor.md"
+HOOK_NAME="delegate: mode reminder"
 
 MODE=install
 TARGET=""
@@ -59,9 +60,13 @@ select_target() {
 state() { [ -e "$2" ] || { echo missing; return; }; diff -rq "$1" "$2" >/dev/null && echo installed || echo differs; }
 
 hook_state() {
-    [ -f "$SETTINGS" ] && jq -e --arg c "$HOOK_CMD" \
-        '[.hooks.UserPromptSubmit[]?.hooks[]?.command] | index($c)' "$SETTINGS" >/dev/null 2>&1 \
-        && echo installed || echo missing
+    [ -f "$SETTINGS" ] || { echo missing; return; }
+    jq -r --arg c "$HOOK_CMD" --arg n "$HOOK_NAME" '
+        [.hooks.UserPromptSubmit[]?.hooks[]? | select(.command == $c)] as $d
+        | if ($d | length) == 0 then "missing"
+          elif ($d | all(.statusMessage == $n)) then "installed"
+          else "differs" end
+    ' "$SETTINGS" 2>/dev/null || echo missing
 }
 
 agent_state="$(state "$SRC/delegate/opencode/delegate-executor.md" "$AGENT_DEST")"
@@ -98,13 +103,19 @@ mkdir -p "$(dirname "$AGENT_DEST")" && cp "$SRC/delegate/opencode/delegate-execu
 for t in "${targets[@]}"; do
     select_target "$t"
     rm -rf "$SKILL_DEST" && mkdir -p "$(dirname "$SKILL_DEST")" && cp -R "$SRC/delegate" "$SKILL_DEST"
-    if [ "$(hook_state)" = missing ]; then
-        [ -f "$SETTINGS" ] || echo '{}' > "$SETTINGS"
-        tmp="$(mktemp "$SETTINGS.XXXXXX")"
-        jq --arg c "$HOOK_CMD" \
-            '.hooks.UserPromptSubmit = ((.hooks.UserPromptSubmit // []) + [{hooks: [{type: "command", command: $c}]}])' \
-            "$SETTINGS" > "$tmp" && mv "$tmp" "$SETTINGS"
-    fi
+    case "$(hook_state)" in
+        missing)
+            [ -f "$SETTINGS" ] || echo '{}' > "$SETTINGS"
+            tmp="$(mktemp "$SETTINGS.XXXXXX")"
+            jq --arg c "$HOOK_CMD" --arg n "$HOOK_NAME" \
+                '.hooks.UserPromptSubmit = ((.hooks.UserPromptSubmit // []) + [{hooks: [{type: "command", command: $c, statusMessage: $n}]}])' \
+                "$SETTINGS" > "$tmp" && mv "$tmp" "$SETTINGS" ;;
+        differs)
+            tmp="$(mktemp "$SETTINGS.XXXXXX")"
+            jq --arg c "$HOOK_CMD" --arg n "$HOOK_NAME" \
+                '(.hooks.UserPromptSubmit[]?.hooks[]? | select(.command == $c)).statusMessage = $n' \
+                "$SETTINGS" > "$tmp" && mv "$tmp" "$SETTINGS" ;;
+    esac
 done
 echo "delegate installed: agent in $AGENT_DEST, skill and hook for ${targets[*]}"
 if [[ " ${targets[*]} " == *" codex "* ]]; then
