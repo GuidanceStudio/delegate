@@ -4,12 +4,12 @@
 test_model_preset_with_explicit_effort() {
     fake_models
     local out rc
-    out="$("$DELEGATE" model openrouter/deepseek/deepseek-v4.1-flash low 2>"$TMP/err")"; rc=$?
+    out="$("$DELEGATE" model openrouter/deepseek/deepseek-v4.1-flash-1017 low 2>"$TMP/err")"; rc=$?
     assert_eq "$rc" "0" || return 1
-    assert_contains "$out" "model: openrouter/deepseek/deepseek-v4.1-flash" || return 1
+    assert_contains "$out" "model: openrouter/deepseek/deepseek-v4.1-flash-1017" || return 1
     assert_contains "$out" "effort: low" || return 1
     assert_contains "$out" "levels: low medium high max" || return 1
-    grep -qx "model=openrouter/deepseek/deepseek-v4.1-flash" "$DELEGATE_CONFIG" \
+    grep -qx "model=openrouter/deepseek/deepseek-v4.1-flash-1017" "$DELEGATE_CONFIG" \
         || fail "model not written to config" || return 1
     grep -qx "variant=low" "$DELEGATE_CONFIG" || fail "variant not written to config"
 }
@@ -82,7 +82,7 @@ test_model_no_args_shows_current_and_presets() {
     assert_eq "$rc" "0" || return 1
     assert_contains "$out" "model: openrouter/z-ai/glm-5.3-flash" || return 1
     assert_contains "$out" "effort: max" || return 1
-    assert_contains "$out" "openrouter/deepseek/deepseek-v4.1-flash" || return 1
+    assert_contains "$out" "openrouter/deepseek/deepseek-v4.1-flash-1017" || return 1
     assert_contains "$out" "openrouter/z-ai/glm-5.3-flash" || return 1
     assert_contains "$out" "openrouter/qwen/qwen3.8-flash"
 }
@@ -90,7 +90,7 @@ test_model_no_args_shows_current_and_presets() {
 test_model_no_args_without_config_shows_the_default() {
     local out
     out="$("$DELEGATE" model)"
-    assert_contains "$out" "model: openrouter/deepseek/deepseek-v4.1-flash" || return 1
+    assert_contains "$out" "model: openrouter/deepseek/deepseek-v4.1-flash-1017" || return 1
     assert_contains "$out" "effort: high"
 }
 

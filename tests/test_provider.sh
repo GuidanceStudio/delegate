@@ -4,7 +4,7 @@ test_provider_default_is_auto_without_writing_or_discovering_models() {
     fake_models
     local out
     out="$("$DELEGATE" provider)" || return 1
-    assert_contains "$out" 'model: openrouter/deepseek/deepseek-v4.1-flash' || return 1
+    assert_contains "$out" 'model: openrouter/deepseek/deepseek-v4.1-flash-1017' || return 1
     assert_contains "$out" 'provider: auto' || return 1
     [ ! -e "$DELEGATE_CONFIG" ] || fail 'read command wrote config' || return 1
     [ ! -e "$FAKE_MODELS_CALLS" ] || fail 'provider command called opencode'
@@ -26,7 +26,7 @@ test_provider_preserves_model_effort_and_unknown_keys() {
 test_provider_choices_survive_model_switches_and_reset_independently() {
     "$DELEGATE" model openrouter/z-ai/glm-5.3-flash max >/dev/null || return 1
     "$DELEGATE" provider coreweave/nvfp4 >/dev/null || return 1
-    "$DELEGATE" model openrouter/deepseek/deepseek-v4.1-flash high >/dev/null || return 1
+    "$DELEGATE" model openrouter/deepseek/deepseek-v4.1-flash-1017 high >/dev/null || return 1
     local out
     out="$("$DELEGATE" provider)" || return 1
     assert_contains "$out" 'provider: auto' || return 1
@@ -40,16 +40,16 @@ test_provider_choices_survive_model_switches_and_reset_independently() {
     if grep -q '^provider.openrouter/z-ai/glm-5.3-flash=' "$DELEGATE_CONFIG"; then
         fail 'auto did not remove preference'; return 1
     fi
-    "$DELEGATE" model openrouter/deepseek/deepseek-v4.1-flash >/dev/null || return 1
+    "$DELEGATE" model openrouter/deepseek/deepseek-v4.1-flash-1017 >/dev/null || return 1
     out="$("$DELEGATE" provider)" || return 1
     assert_contains "$out" 'provider: deepinfra/turbo'
 }
 
 test_provider_model_override_does_not_change_saved_model() {
     "$DELEGATE" model openrouter/z-ai/glm-5.3-flash max >/dev/null || return 1
-    DELEGATE_MODEL=openrouter/deepseek/deepseek-v4.1-flash "$DELEGATE" provider deepinfra >/dev/null || return 1
+    DELEGATE_MODEL=openrouter/deepseek/deepseek-v4.1-flash-1017 "$DELEGATE" provider deepinfra >/dev/null || return 1
     local out
-    out="$(DELEGATE_MODEL=openrouter/deepseek/deepseek-v4.1-flash "$DELEGATE" provider)" || return 1
+    out="$(DELEGATE_MODEL=openrouter/deepseek/deepseek-v4.1-flash-1017 "$DELEGATE" provider)" || return 1
     assert_contains "$out" 'provider: deepinfra' || return 1
     out="$("$DELEGATE" provider)" || return 1
     assert_contains "$out" 'model: openrouter/z-ai/glm-5.3-flash' || return 1

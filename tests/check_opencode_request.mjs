@@ -71,11 +71,11 @@ try {
   }
   await writeFile(join(configDir, 'opencode.json'), JSON.stringify({
     enabled_providers: ['openrouter'],
-    model: 'openrouter/deepseek/deepseek-v4.1-flash',
-    small_model: 'openrouter/deepseek/deepseek-v4.1-flash',
+    model: 'openrouter/deepseek/deepseek-v4.1-flash-1017',
+    small_model: 'openrouter/deepseek/deepseek-v4.1-flash-1017',
     provider: { openrouter: {
       // Auto must preserve this route; an explicit endpoint must override it.
-      models: { 'deepseek/deepseek-v4.1-flash': { options: {
+      models: { 'deepseek/deepseek-v4.1-flash-1017': { options: {
         reasoningEffort: 'xhigh',
         provider: { order: ['relace/fp4'], only: ['relace/fp4'], allow_fallbacks: false },
       } } },
@@ -118,14 +118,14 @@ try {
     return request;
   }
   const automatic = await executorRequest();
-  assert.equal(automatic.model, 'deepseek/deepseek-v4.1-flash');
+  assert.equal(automatic.model, 'deepseek/deepseek-v4.1-flash-1017');
   assert.equal(automatic.reasoning?.effort, 'high');
   assert.deepEqual(automatic.provider?.order, ['relace/fp4']);
   assert.deepEqual(automatic.provider?.only, ['relace/fp4']);
   assert.ok(!JSON.stringify(automatic.provider).includes('coreweave'), 'Default forced CoreWeave');
   await run([script, 'provider', 'coreweave/nvfp4'], env, 'bash');
   const request = await executorRequest();
-  assert.equal(request.model, 'deepseek/deepseek-v4.1-flash');
+  assert.equal(request.model, 'deepseek/deepseek-v4.1-flash-1017');
   assert.equal(request.reasoning?.effort, 'high');
   assert.deepEqual(request.provider?.order, ['coreweave/nvfp4']);
   assert.deepEqual(request.provider?.only, ['coreweave/nvfp4']);

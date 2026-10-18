@@ -59,7 +59,7 @@ test_resume_continues_the_given_session() {
 test_run_defaults_to_deepseek_high_and_model_override_gets_its_own_effort() {
     fake_opencode
     "$DELEGATE" run --check true "$TMP/brief.md" >/dev/null
-    grep -A1 -x -- "--model" "$TMP/args" | grep -qx "openrouter/deepseek/deepseek-v4.1-flash" || fail "default model missing" || return 1
+    grep -A1 -x -- "--model" "$TMP/args" | grep -qx "openrouter/deepseek/deepseek-v4.1-flash-1017" || fail "default model missing" || return 1
     grep -A1 -x -- "--variant" "$TMP/args" | grep -qx high || fail "default effort missing" || return 1
     DELEGATE_MODEL=openrouter/z-ai/glm-5.3-flash "$DELEGATE" run --check true "$TMP/brief.md" >/dev/null || return 1
     grep -A1 -x -- "--model" "$TMP/args" | grep -qx "openrouter/z-ai/glm-5.3-flash" || fail "override not passed" || return 1
@@ -136,9 +136,9 @@ test_cost_is_rounded() {
 
 test_saved_model_and_effort_are_used_by_later_runs() {
     fake_opencode
-    "$DELEGATE" model openrouter/deepseek/deepseek-v4.1-flash max >/dev/null || return 1
+    "$DELEGATE" model openrouter/deepseek/deepseek-v4.1-flash-1017 max >/dev/null || return 1
     "$DELEGATE" run --check true "$TMP/brief.md" >/dev/null || return 1
-    grep -A1 -x -- --model "$TMP/args" | grep -qx openrouter/deepseek/deepseek-v4.1-flash || return 1
+    grep -A1 -x -- --model "$TMP/args" | grep -qx openrouter/deepseek/deepseek-v4.1-flash-1017 || return 1
     grep -A1 -x -- --variant "$TMP/args" | grep -qx max
 }
 
@@ -151,7 +151,7 @@ test_glm_routing_preserves_unrelated_inline_config_and_does_not_leak() {
     jq -e '.instructions == ["notes.md"] and .agent["delegate-executor"].temperature == 0.2
         and .agent["delegate-executor"].provider.order == ["coreweave/nvfp4"]
         and .agent["delegate-executor"].provider.only == ["coreweave/nvfp4"]' "$FAKE_CONFIG" >/dev/null || return 1
-    OPENCODE_CONFIG_CONTENT="$base" DELEGATE_MODEL=openrouter/deepseek/deepseek-v4.1-flash "$DELEGATE" run --check true "$TMP/brief.md" >/dev/null || return 1
+    OPENCODE_CONFIG_CONTENT="$base" DELEGATE_MODEL=openrouter/deepseek/deepseek-v4.1-flash-1017 "$DELEGATE" run --check true "$TMP/brief.md" >/dev/null || return 1
     jq -e '.instructions == ["notes.md"] and .agent["delegate-executor"].provider == null' "$FAKE_CONFIG" >/dev/null
 }
 
@@ -174,10 +174,10 @@ test_runs_use_the_effective_models_own_endpoint() {
     fake_opencode
     "$DELEGATE" model openrouter/z-ai/glm-5.3-flash max >/dev/null || return 1
     "$DELEGATE" provider coreweave/nvfp4 >/dev/null || return 1
-    DELEGATE_MODEL=openrouter/deepseek/deepseek-v4.1-flash "$DELEGATE" provider deepinfra/turbo >/dev/null || return 1
+    DELEGATE_MODEL=openrouter/deepseek/deepseek-v4.1-flash-1017 "$DELEGATE" provider deepinfra/turbo >/dev/null || return 1
     local base='{"agent":{"delegate-executor":{"provider":{"ignore":["excluded"],"order":["personal"]},"temperature":0.2}},"instructions":["notes.md"]}'
     local out
-    out="$(OPENCODE_CONFIG_CONTENT="$base" DELEGATE_MODEL=openrouter/deepseek/deepseek-v4.1-flash "$DELEGATE" run --check true "$TMP/brief.md")" || return 1
+    out="$(OPENCODE_CONFIG_CONTENT="$base" DELEGATE_MODEL=openrouter/deepseek/deepseek-v4.1-flash-1017 "$DELEGATE" run --check true "$TMP/brief.md")" || return 1
     assert_contains "$out" 'provider: deepinfra/turbo' || return 1
     jq -e '.agent["delegate-executor"].provider == {
         ignore: ["excluded"], order: ["deepinfra/turbo"], only: ["deepinfra/turbo"],

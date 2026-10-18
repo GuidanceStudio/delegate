@@ -28,7 +28,7 @@ case "$HOST" in
 esac
 STATE_DIR="${DELEGATE_STATE_DIR:-$HOST_ROOT/state/delegate}"
 CONFIG="${DELEGATE_CONFIG:-$HOME/.config/delegate/config}"
-DEFAULT_MODEL="openrouter/deepseek/deepseek-v4.1-flash"
+DEFAULT_MODEL="openrouter/deepseek/deepseek-v4.1-flash-1017"
 DEFAULT_VARIANT="high"
 
 usage() {
@@ -216,14 +216,14 @@ cmd_provider() {
 # The suggested models and their levels, identical to what opencode reports, so
 # choosing one of them never calls opencode.
 PRESET_IDS=(
-    openrouter/deepseek/deepseek-v4.1-flash
+    openrouter/deepseek/deepseek-v4.1-flash-1017
     openrouter/z-ai/glm-5.3-flash
     openrouter/qwen/qwen3.8-flash
 )
 
 preset_levels() {
     case "$1" in
-        openrouter/deepseek/deepseek-v4.1-flash | openrouter/z-ai/glm-5.3-flash)
+        openrouter/deepseek/deepseek-v4.1-flash-1017 | openrouter/z-ai/glm-5.3-flash)
             echo "low medium high max" ;;
         openrouter/qwen/qwen3.8-flash)
             echo "high max" ;;

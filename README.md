@@ -3,7 +3,7 @@
 A skill for Claude Code and local Codex that switches on a mode in which the assistant keeps
 planning, reviewing, verifying
 and committing, and hands every step that writes code or tests to [opencode](https://opencode.ai)
-running a configurable model. The default is DeepSeek V4.1 Flash through OpenRouter, with
+running a configurable model. The default is DeepSeek V4.1 Flash 1017 through OpenRouter, with
 effort `high`. Endpoint routing follows your OpenCode/OpenRouter settings unless you choose an endpoint
 for that model with `delegate provider`.
 
@@ -142,13 +142,13 @@ in Codex:
 delegate model
 delegate model <provider/model> [effort]
 delegate model openrouter/z-ai/glm-5.3-flash max
-delegate model openrouter/deepseek/deepseek-v4.1-flash high
+delegate model openrouter/deepseek/deepseek-v4.1-flash-1017 high
 delegate model openrouter/qwen/qwen3.8-flash max
 ```
 
 The selection is saved in `~/.config/delegate/config`. Without an explicit effort every model
 gets `xhigh` when available, otherwise `high`, or no variant if neither exists.
-Known presets are DeepSeek V4.1 Flash and GLM 5.3 Flash (low, medium, high, max) and Qwen 3.8
+Known presets are DeepSeek V4.1 Flash 1017 and GLM 5.3 Flash (low, medium, high, max) and Qwen 3.8
 Flash (high, max), through OpenRouter. For other
 models, available efforts are read from OpenCode before saving; unknown models and unsupported
 explicit efforts are refused.
@@ -201,7 +201,7 @@ definitions are sent with its requests. It cannot run `git commit`, `push`, `res
 
 | Variable | Default | Effect |
 |---|---|---|
-| `DELEGATE_MODEL` | saved selection, otherwise DeepSeek V4.1 Flash | model for one run, as `provider/model` |
+| `DELEGATE_MODEL` | saved selection, otherwise DeepSeek V4.1 Flash 1017 | model for one run, as `provider/model` |
 | `DELEGATE_VARIANT` | saved selection, otherwise `high` | effort for one run |
 | `DELEGATE_CONFIG` | `~/.config/delegate/config` | file where `delegate model` and `delegate provider` save selections |
 | `DELEGATE_MAX_CHARS` | `2000` | longest executor report returned before truncation |

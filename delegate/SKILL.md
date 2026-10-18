@@ -3,7 +3,7 @@ name: delegate
 description: >-
   Delegate mode: you keep planning, reviewing, verifying and committing, and every step that
   writes code or tests is executed by opencode on a configurable model (default DeepSeek V4.1
-  Flash at high effort, through OpenRouter). Works with Claude Code and local Codex.
+  Flash 1017 at high effort, through OpenRouter). Works with Claude Code and local Codex.
   Switches on for a session or project, off, reports state, and selects the executor model and
   effort and per-model OpenRouter endpoint. Use when the user asks to delegate execution to
   opencode, save tokens that way, switch delegate mode, change its model or endpoint,
@@ -46,11 +46,11 @@ Activation requires OpenCode on `PATH`; otherwise report the missing prerequisit
 | choose a model and effort | `delegate model <provider/model> <effort>` |
 
 The choice is stored in `${DELEGATE_CONFIG:-$HOME/.config/delegate/config}` and applies to
-later runs. The default is `openrouter/deepseek/deepseek-v4.1-flash` at `high`.
+later runs. The default is `openrouter/deepseek/deepseek-v4.1-flash-1017` at `high`.
 Endpoint routing follows the user's OpenCode/OpenRouter configuration unless explicitly selected.
 Without an explicit effort, every model gets `xhigh` when it offers it, else `high`, else none.
 
-Presets, with their levels: `openrouter/deepseek/deepseek-v4.1-flash` and
+Presets, with their levels: `openrouter/deepseek/deepseek-v4.1-flash-1017` and
 `openrouter/z-ai/glm-5.3-flash` (low, medium, high, max), `openrouter/qwen/qwen3.8-flash`
 (high, max). For other models, available efforts are read from `opencode models --verbose`.
 When the user names a new model, run `delegate model <id>` without an effort and tell them the
