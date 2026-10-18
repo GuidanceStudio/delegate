@@ -61,6 +61,8 @@ try {
   const configDir = join(scratch, 'config', 'opencode');
   await mkdir(join(configDir, 'agents'), { recursive: true });
   await mkdir(join(scratch, 'repo'));
+  // delegate run refuses a folder outside git.
+  await run(['init', '-q'], process.env, 'git');
   await mkdir(join(scratch, 'cache', 'opencode'), { recursive: true });
   await copyFile(join(root, 'delegate', 'opencode', 'delegate-executor.md'), join(configDir, 'agents', 'delegate-executor.md'));
   const cachedModels = join(process.env.XDG_CACHE_HOME || join(homedir(), '.cache'), 'opencode', 'models.json');

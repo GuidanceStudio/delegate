@@ -64,3 +64,20 @@ The opencode config already defines the model; its top-level `model` moves to it
 
 **Done when:** `tests/run.sh` is green, the installed `delegate model` reports
 `openrouter/deepseek/deepseek-v4.1-flash-1017` at `high`, and `opencode.json` names it as `model`.
+
+---
+
+## M15: Run the opencode request check inside a git repository ✅
+
+**Why:** since M12, `delegate run` refuses a folder outside git, and
+`tests/check_opencode_request.mjs` runs it in a scratch `repo` folder that is
+not a repository, so the check stops before opencode sends a request.
+
+**Approach:** the check runs `git init` in its scratch `repo` folder before the
+first `delegate run`.
+
+**Tasks:**
+- [x] T1 — `tests/check_opencode_request.mjs`: `git init` the scratch repository
+- [x] Commit & push
+
+**Done when:** `node tests/check_opencode_request.mjs` exits 0 and `tests/run.sh` is green.
