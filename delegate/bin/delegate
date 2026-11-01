@@ -363,10 +363,17 @@ cmd_run() {
     args+=(--model "$EXEC_MODEL")
     [ -n "$EXEC_VARIANT" ] && args+=(--variant "$EXEC_VARIANT")
     [ -n "$resume" ] && args+=(--session "$resume")
+    # opencode extracts a native library of about 5 MB into its temporary
+    # directory at every run and never removes it; on a /tmp that is a small
+    # tmpfs with a user quota, thousands of runs fill it. Each run gets a
+    # directory of its own, removed once opencode exits.
+    local run_tmp
+    run_tmp="$(mktemp -d "${TMPDIR:-/tmp}/delegate-run.XXXXXX")" || return 2
     # opencode run appends piped stdin to the message and waits for EOF, so an
     # inherited stdin that stays open would hang the run.
-    (cd "$root" && OPENCODE_CONFIG_CONTENT="$run_config" opencode "${args[@]}" "$(cat "$brief")") < /dev/null > "$log" 2>"$log.stderr"
+    (cd "$root" && TMPDIR="$run_tmp" OPENCODE_CONFIG_CONTENT="$run_config" opencode "${args[@]}" "$(cat "$brief")") < /dev/null > "$log" 2>"$log.stderr"
     local exec_rc=$?
+    rm -rf "$run_tmp"
 
     local summary report errors
     summary="$(jq -rs '

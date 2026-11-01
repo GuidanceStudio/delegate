@@ -81,3 +81,27 @@ first `delegate run`.
 - [x] Commit & push
 
 **Done when:** `node tests/check_opencode_request.mjs` exits 0 and `tests/run.sh` is green.
+
+---
+
+## M16: Each executor run gets its own temporary directory, removed after it ✅
+
+**Why:** opencode extracts a native library of 5.4 MB into the temporary
+directory at every `opencode run` and never removes it. On a machine whose
+`/tmp` is a 7.5 GB tmpfs with a user quota, 893 copies (about 5 GB) built up
+in three days from executor runs and other opencode callers, and the quota ran
+out: test suites and the assistant's own output capture failed with "Disk
+quota exceeded".
+
+**Approach:** `delegate run` creates a directory with `mktemp -d`, runs
+opencode with `TMPDIR` pointing at it, and removes it when opencode exits.
+Measured: with `TMPDIR` set, opencode writes the library there and nothing
+into `/tmp`.
+
+**Tasks:**
+- [x] T1 — test: the executor sees a `TMPDIR` of its own, and what it writes there is gone after the run; red first
+- [x] T2 — `delegate/bin/delegate`: the run's own `TMPDIR`, removed after opencode exits
+- [x] Commit & push; `./install.sh --force`
+
+**Done when:** `tests/run.sh` is green and a real `delegate run` leaves no new
+`-00000000.so` in `/tmp`.

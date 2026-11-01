@@ -5,6 +5,8 @@ fake_opencode() {
 #!/usr/bin/env bash
 printf '%s\n' "$@" > "$FAKE_ARGS"
 printf '%s' "${OPENCODE_CONFIG_CONTENT:-}" > "$FAKE_CONFIG"
+printf '%s' "${TMPDIR:-}" > "$FAKE_TMPDIR"
+[ -n "${TMPDIR:-}" ] && : > "$TMPDIR/.fake-00000000.so"
 [ -t 0 ] || cat > /dev/null
 if [ -n "${FAKE_ERROR:-}" ]; then
     jq -cn --arg message "$FAKE_ERROR" '{type:"error",sessionID:"ses_fake1",error:{name:"APIError",data:{message:$message}}}'
@@ -18,7 +20,7 @@ printf '{"type":"step_finish","sessionID":"ses_fake1","part":{"cost":%s,"tokens"
 exit "${FAKE_EXIT:-0}"
 FAKE
     chmod +x "$TMP/bin/opencode"
-    export PATH="$TMP/bin:$PATH" FAKE_ARGS="$TMP/args" FAKE_CONFIG="$TMP/opencode_config.json"
+    export PATH="$TMP/bin:$PATH" FAKE_ARGS="$TMP/args" FAKE_CONFIG="$TMP/opencode_config.json" FAKE_TMPDIR="$TMP/opencode_tmpdir"
     echo "Create hello.txt" > "$TMP/brief.md"
 }
 
@@ -32,6 +34,21 @@ test_run_returns_report_changes_and_check() {
     assert_contains "$out" "?? hello.txt" || return 1
     assert_contains "$out" "check exit: 0" || return 1
     assert_contains "$out" "cost: \$0.0125"
+}
+
+# opencode extracts a 5.4 MB native library into its temporary directory at
+# every run and never removes it, so each run gets a directory of its own that
+# is removed once opencode exits.
+test_the_executor_writes_its_temporary_files_where_the_run_removes_them() {
+    fake_opencode
+    local outer seen
+    outer="$TMP/outer-tmp"; mkdir -p "$outer"
+    TMPDIR="$outer" "$DELEGATE" run --check true "$TMP/brief.md" >/dev/null
+    seen="$(cat "$TMP/opencode_tmpdir")"
+    [ -n "$seen" ] || fail "the executor had no TMPDIR" || return 1
+    [ "$seen" != "$outer" ] || fail "the executor wrote into the caller's TMPDIR" || return 1
+    [ ! -e "$seen" ] || fail "the run's temporary directory was left behind: $seen" || return 1
+    [ -z "$(ls -A "$outer")" ] || fail "something was left in the caller's TMPDIR: $(ls -A "$outer")"
 }
 
 test_failing_check_fails_even_when_executor_claims_success() {
