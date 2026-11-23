@@ -73,3 +73,24 @@ install_home() {
     mkdir -p "$HOME/.claude"
     printf '%s\n' '{"model":"x","hooks":{"UserPromptSubmit":[{"hooks":[{"type":"command","command":"/opt/other-hook.sh"}]}]}}' > "$HOME/.claude/settings.json"
 }
+
+# Copies the payload folder into the scratch home's skills dir, the way a user
+# installs it by hand: place_skill claude|codex (Codex honours CODEX_HOME).
+place_skill() {
+    local dir
+    case "$1" in
+        claude) dir="$HOME/.claude/skills" ;;
+        codex) dir="${CODEX_HOME:-$HOME/.codex}/skills" ;;
+        *) return 2 ;;
+    esac
+    mkdir -p "$dir" && rm -rf "$dir/delegate" && cp -R "$ROOT/delegate" "$dir/delegate"
+}
+
+# Runs `delegate setup` from the installed copy of a host (placing it first when
+# absent): run_setup claude|codex [setup options...].
+run_setup() {
+    local host="$1" dir; shift
+    if [ "$host" = codex ]; then dir="${CODEX_HOME:-$HOME/.codex}/skills/delegate"; else dir="$HOME/.claude/skills/delegate"; fi
+    [ -x "$dir/bin/delegate" ] || place_skill "$host" || return 1
+    "$dir/bin/delegate" setup "$@"
+}

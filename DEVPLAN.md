@@ -29,7 +29,6 @@ delegate/            skill payload (installed as-is)
   bin/delegate
   opencode/delegate-executor.md
 tests/               plain-bash tests, run with tests/run.sh
-install.sh
 README.md
 ```
 
@@ -105,3 +104,32 @@ into `/tmp`.
 
 **Done when:** `tests/run.sh` is green and a real `delegate run` leaves no new
 `-00000000.so` in `/tmp`.
+
+---
+
+## M17: `delegate setup` replaces the installer ✅
+
+**Why:** `install.sh` copied the skill folder, which the rest of the skill
+ecosystem now leaves to the user (a `cp -r` from the README), and it forced a
+choice between `--force` and a refusal when the copy had drifted. What it did
+beyond the copy is real configuration that must stay: the opencode agent file
+and the `UserPromptSubmit` hook entry in the host's settings.
+
+**Approach:** the payload configures itself. `delegate setup [--target
+claude|codex|all] [--check]` registers the agent and the hook for the installed
+copy it runs from, with the same guarantees as the installer: hook JSON
+validated before any write (every selected host first), idempotent, an old
+hook without its status message upgraded in place, a warning when opencode is
+missing, the Codex trust message. It refuses to run from a source checkout
+(the hook points at the script's own path), unless `DELEGATE_HOST` is set.
+`install.sh`, its skill copy, `--force` and differs logic are removed.
+
+**Tasks:**
+- [x] T1 — `delegate/bin/delegate`: `setup` subcommand and usage line
+- [x] T2 — tests: `place_skill` and `run_setup` helpers; every installer test ported; new tests for the refusal from an uninstalled source, the default target, a changed agent reported as differs, and `--target all` validating both hook files first
+- [x] T3 — remove `install.sh`; `delegate/SKILL.md` and `README.md` describe copy, `setup`, update
+- [x] Commit & push
+
+**Done when:** `tests/run.sh` is green and, under a scratch home, copying the
+folder, `setup`, `setup --check` and a second `setup` leave the settings file
+byte-identical.

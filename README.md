@@ -24,33 +24,53 @@ are.
 
 ## Install
 
+`delegate/` is the whole skill: one flat folder that follows the common `SKILL.md` layout.
+Copy it where your assistant reads skills, then configure it once.
+
 ```bash
 git clone https://github.com/GuidanceStudio/delegate.git
-cd delegate
-./install.sh                  # every assistant found: ~/.claude and/or ~/.codex
-./install.sh --codex          # Codex only
-./install.sh --target claude  # Claude Code only
+cp -r delegate/delegate ~/.claude/skills/delegate     # Claude Code
+cp -r delegate/delegate ~/.codex/skills/delegate      # Codex: ${CODEX_HOME:-~/.codex}/skills/delegate
 ```
 
-This installs three things:
+The Codex path is not `~/.agents/skills`: `delegate setup` and the hook identify the host from
+the folder the script sits in, and for Codex that folder is `${CODEX_HOME:-~/.codex}/skills/delegate`.
+
+**Configure.** Run `setup` from the installed copy:
+
+```bash
+~/.claude/skills/delegate/bin/delegate setup                   # Claude Code
+~/.codex/skills/delegate/bin/delegate setup                    # Codex
+~/.claude/skills/delegate/bin/delegate setup --target all      # both, from either copy
+~/.claude/skills/delegate/bin/delegate setup --check           # report only, exit 0 when all is installed
+```
+
+`setup` does two things:
 
 | What | Claude Code | Codex |
 |---|---|---|
-| the skill | `~/.claude/skills/delegate/` | `~/.codex/skills/delegate/` |
 | the opencode agent `delegate-executor` | `~/.config/opencode/agents/` | `~/.config/opencode/agents/` |
-| a `UserPromptSubmit` hook | `~/.claude/settings.json` | `~/.codex/hooks.json` |
+| a `UserPromptSubmit` hook running the installed script | `~/.claude/settings.json` | `${CODEX_HOME:-~/.codex}/hooks.json` |
 
-`./install.sh --check` reports what is installed and what is out of date; `./install.sh --force`
-overwrites an installed copy. Both options combine with `--codex` or `--target` in either order.
-`--codex` is an alias for `--target codex`; `--target claude` and `--target all` select Claude
-or both assistants. With no target option, it installs for each assistant whose home directory
-exists, and stops with a hint when there is none.
-Running it twice leaves the host's hook configuration unchanged. Existing hooks and
-unrelated settings are preserved. Invalid hook JSON is rejected before installation.
-With `--target all`, both hook files are validated before either installation is changed.
-If OpenCode is missing, installation completes with a warning and activation refuses to proceed.
+With no `--target`, it configures the assistant whose skills folder holds the script.
+`--check` prints `<host> hook: installed|missing|differs` and `agent: installed|missing|differs`
+and writes nothing. Running `setup` twice leaves the hook file unchanged; existing hooks and
+unrelated settings are preserved, and a hook registered by an earlier version is brought up
+to date. Invalid hook JSON is rejected before anything is written, and with `--target all`
+both hook files are validated before either is changed. `setup` refuses to run from a source
+checkout, because the hook it registers points at the script's own path; copy the folder
+first (`DELEGATE_HOST=claude` or `codex` overrides this and registers the path you ran it from).
+If OpenCode is missing, `setup` completes with a warning and activation refuses to proceed.
 
-For Codex, `CODEX_HOME`, when set, replaces `~/.codex`. After installation, open `/hooks`
+**Update.** Save any local edits, replace the installed `delegate/` folder with the new one,
+and run `setup` again; it is idempotent. `diff -r delegate/delegate <installed folder>` shows
+whether a copy has drifted from the source.
+
+**Not provided.** There is no installer script; earlier versions had `install.sh`, which
+copied the folder and forced overwrites. Copying is now yours, and `setup` only writes the
+configuration.
+
+For Codex, `CODEX_HOME`, when set, replaces `~/.codex`. After setup, open `/hooks`
 in Codex to review and trust the delegate hook; Codex does not run a new hook until you do,
 because it runs a command on your machine at every prompt. Reload skills or start a new
 session if the skill is not yet listed. This supports local execution; local command hooks
@@ -177,7 +197,7 @@ endpoint produces an execution error, without silently choosing another provider
 Inside Claude Code use `/delegate provider <endpoint>`; inside Codex use
 `$delegate provider <endpoint>`. Replace `<endpoint>` with a slug or `auto`, or omit it to
 inspect the current preference. The commands above abbreviate the installed script path;
-installation does not add `delegate` to `PATH`. To run them directly:
+setup does not add `delegate` to `PATH`. To run them directly:
 
 ```bash
 ~/.claude/skills/delegate/bin/delegate model openrouter/z-ai/glm-5.3-flash max

@@ -37,6 +37,8 @@ usage: delegate on [--project]   switch on for this session, or for every sessio
        delegate off              switch off at both levels
        delegate status           print on (session|project) or off
        delegate hook             UserPromptSubmit hook: reads the hook JSON on stdin
+       delegate setup [--target claude|codex|all] [--check]
+                                 register the hook and the opencode agent for this installed copy
        delegate model [<provider/model> [effort]]
                                  show or choose the executor model and its effort
        delegate provider [<endpoint>|auto]
@@ -416,6 +418,113 @@ cmd_run() {
     return 0
 }
 
+cmd_setup() {
+    local target="" check=0 self skill_root t rc=0 agent_src agent_dest hook_name
+    hook_name="delegate: mode reminder"
+    usage_setup() { echo "usage: delegate setup [--target claude|codex|all] [--check]" >&2; exit 2; }
+    while [ $# -gt 0 ]; do
+        case "$1" in
+            --target) [ $# -ge 2 ] || usage_setup
+                if [ -n "$target" ] && [ "$target" != "$2" ]; then echo "delegate: conflicting setup targets" >&2; exit 2; fi
+                target="$2"; shift 2 ;;
+            --check) check=1; shift ;;
+            *) usage_setup ;;
+        esac
+    done
+    self="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+    agent_src="$self/opencode/delegate-executor.md"
+    agent_dest="$HOME/.config/opencode/agents/delegate-executor.md"
+    [ -f "$agent_src" ] || { echo "delegate: $agent_src not found" >&2; exit 1; }
+    local targets
+    case "${target:-$HOST}" in
+        claude|codex) targets=("${target:-$HOST}") ;;
+        all) targets=(claude codex) ;;
+        *) usage_setup ;;
+    esac
+
+    # Per target: settings file and the hook command (the script path, quoted).
+    local -A settings cmds
+    for t in "${targets[@]}"; do
+        local root expected
+        if [ "$t" = codex ]; then root="${CODEX_HOME:-$HOME/.codex}"; settings[$t]="$root/hooks.json"
+        else root="$HOME/.claude"; settings[$t]="$root/settings.json"; fi
+        expected="$root/skills/delegate"
+        if [ "$(cd "$expected" 2>/dev/null && pwd -P)" = "$(cd "$self" && pwd -P)" ]; then
+            printf -v "cmds[$t]" '%q hook' "$expected/bin/delegate"
+        elif [ -x "$expected/bin/delegate" ]; then
+            printf -v "cmds[$t]" '%q hook' "$expected/bin/delegate"
+        elif [ -n "${DELEGATE_HOST:-}" ]; then
+            printf -v "cmds[$t]" '%q hook' "$self/bin/delegate"
+        else
+            echo "delegate: setup must run from the installed skill: copy delegate/ to $expected and run $expected/bin/delegate setup (set DELEGATE_HOST to register this path anyway)" >&2
+            exit 1
+        fi
+    done
+
+    local f
+    hook_state() {
+        [ -f "${settings[$1]}" ] || { echo missing; return; }
+        jq -r --arg c "${cmds[$1]}" --arg n "$hook_name" '
+            [.hooks.UserPromptSubmit[]?.hooks[]? | select(.command == $c)] as $d
+            | if ($d | length) == 0 then "missing"
+              elif ($d | all(.statusMessage == $n)) then "installed"
+              else "differs" end
+        ' "${settings[$1]}" 2>/dev/null || echo missing
+    }
+    agent_state() {
+        [ -e "$agent_dest" ] || { echo missing; return; }
+        cmp -s "$agent_src" "$agent_dest" && echo installed || echo differs
+    }
+
+    # Validate every selected hook file before writing anything.
+    for t in "${targets[@]}"; do
+        f="${settings[$t]}"
+        if [ -e "$f" ] && ! jq -se '
+            length == 1 and (.[0] | type == "object"
+            and (.hooks == null or (.hooks | type == "object"))
+            and (.hooks.UserPromptSubmit == null or (.hooks.UserPromptSubmit | type == "array")))
+        ' "$f" >/dev/null 2>&1; then
+            echo "delegate: invalid hook configuration: $f" >&2; exit 1
+        fi
+    done
+
+    if [ "$check" = 1 ]; then
+        for t in "${targets[@]}"; do
+            echo "$t hook: $(hook_state "$t")"
+            [ "$(hook_state "$t")" = installed ] || rc=1
+        done
+        echo "agent: $(agent_state)"
+        [ "$(agent_state)" = installed ] || rc=1
+        return "$rc"
+    fi
+
+    mkdir -p "$(dirname "$agent_dest")" && cp "$agent_src" "$agent_dest"
+    for t in "${targets[@]}"; do
+        f="${settings[$t]}"
+        case "$(hook_state "$t")" in
+            missing)
+                mkdir -p "$(dirname "$f")"
+                [ -f "$f" ] || echo '{}' > "$f"
+                local tmp; tmp="$(mktemp "$f.XXXXXX")"
+                jq --arg c "${cmds[$t]}" --arg n "$hook_name" \
+                    '.hooks.UserPromptSubmit = ((.hooks.UserPromptSubmit // []) + [{hooks: [{type: "command", command: $c, statusMessage: $n}]}])' \
+                    "$f" > "$tmp" && mv "$tmp" "$f" ;;
+            differs)
+                local tmp; tmp="$(mktemp "$f.XXXXXX")"
+                jq --arg c "${cmds[$t]}" --arg n "$hook_name" \
+                    '(.hooks.UserPromptSubmit[]?.hooks[]? | select(.command == $c)).statusMessage = $n' \
+                    "$f" > "$tmp" && mv "$tmp" "$f" ;;
+        esac
+    done
+    echo "delegate set up: agent in $agent_dest, hook for ${targets[*]}"
+    if [[ " ${targets[*]} " == *" codex "* ]]; then
+        echo "Codex: open /hooks to review and trust the delegate hook. Reload skills or start a new session if needed."
+    fi
+    if ! command -v opencode >/dev/null 2>&1; then
+        echo "warning: opencode is not on PATH; delegate mode cannot be switched on until it is installed (https://opencode.ai)" >&2
+    fi
+}
+
 case "${1:-}" in
     on) shift; cmd_on "$@" ;;
     model) shift; cmd_model "$@" ;;
@@ -424,5 +533,6 @@ case "${1:-}" in
     off) cmd_off ;;
     status) cmd_status ;;
     hook) cmd_hook ;;
+    setup) shift; cmd_setup "$@" ;;
     *) usage ;;
 esac

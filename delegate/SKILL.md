@@ -16,7 +16,7 @@ The script is `bin/delegate` in this skill's directory. Below it is written `del
 Use the actual script path when running commands; it need not be on `PATH`.
 
 In Claude Code, invoke `/delegate on`. In Codex, invoke `$delegate on` (and similarly
-for `off`, `status`, or `on --project`). `./install.sh` installs for the assistants present (`--codex` for Codex only);
+for `off`, `status`, or `on --project`). Copy this folder into the assistant's skills directory and run `delegate setup` from the copy (`--target claude|codex|all`, `--check` to report);
 in Codex the `UserPromptSubmit` hook must be trusted through `/hooks` before it runs.
 This integration requires local Codex execution with command hooks enabled.
 
